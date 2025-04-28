@@ -3,6 +3,7 @@ import '../styles/globals.css'
 import Container from '@/components/ui/Container'
 import Header from '@/components/ui/Header'
 import Footer from '@/components/ui/Footer'
+import { ClerkProvider } from '@clerk/nextjs'
 
 import { Inter } from 'next/font/google'
 
@@ -19,18 +20,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      {/* <head>
-        <link
-          href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-          rel="stylesheet"
-        />
-      </head> */}
-      <Container>
-        <Header />
-        <body className={`${inter.className} antialiased`}>{children}</body>
-        <Footer />
-      </Container>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <Container>
+          <Header />
+          <body className={`${inter.className} antialiased`}>{children}</body>
+          <Footer />
+        </Container>
+      </html>
+    </ClerkProvider>
   )
 }

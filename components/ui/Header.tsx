@@ -2,14 +2,11 @@
 
 import Link from 'next/link'
 import { Button } from './button'
-import { Press_Start_2P } from 'next/font/google'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
-
-const ps = Press_Start_2P({
-  weight: '400',
-})
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@clerk/nextjs'
 
 const navLinks = [
   {
@@ -23,16 +20,25 @@ const navLinks = [
 ]
 
 export default function Header() {
+  const router = useRouter()
+  const { isSignedIn, signOut } = useAuth()
   const pathName = usePathname()
   const [showMenu, setShowMenu] = useState(false)
-  const isAuthenticated = false
+
+  // handle logout
+  function handleLogout() {
+    signOut()
+    router.push('/')
+  }
 
   return (
     <header className="flex items-center justify-between">
-      <Link href="/" className={ps.className}>
-        <h1 className="text-xl font-bold underline decoration-purple-500">
-          Nesto
-        </h1>
+      <Link href="/">
+        <button className="border px-5 py-2 rounded shadow-[5px_5px_0px_rgba(0,0,0,1)] transition-[box-shadow] duration-300 hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer group">
+          <h1 className="text-xl font-bold tracking-wide transition-transform duration-300 group-hover:scale-90">
+            Nesto
+          </h1>
+        </button>
       </Link>
       {/* desktop menu */}
       <ul
@@ -53,10 +59,11 @@ export default function Header() {
           )
         })}
       </ul>
-      {isAuthenticated ? (
+      {isSignedIn ? (
         <Button
-          className="hidden md:inline-flex tracking-wider text-[12px] cursor-pointer"
+          className="hidden md:inline-flex tracking-wider text-[12px] cursor-pointer mr-4"
           variant="outline"
+          onClick={handleLogout}
         >
           Logout
         </Button>
@@ -65,10 +72,14 @@ export default function Header() {
           <Button
             className="hidden md:inline-flex tracking-wider text-[12px] cursor-pointer"
             variant="outline"
+            onClick={() => router.push('/sign-in')}
           >
             Login
           </Button>
-          <Button className="hidden md:inline-flex tracking-wider text-[12px] cursor-pointer">
+          <Button
+            className="hidden md:inline-flex tracking-wider text-[12px] cursor-pointer"
+            onClick={() => router.push('/sign-up')}
+          >
             Signup
           </Button>
         </div>
