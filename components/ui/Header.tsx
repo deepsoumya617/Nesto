@@ -85,11 +85,71 @@ export default function Header() {
         </div>
       )}
 
-      {/* Mobile menu - not completed*/}
+      {/* Mobile menu*/}
       <button className="md:hidden" onClick={() => setShowMenu(!showMenu)}>
-        {showMenu ? <X size={24} /> : <Menu size={24} />}
+        <Menu size={24} />
       </button>
-      {showMenu && <div className="bg-white w-full h-screen"></div>}
+      {showMenu && (
+        <div className="fixed top-0 left-0 w-full h-full bg-white flex flex-col items-start gap-8 z-40 px-10 py-20">
+          {/* Close button inside the menu */}
+          <button
+            className="absolute top-8 right-4"
+            onClick={() => setShowMenu(false)}
+          >
+            <X size={28} />
+          </button>
+          {/* Navlinks */}
+          <ul className="font-medium text-xl tracking-wider flex flex-col space-y-4">
+            {navLinks.map((link, idx) => {
+              return (
+                <li key={idx}>
+                  <Link
+                    className={`${
+                      pathName === link.href ? 'text-zinc-900' : 'text-zinc-400'
+                    }`}
+                    href={link.href}
+                    onClick={() => setShowMenu(false)}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+          {/* Auth Buttons */}
+          {isSignedIn ? (
+            <Button
+              className="tracking-wider text-xl px-8 py-6"
+              variant="outline"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          ) : (
+            <div className="space-x-4">
+              <Button
+                className="tracking-wider text-xl px-8 py-6"
+                variant="outline"
+                onClick={() => {
+                  setShowMenu(false)
+                  router.push('/sign-in')
+                }}
+              >
+                Login
+              </Button>
+              <Button
+                className="tracking-wider text-xl px-8 py-6"
+                onClick={() => {
+                  setShowMenu(false)
+                  router.push('/sign-up')
+                }}
+              >
+                Signup
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
     </header>
   )
 }
