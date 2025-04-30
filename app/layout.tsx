@@ -4,6 +4,7 @@ import Container from '@/components/ui/Container'
 import Header from '@/components/ui/Header'
 import Footer from '@/components/ui/Footer'
 import { ClerkProvider } from '@clerk/nextjs'
+import { neobrutalism } from '@clerk/themes'
 
 import { Inter } from 'next/font/google'
 
@@ -20,14 +21,20 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <Container>
-          <Header />
-          <body className={`${inter.className} antialiased`}>{children}</body>
-          <Footer />
-        </Container>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={`${inter.className} antialiased`}>
+        <ClerkProvider
+          appearance={{
+            baseTheme: neobrutalism,
+          }}
+        >
+          <Container>
+            <Header />
+            {children}
+            <Footer />
+          </Container>
+        </ClerkProvider>
+      </body>
+    </html>
   )
 }

@@ -1,35 +1,18 @@
-import heart from '@/public/heart.png'
-import Image from 'next/image'
-import { Press_Start_2P } from 'next/font/google'
-
-const ps = Press_Start_2P({
-  weight: '400',
-})
+import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer
-      className={`${ps.className} mt-auto px-4 flex flex-col justify-center items-center font-ps`}
-    >
-      <div className="flex items-center gap-1">
-        <h4 className="text-zinc-500 dark:text-zinc-600">Made with</h4>
-        <Image
-          src={heart}
-          width={20}
-          height={20}
-          alt="heart"
-          className="w-6 h-6"
-        />
-      </div>
-      <h4 className="text-zinc-500">
-        by{' '}
-        <a
-          href="https://github.com/deepsoumya617"
+    <footer className="mt-auto px-4 flex flex-col justify-center items-center font-ps text-sm tracking-wider text-zinc-400">
+      <h4>
+        © 2025 Nesto. Crafted with love by{' '}
+        <Link
+          href="https://www.github.com/deepsoumya617/"
           target="_blank"
-          className="text-zinc-700 hover:text-purple-500"
+          className="hover:text-purple-500 text-zinc-600"
         >
-          deepsoumya!
-        </a>
+          deepsoumya ↗
+        </Link>
+        .
       </h4>
     </footer>
   )

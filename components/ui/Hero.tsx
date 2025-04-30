@@ -1,9 +1,12 @@
-import { Inter } from 'next/font/google'
-import { InteractiveHoverButton } from '../magicui/interactive-hover-button'
+'use client'
 
-const inter = Inter({})
+import { useAuth } from '@clerk/nextjs'
+import { InteractiveHoverButton } from '../magicui/interactive-hover-button'
+import { useRouter } from 'next/navigation'
 
 export default function Hero() {
+  const { isSignedIn } = useAuth()
+  const router = useRouter()
   return (
     <div className="text-center mt-32 max-w-3xl mx-auto md:px-4">
       <h3 className="font-bold text-5xl md:text-6xl tracking-wide leading-14 md:leading-16">
@@ -18,9 +21,25 @@ export default function Hero() {
         <br className="hidden md:block" />
         Start capturing your thoughts today.
       </p>
-      <InteractiveHoverButton className="mt-3 tracking-wide text-sm">
-        Get Started
-      </InteractiveHoverButton>
+      {isSignedIn ? (
+        <InteractiveHoverButton
+          className="mt-3 tracking-wide text-sm"
+          onClick={() => {
+            router.push('/dashboard')
+          }}
+        >
+          Go to Dashboard
+        </InteractiveHoverButton>
+      ) : (
+        <InteractiveHoverButton
+          className="mt-3 tracking-wide text-sm"
+          onClick={() => {
+            router.push('/sign-up')
+          }}
+        >
+          Get Started
+        </InteractiveHoverButton>
+      )}
     </div>
   )
 }

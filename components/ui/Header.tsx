@@ -34,16 +34,14 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between">
       <Link href="/">
-        <button className="border px-5 py-2 rounded shadow-[5px_5px_0px_rgba(0,0,0,1)] transition-[box-shadow] duration-300 hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer group">
+        <button className="border-2 border-black px-5 py-2 rounded-[3px] shadow-[5px_5px_0px_rgba(0,0,0,1)] transition-[box-shadow] duration-300 hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] cursor-pointer group">
           <h1 className="text-xl font-bold tracking-wide transition-transform duration-300 group-hover:scale-90">
             Nesto
           </h1>
         </button>
       </Link>
       {/* desktop menu */}
-      <ul
-        className={` hidden md:inline-flex space-x-4 font-medium text-[13px] tracking-wider`}
-      >
+      <ul className="hidden md:inline-flex space-x-4 font-medium text-[13px] tracking-wider">
         {navLinks.map((link, idx) => {
           return (
             <li key={idx}>
