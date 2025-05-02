@@ -29,8 +29,10 @@ export default function RootLayout({
           }}
         >
           <Container>
-            <Header />
-            {children}
+            <main className="flex-grow">
+              <Header />
+              {children}
+            </main>
             <Footer />
           </Container>
         </ClerkProvider>

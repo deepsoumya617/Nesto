@@ -11,7 +11,7 @@ export default function NoteCard({ id, title }: Props) {
     <div className="mt-4 rounded-md border border-black shadow-[5px_7px_0px_rgba(0,0,0,1)] p-4 px-5 max-w-[752px] flex items-center justify-between">
       <Link
         href={`/notes/${id}`}
-        className="text-[16px] font-medium tracking-wide cursor-pointer"
+        className="text-[16px] font-medium tracking-wide cursor-pointer hover:underline hover:underline-offset-4"
       >
         {title}
       </Link>

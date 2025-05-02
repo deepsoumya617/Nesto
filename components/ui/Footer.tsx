@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="mt-auto px-4 flex flex-col justify-center items-center font-ps text-sm tracking-wider text-zinc-400">
+    <footer className="mt-3 px-4 flex flex-col justify-center items-center font-ps text-sm tracking-wider text-zinc-400">
       <h4>
         © 2025 Nesto. Crafted with love by{' '}
         <Link
