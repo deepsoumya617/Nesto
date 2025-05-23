@@ -24,6 +24,22 @@ export default function Header() {
   const { isSignedIn, signOut } = useAuth()
   const pathName = usePathname()
   const [showMenu, setShowMenu] = useState(false)
+  const [isSigning, setIsSigning] = useState(false)
+  const [isLoggingIn, setIsLoggingIn] = useState(false)
+
+  async function handleSignUp() {
+    if(isSignedIn) setIsSigning(false)
+    if (isSigning) return
+    setIsSigning(true)
+    router.push('/sign-up')
+  }
+
+  async function handleLogin() {
+    if(!isSignedIn) setIsLoggingIn(false)
+    if(isLoggingIn) return
+    setIsLoggingIn(true)
+    router.push('/sign-in')
+  }
 
   // handle logout
   function handleLogout() {
@@ -70,15 +86,17 @@ export default function Header() {
           <Button
             className="hidden md:inline-flex tracking-wider text-[12px] cursor-pointer"
             variant="outline"
-            onClick={() => router.push('/sign-in')}
+            onClick={handleLogin}
+            disabled={isLoggingIn}
           >
-            Login
+            {isLoggingIn ? 'Logging In...' : 'Login'}
           </Button>
           <Button
             className="hidden md:inline-flex tracking-wider text-[12px] cursor-pointer"
-            onClick={() => router.push('/sign-up')}
+            onClick={handleSignUp}
+            disabled={isSigning}
           >
-            Signup
+            {isSigning ? 'Signing Up...' : 'Sign Up'}
           </Button>
         </div>
       )}
