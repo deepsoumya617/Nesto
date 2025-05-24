@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
-import '../styles/globals.css'
+import './globals.css'
 import Container from '@/components/ui/Container'
 import Header from '@/components/ui/Header'
 import Footer from '@/components/ui/Footer'
 import { ClerkProvider } from '@clerk/nextjs'
 import { neobrutalism } from '@clerk/themes'
+import { Toaster } from '@/components/ui/sonner'
 
 import { Inter } from 'next/font/google'
 
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
+        <Toaster/>
         <ClerkProvider
           appearance={{
             baseTheme: neobrutalism,
