@@ -9,7 +9,10 @@ import { Toaster } from '@/components/ui/sonner'
 
 import { Inter } from 'next/font/google'
 
-const inter = Inter({})
+const inter = Inter({
+  subsets: ['latin'],
+  preload: true,
+})
 
 export const metadata: Metadata = {
   title: 'Nesto',
