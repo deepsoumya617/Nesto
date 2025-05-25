@@ -28,16 +28,14 @@ export async function createNote(
         title,
         content,
         slug: title.replace(/\s+/g, '-').toLowerCase(),
-        User: {
-          connect: { clerkId: userId },
-        },
+        userId: user.id,
       },
     })
 
     return { success: true, message: 'Note created successfully!' }
   } catch (error) {
     console.error('Error creating post:', error)
-    return { success: false, message: 'Failed to create post' }
+    return { success: false, message: 'Failed to create note' }
   }
 }
 

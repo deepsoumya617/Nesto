@@ -8,6 +8,7 @@ import { useAuth } from '@clerk/nextjs'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { BeatLoader } from 'react-spinners'
+import { useRouter } from 'next/navigation'
 
 export default function NotesPage() {
   const { isSignedIn } = useAuth()
@@ -17,6 +18,8 @@ export default function NotesPage() {
   >([])
   const [searchVal, setSearchVal] = useState('')
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest')
+  const router = useRouter()
+
   
   // dummy data
   // const notes = [
@@ -51,6 +54,7 @@ export default function NotesPage() {
         </h4>
       </div>
     )
+    // router.push('/sign-in')
   }
 
   if (isSignedIn && isLoading) {

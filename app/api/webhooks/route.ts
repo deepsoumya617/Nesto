@@ -45,13 +45,25 @@ export async function POST(req: Request) {
 
   if (eventType === 'user.created') {
     try {
-      await prisma.user.upsert({
+      // Check if user already exists
+      const existingUser = await prisma.user.findUnique({
         where: { clerkId: data.id },
-        update: {},
-        create: {
+      })
+
+      if (existingUser) {
+        return NextResponse.json({
+          success: true,
+          message: 'User already exists in DB.',
+        })
+      }
+
+      // If not, create
+      await prisma.user.create({
+        data: {
           clerkId: data.id,
         },
       })
+
       return NextResponse.json({
         success: true,
         message: 'User created in DB.',
