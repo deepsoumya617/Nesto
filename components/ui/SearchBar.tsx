@@ -1,6 +1,6 @@
 'use client'
 
-import { Search, ListFilter } from 'lucide-react'
+import { ListFilter, Search } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,14 +8,29 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-export default function SearchBar() {
+type SearchBarProps = {
+  searchVal: string
+  setSearchVal: (val: string) => void
+  setSortOrder: (order: 'newest' | 'oldest') => void
+}
+
+export default function SearchBar({
+  searchVal,
+  setSearchVal,
+  setSortOrder,
+}: SearchBarProps) {
   return (
     <div className="mt-10 flex items-center">
       <input
         type="text"
+        value={searchVal}
+        onChange={(e) => setSearchVal(e.target.value)}
         className="w-full h-15 px-5 bg-gray-100 rounded-l-xl border-none focus:outline-none font-medium tracking-wider text-lg"
       />
-      <button className="text-zinc-500 text-xl bg-gray-100 h-15 px-6 rounded-r-xl cursor-pointer hover:text-zinc-800">
+      <button
+        // disabled={true}
+        className="text-zinc-500 text-xl bg-gray-100 h-15 px-6 rounded-r-xl"
+      >
         <Search />
       </button>
       <DropdownMenu>
@@ -23,8 +38,12 @@ export default function SearchBar() {
           <ListFilter />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem>Newest</DropdownMenuItem>
-          <DropdownMenuItem>Oldest</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setSortOrder('newest')}>
+            Newest
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setSortOrder('oldest')}>
+            Oldest
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

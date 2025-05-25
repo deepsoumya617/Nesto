@@ -12,7 +12,12 @@ import { BeatLoader } from 'react-spinners'
 export default function NotesPage() {
   const { isSignedIn } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
-  const [notes, setNotes] = useState<{ id: string; title: string, slug: string }[]>([])
+  const [notes, setNotes] = useState<
+    { id: string; title: string; slug: string; createdAt: Date }[]
+  >([])
+  const [searchVal, setSearchVal] = useState('')
+  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest')
+  
   // dummy data
   // const notes = [
   //   { id: '1', title: 'Complete math homework' },
@@ -56,6 +61,17 @@ export default function NotesPage() {
     )
   }
 
+  // Filter notes based on search value
+  const filteredNotes = notes
+    .filter((note) =>
+      note.title.toLowerCase().includes(searchVal.toLowerCase())
+    )
+    .sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime()
+      const dateB = new Date(b.createdAt).getTime()
+      return sortOrder === 'newest' ? dateB - dateA : dateA - dateB
+    })
+
   return (
     <div className="mt-14">
       <div className="flex items-center justify-between mx-1 tracking-wide">
@@ -65,13 +81,21 @@ export default function NotesPage() {
         </Link>
       </div>
       <div className="max-w-3xl mx-auto">
-        <SearchBar />
-        {notes.length > 0 ? (
-          notes.map((note) => {
-            return <NoteCard key={note.id} slug={note.slug} title={note.title} />
+        <SearchBar
+          searchVal={searchVal}
+          setSearchVal={setSearchVal}
+          setSortOrder={setSortOrder}
+        />
+        {filteredNotes.length > 0 ? (
+          filteredNotes.map((note) => {
+            return (
+              <NoteCard key={note.id} slug={note.slug} title={note.title} />
+            )
           })
         ) : (
-          <p className="text-center mt-6 text-gray-500 tracking-wide text-xl">No notes found.</p>
+          <p className="text-center mt-6 text-gray-500 tracking-wide text-xl">
+            No notes found.
+          </p>
         )}
       </div>
     </div>
