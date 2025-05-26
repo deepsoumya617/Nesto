@@ -11,6 +11,7 @@ import {
   List,
   ListOrdered,
   Strikethrough,
+  Underline,
 } from 'lucide-react'
 import { Toggle } from '../ui/toggle'
 import { Editor } from '@tiptap/react'
@@ -42,6 +43,11 @@ export default function MenuBar({ editor }: editorProp) {
       icon: <Bold className="size-4" />,
       onClick: () => editor.chain().focus().toggleBold().run(),
       pressed: editor.isActive('bold'),
+    },
+    {
+      icon: <Underline className="size-4" />,
+      onClick: () => editor.chain().focus().toggleUnderline().run(),
+      pressed: editor.isActive('underline'),
     },
     {
       icon: <Italic className="size-4" />,
@@ -89,7 +95,11 @@ export default function MenuBar({ editor }: editorProp) {
     <div className="mt-3 bg-gray-50 px-3 py-2 border rounded">
       {formatOptions.map((option, idx) => {
         return (
-          <Toggle key={idx} pressed={option.pressed} onPressedChange={option.onClick}>
+          <Toggle
+            key={idx}
+            pressed={option.pressed}
+            onPressedChange={option.onClick}
+          >
             {option.icon}
           </Toggle>
         )

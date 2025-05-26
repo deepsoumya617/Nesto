@@ -5,6 +5,7 @@ import StarterKit from '@tiptap/starter-kit'
 import MenuBar from './MenuBar'
 import TextAlign from '@tiptap/extension-text-align'
 import Highlight from '@tiptap/extension-highlight'
+import Underline from '@tiptap/extension-underline'
 
 type EditorProp = {
   content: string
@@ -34,6 +35,7 @@ export default function Tiptap({ content, onChange }: EditorProp) {
           class: 'bg-purple-500 text-white px-1 py-1',
         },
       }),
+      Underline,
     ],
     content: content,
     editorProps: {
