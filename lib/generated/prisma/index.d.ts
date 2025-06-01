@@ -23,6 +23,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type Note = $Result.DefaultSelection<Prisma.$NotePayload>
+/**
+ * Model Snippet
+ * 
+ */
+export type Snippet = $Result.DefaultSelection<Prisma.$SnippetPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -168,6 +173,16 @@ export class PrismaClient<
     * ```
     */
   get note(): Prisma.NoteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.snippet`: Exposes CRUD operations for the **Snippet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Snippets
+    * const snippets = await prisma.snippet.findMany()
+    * ```
+    */
+  get snippet(): Prisma.SnippetDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -609,7 +624,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Note: 'Note'
+    Note: 'Note',
+    Snippet: 'Snippet'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,7 +644,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "note"
+      modelProps: "user" | "note" | "snippet"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -780,6 +796,80 @@ export namespace Prisma {
           }
         }
       }
+      Snippet: {
+        payload: Prisma.$SnippetPayload<ExtArgs>
+        fields: Prisma.SnippetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SnippetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnippetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SnippetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnippetPayload>
+          }
+          findFirst: {
+            args: Prisma.SnippetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnippetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SnippetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnippetPayload>
+          }
+          findMany: {
+            args: Prisma.SnippetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnippetPayload>[]
+          }
+          create: {
+            args: Prisma.SnippetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnippetPayload>
+          }
+          createMany: {
+            args: Prisma.SnippetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SnippetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnippetPayload>[]
+          }
+          delete: {
+            args: Prisma.SnippetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnippetPayload>
+          }
+          update: {
+            args: Prisma.SnippetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnippetPayload>
+          }
+          deleteMany: {
+            args: Prisma.SnippetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SnippetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SnippetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnippetPayload>[]
+          }
+          upsert: {
+            args: Prisma.SnippetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnippetPayload>
+          }
+          aggregate: {
+            args: Prisma.SnippetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSnippet>
+          }
+          groupBy: {
+            args: Prisma.SnippetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SnippetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SnippetCountArgs<ExtArgs>
+            result: $Utils.Optional<SnippetCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -866,6 +956,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     note?: NoteOmit
+    snippet?: SnippetOmit
   }
 
   /* Types for Logging */
@@ -961,10 +1052,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     notes: number
+    snippets: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     notes?: boolean | UserCountOutputTypeCountNotesArgs
+    snippets?: boolean | UserCountOutputTypeCountSnippetsArgs
   }
 
   // Custom InputTypes
@@ -985,6 +1078,13 @@ export namespace Prisma {
     where?: NoteWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSnippetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SnippetWhereInput
+  }
+
 
   /**
    * Models
@@ -1003,19 +1103,16 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: string | null
     clerkId: string | null
-    createdAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
     clerkId: string | null
-    createdAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
     clerkId: number
-    createdAt: number
     _all: number
   }
 
@@ -1023,19 +1120,16 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     clerkId?: true
-    createdAt?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
     clerkId?: true
-    createdAt?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
     clerkId?: true
-    createdAt?: true
     _all?: true
   }
 
@@ -1114,7 +1208,6 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     clerkId: string
-    createdAt: Date
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1137,32 +1230,30 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     clerkId?: boolean
-    createdAt?: boolean
     notes?: boolean | User$notesArgs<ExtArgs>
+    snippets?: boolean | User$snippetsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     clerkId?: boolean
-    createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     clerkId?: boolean
-    createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
     clerkId?: boolean
-    createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     notes?: boolean | User$notesArgs<ExtArgs>
+    snippets?: boolean | User$snippetsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1172,11 +1263,11 @@ export namespace Prisma {
     name: "User"
     objects: {
       notes: Prisma.$NotePayload<ExtArgs>[]
+      snippets: Prisma.$SnippetPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       clerkId: string
-      createdAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1572,6 +1663,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     notes<T extends User$notesArgs<ExtArgs> = {}>(args?: Subset<T, User$notesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    snippets<T extends User$snippetsArgs<ExtArgs> = {}>(args?: Subset<T, User$snippetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1603,7 +1695,6 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly clerkId: FieldRef<"User", 'String'>
-    readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -2013,6 +2104,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NoteScalarFieldEnum | NoteScalarFieldEnum[]
+  }
+
+  /**
+   * User.snippets
+   */
+  export type User$snippetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetInclude<ExtArgs> | null
+    where?: SnippetWhereInput
+    orderBy?: SnippetOrderByWithRelationInput | SnippetOrderByWithRelationInput[]
+    cursor?: SnippetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SnippetScalarFieldEnum | SnippetScalarFieldEnum[]
   }
 
   /**
@@ -3138,6 +3253,1135 @@ export namespace Prisma {
 
 
   /**
+   * Model Snippet
+   */
+
+  export type AggregateSnippet = {
+    _count: SnippetCountAggregateOutputType | null
+    _min: SnippetMinAggregateOutputType | null
+    _max: SnippetMaxAggregateOutputType | null
+  }
+
+  export type SnippetMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    slug: string | null
+    fileName: string | null
+    language: string | null
+    content: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SnippetMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    slug: string | null
+    fileName: string | null
+    language: string | null
+    content: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SnippetCountAggregateOutputType = {
+    id: number
+    title: number
+    slug: number
+    fileName: number
+    language: number
+    content: number
+    userId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SnippetMinAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    fileName?: true
+    language?: true
+    content?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SnippetMaxAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    fileName?: true
+    language?: true
+    content?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SnippetCountAggregateInputType = {
+    id?: true
+    title?: true
+    slug?: true
+    fileName?: true
+    language?: true
+    content?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SnippetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Snippet to aggregate.
+     */
+    where?: SnippetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Snippets to fetch.
+     */
+    orderBy?: SnippetOrderByWithRelationInput | SnippetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SnippetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Snippets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Snippets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Snippets
+    **/
+    _count?: true | SnippetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SnippetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SnippetMaxAggregateInputType
+  }
+
+  export type GetSnippetAggregateType<T extends SnippetAggregateArgs> = {
+        [P in keyof T & keyof AggregateSnippet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSnippet[P]>
+      : GetScalarType<T[P], AggregateSnippet[P]>
+  }
+
+
+
+
+  export type SnippetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SnippetWhereInput
+    orderBy?: SnippetOrderByWithAggregationInput | SnippetOrderByWithAggregationInput[]
+    by: SnippetScalarFieldEnum[] | SnippetScalarFieldEnum
+    having?: SnippetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SnippetCountAggregateInputType | true
+    _min?: SnippetMinAggregateInputType
+    _max?: SnippetMaxAggregateInputType
+  }
+
+  export type SnippetGroupByOutputType = {
+    id: string
+    title: string
+    slug: string
+    fileName: string
+    language: string
+    content: string
+    userId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SnippetCountAggregateOutputType | null
+    _min: SnippetMinAggregateOutputType | null
+    _max: SnippetMaxAggregateOutputType | null
+  }
+
+  type GetSnippetGroupByPayload<T extends SnippetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SnippetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SnippetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SnippetGroupByOutputType[P]>
+            : GetScalarType<T[P], SnippetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SnippetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    fileName?: boolean
+    language?: boolean
+    content?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    User?: boolean | Snippet$UserArgs<ExtArgs>
+  }, ExtArgs["result"]["snippet"]>
+
+  export type SnippetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    fileName?: boolean
+    language?: boolean
+    content?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    User?: boolean | Snippet$UserArgs<ExtArgs>
+  }, ExtArgs["result"]["snippet"]>
+
+  export type SnippetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    fileName?: boolean
+    language?: boolean
+    content?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    User?: boolean | Snippet$UserArgs<ExtArgs>
+  }, ExtArgs["result"]["snippet"]>
+
+  export type SnippetSelectScalar = {
+    id?: boolean
+    title?: boolean
+    slug?: boolean
+    fileName?: boolean
+    language?: boolean
+    content?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SnippetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "fileName" | "language" | "content" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["snippet"]>
+  export type SnippetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Snippet$UserArgs<ExtArgs>
+  }
+  export type SnippetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Snippet$UserArgs<ExtArgs>
+  }
+  export type SnippetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Snippet$UserArgs<ExtArgs>
+  }
+
+  export type $SnippetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Snippet"
+    objects: {
+      User: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      slug: string
+      fileName: string
+      language: string
+      content: string
+      userId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["snippet"]>
+    composites: {}
+  }
+
+  type SnippetGetPayload<S extends boolean | null | undefined | SnippetDefaultArgs> = $Result.GetResult<Prisma.$SnippetPayload, S>
+
+  type SnippetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SnippetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SnippetCountAggregateInputType | true
+    }
+
+  export interface SnippetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Snippet'], meta: { name: 'Snippet' } }
+    /**
+     * Find zero or one Snippet that matches the filter.
+     * @param {SnippetFindUniqueArgs} args - Arguments to find a Snippet
+     * @example
+     * // Get one Snippet
+     * const snippet = await prisma.snippet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SnippetFindUniqueArgs>(args: SelectSubset<T, SnippetFindUniqueArgs<ExtArgs>>): Prisma__SnippetClient<$Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Snippet that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SnippetFindUniqueOrThrowArgs} args - Arguments to find a Snippet
+     * @example
+     * // Get one Snippet
+     * const snippet = await prisma.snippet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SnippetFindUniqueOrThrowArgs>(args: SelectSubset<T, SnippetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SnippetClient<$Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Snippet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnippetFindFirstArgs} args - Arguments to find a Snippet
+     * @example
+     * // Get one Snippet
+     * const snippet = await prisma.snippet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SnippetFindFirstArgs>(args?: SelectSubset<T, SnippetFindFirstArgs<ExtArgs>>): Prisma__SnippetClient<$Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Snippet that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnippetFindFirstOrThrowArgs} args - Arguments to find a Snippet
+     * @example
+     * // Get one Snippet
+     * const snippet = await prisma.snippet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SnippetFindFirstOrThrowArgs>(args?: SelectSubset<T, SnippetFindFirstOrThrowArgs<ExtArgs>>): Prisma__SnippetClient<$Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Snippets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnippetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Snippets
+     * const snippets = await prisma.snippet.findMany()
+     * 
+     * // Get first 10 Snippets
+     * const snippets = await prisma.snippet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const snippetWithIdOnly = await prisma.snippet.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SnippetFindManyArgs>(args?: SelectSubset<T, SnippetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Snippet.
+     * @param {SnippetCreateArgs} args - Arguments to create a Snippet.
+     * @example
+     * // Create one Snippet
+     * const Snippet = await prisma.snippet.create({
+     *   data: {
+     *     // ... data to create a Snippet
+     *   }
+     * })
+     * 
+     */
+    create<T extends SnippetCreateArgs>(args: SelectSubset<T, SnippetCreateArgs<ExtArgs>>): Prisma__SnippetClient<$Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Snippets.
+     * @param {SnippetCreateManyArgs} args - Arguments to create many Snippets.
+     * @example
+     * // Create many Snippets
+     * const snippet = await prisma.snippet.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SnippetCreateManyArgs>(args?: SelectSubset<T, SnippetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Snippets and returns the data saved in the database.
+     * @param {SnippetCreateManyAndReturnArgs} args - Arguments to create many Snippets.
+     * @example
+     * // Create many Snippets
+     * const snippet = await prisma.snippet.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Snippets and only return the `id`
+     * const snippetWithIdOnly = await prisma.snippet.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SnippetCreateManyAndReturnArgs>(args?: SelectSubset<T, SnippetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Snippet.
+     * @param {SnippetDeleteArgs} args - Arguments to delete one Snippet.
+     * @example
+     * // Delete one Snippet
+     * const Snippet = await prisma.snippet.delete({
+     *   where: {
+     *     // ... filter to delete one Snippet
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SnippetDeleteArgs>(args: SelectSubset<T, SnippetDeleteArgs<ExtArgs>>): Prisma__SnippetClient<$Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Snippet.
+     * @param {SnippetUpdateArgs} args - Arguments to update one Snippet.
+     * @example
+     * // Update one Snippet
+     * const snippet = await prisma.snippet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SnippetUpdateArgs>(args: SelectSubset<T, SnippetUpdateArgs<ExtArgs>>): Prisma__SnippetClient<$Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Snippets.
+     * @param {SnippetDeleteManyArgs} args - Arguments to filter Snippets to delete.
+     * @example
+     * // Delete a few Snippets
+     * const { count } = await prisma.snippet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SnippetDeleteManyArgs>(args?: SelectSubset<T, SnippetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Snippets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnippetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Snippets
+     * const snippet = await prisma.snippet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SnippetUpdateManyArgs>(args: SelectSubset<T, SnippetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Snippets and returns the data updated in the database.
+     * @param {SnippetUpdateManyAndReturnArgs} args - Arguments to update many Snippets.
+     * @example
+     * // Update many Snippets
+     * const snippet = await prisma.snippet.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Snippets and only return the `id`
+     * const snippetWithIdOnly = await prisma.snippet.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SnippetUpdateManyAndReturnArgs>(args: SelectSubset<T, SnippetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Snippet.
+     * @param {SnippetUpsertArgs} args - Arguments to update or create a Snippet.
+     * @example
+     * // Update or create a Snippet
+     * const snippet = await prisma.snippet.upsert({
+     *   create: {
+     *     // ... data to create a Snippet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Snippet we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SnippetUpsertArgs>(args: SelectSubset<T, SnippetUpsertArgs<ExtArgs>>): Prisma__SnippetClient<$Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Snippets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnippetCountArgs} args - Arguments to filter Snippets to count.
+     * @example
+     * // Count the number of Snippets
+     * const count = await prisma.snippet.count({
+     *   where: {
+     *     // ... the filter for the Snippets we want to count
+     *   }
+     * })
+    **/
+    count<T extends SnippetCountArgs>(
+      args?: Subset<T, SnippetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SnippetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Snippet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnippetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SnippetAggregateArgs>(args: Subset<T, SnippetAggregateArgs>): Prisma.PrismaPromise<GetSnippetAggregateType<T>>
+
+    /**
+     * Group by Snippet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnippetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SnippetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SnippetGroupByArgs['orderBy'] }
+        : { orderBy?: SnippetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SnippetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSnippetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Snippet model
+   */
+  readonly fields: SnippetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Snippet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SnippetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    User<T extends Snippet$UserArgs<ExtArgs> = {}>(args?: Subset<T, Snippet$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Snippet model
+   */
+  interface SnippetFieldRefs {
+    readonly id: FieldRef<"Snippet", 'String'>
+    readonly title: FieldRef<"Snippet", 'String'>
+    readonly slug: FieldRef<"Snippet", 'String'>
+    readonly fileName: FieldRef<"Snippet", 'String'>
+    readonly language: FieldRef<"Snippet", 'String'>
+    readonly content: FieldRef<"Snippet", 'String'>
+    readonly userId: FieldRef<"Snippet", 'String'>
+    readonly createdAt: FieldRef<"Snippet", 'DateTime'>
+    readonly updatedAt: FieldRef<"Snippet", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Snippet findUnique
+   */
+  export type SnippetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetInclude<ExtArgs> | null
+    /**
+     * Filter, which Snippet to fetch.
+     */
+    where: SnippetWhereUniqueInput
+  }
+
+  /**
+   * Snippet findUniqueOrThrow
+   */
+  export type SnippetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetInclude<ExtArgs> | null
+    /**
+     * Filter, which Snippet to fetch.
+     */
+    where: SnippetWhereUniqueInput
+  }
+
+  /**
+   * Snippet findFirst
+   */
+  export type SnippetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetInclude<ExtArgs> | null
+    /**
+     * Filter, which Snippet to fetch.
+     */
+    where?: SnippetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Snippets to fetch.
+     */
+    orderBy?: SnippetOrderByWithRelationInput | SnippetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Snippets.
+     */
+    cursor?: SnippetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Snippets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Snippets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Snippets.
+     */
+    distinct?: SnippetScalarFieldEnum | SnippetScalarFieldEnum[]
+  }
+
+  /**
+   * Snippet findFirstOrThrow
+   */
+  export type SnippetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetInclude<ExtArgs> | null
+    /**
+     * Filter, which Snippet to fetch.
+     */
+    where?: SnippetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Snippets to fetch.
+     */
+    orderBy?: SnippetOrderByWithRelationInput | SnippetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Snippets.
+     */
+    cursor?: SnippetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Snippets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Snippets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Snippets.
+     */
+    distinct?: SnippetScalarFieldEnum | SnippetScalarFieldEnum[]
+  }
+
+  /**
+   * Snippet findMany
+   */
+  export type SnippetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetInclude<ExtArgs> | null
+    /**
+     * Filter, which Snippets to fetch.
+     */
+    where?: SnippetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Snippets to fetch.
+     */
+    orderBy?: SnippetOrderByWithRelationInput | SnippetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Snippets.
+     */
+    cursor?: SnippetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Snippets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Snippets.
+     */
+    skip?: number
+    distinct?: SnippetScalarFieldEnum | SnippetScalarFieldEnum[]
+  }
+
+  /**
+   * Snippet create
+   */
+  export type SnippetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Snippet.
+     */
+    data: XOR<SnippetCreateInput, SnippetUncheckedCreateInput>
+  }
+
+  /**
+   * Snippet createMany
+   */
+  export type SnippetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Snippets.
+     */
+    data: SnippetCreateManyInput | SnippetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Snippet createManyAndReturn
+   */
+  export type SnippetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * The data used to create many Snippets.
+     */
+    data: SnippetCreateManyInput | SnippetCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Snippet update
+   */
+  export type SnippetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Snippet.
+     */
+    data: XOR<SnippetUpdateInput, SnippetUncheckedUpdateInput>
+    /**
+     * Choose, which Snippet to update.
+     */
+    where: SnippetWhereUniqueInput
+  }
+
+  /**
+   * Snippet updateMany
+   */
+  export type SnippetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Snippets.
+     */
+    data: XOR<SnippetUpdateManyMutationInput, SnippetUncheckedUpdateManyInput>
+    /**
+     * Filter which Snippets to update
+     */
+    where?: SnippetWhereInput
+    /**
+     * Limit how many Snippets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Snippet updateManyAndReturn
+   */
+  export type SnippetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * The data used to update Snippets.
+     */
+    data: XOR<SnippetUpdateManyMutationInput, SnippetUncheckedUpdateManyInput>
+    /**
+     * Filter which Snippets to update
+     */
+    where?: SnippetWhereInput
+    /**
+     * Limit how many Snippets to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Snippet upsert
+   */
+  export type SnippetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Snippet to update in case it exists.
+     */
+    where: SnippetWhereUniqueInput
+    /**
+     * In case the Snippet found by the `where` argument doesn't exist, create a new Snippet with this data.
+     */
+    create: XOR<SnippetCreateInput, SnippetUncheckedCreateInput>
+    /**
+     * In case the Snippet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SnippetUpdateInput, SnippetUncheckedUpdateInput>
+  }
+
+  /**
+   * Snippet delete
+   */
+  export type SnippetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetInclude<ExtArgs> | null
+    /**
+     * Filter which Snippet to delete.
+     */
+    where: SnippetWhereUniqueInput
+  }
+
+  /**
+   * Snippet deleteMany
+   */
+  export type SnippetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Snippets to delete
+     */
+    where?: SnippetWhereInput
+    /**
+     * Limit how many Snippets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Snippet.User
+   */
+  export type Snippet$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Snippet without action
+   */
+  export type SnippetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snippet
+     */
+    select?: SnippetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snippet
+     */
+    omit?: SnippetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnippetInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3153,8 +4397,7 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
-    clerkId: 'clerkId',
-    createdAt: 'createdAt'
+    clerkId: 'clerkId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -3171,6 +4414,21 @@ export namespace Prisma {
   };
 
   export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
+
+
+  export const SnippetScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    slug: 'slug',
+    fileName: 'fileName',
+    language: 'language',
+    content: 'content',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SnippetScalarFieldEnum = (typeof SnippetScalarFieldEnum)[keyof typeof SnippetScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3253,15 +4511,15 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     clerkId?: StringFilter<"User"> | string
-    createdAt?: DateTimeFilter<"User"> | Date | string
     notes?: NoteListRelationFilter
+    snippets?: SnippetListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     clerkId?: SortOrder
-    createdAt?: SortOrder
     notes?: NoteOrderByRelationAggregateInput
+    snippets?: SnippetOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3270,14 +4528,13 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    createdAt?: DateTimeFilter<"User"> | Date | string
     notes?: NoteListRelationFilter
+    snippets?: SnippetListRelationFilter
   }, "id" | "clerkId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     clerkId?: SortOrder
-    createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -3289,7 +4546,6 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     clerkId?: StringWithAggregatesFilter<"User"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type NoteWhereInput = {
@@ -3357,50 +4613,122 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Note"> | Date | string
   }
 
+  export type SnippetWhereInput = {
+    AND?: SnippetWhereInput | SnippetWhereInput[]
+    OR?: SnippetWhereInput[]
+    NOT?: SnippetWhereInput | SnippetWhereInput[]
+    id?: StringFilter<"Snippet"> | string
+    title?: StringFilter<"Snippet"> | string
+    slug?: StringFilter<"Snippet"> | string
+    fileName?: StringFilter<"Snippet"> | string
+    language?: StringFilter<"Snippet"> | string
+    content?: StringFilter<"Snippet"> | string
+    userId?: StringNullableFilter<"Snippet"> | string | null
+    createdAt?: DateTimeFilter<"Snippet"> | Date | string
+    updatedAt?: DateTimeFilter<"Snippet"> | Date | string
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type SnippetOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    fileName?: SortOrder
+    language?: SortOrder
+    content?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    User?: UserOrderByWithRelationInput
+  }
+
+  export type SnippetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: SnippetWhereInput | SnippetWhereInput[]
+    OR?: SnippetWhereInput[]
+    NOT?: SnippetWhereInput | SnippetWhereInput[]
+    title?: StringFilter<"Snippet"> | string
+    fileName?: StringFilter<"Snippet"> | string
+    language?: StringFilter<"Snippet"> | string
+    content?: StringFilter<"Snippet"> | string
+    userId?: StringNullableFilter<"Snippet"> | string | null
+    createdAt?: DateTimeFilter<"Snippet"> | Date | string
+    updatedAt?: DateTimeFilter<"Snippet"> | Date | string
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id" | "slug">
+
+  export type SnippetOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    fileName?: SortOrder
+    language?: SortOrder
+    content?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SnippetCountOrderByAggregateInput
+    _max?: SnippetMaxOrderByAggregateInput
+    _min?: SnippetMinOrderByAggregateInput
+  }
+
+  export type SnippetScalarWhereWithAggregatesInput = {
+    AND?: SnippetScalarWhereWithAggregatesInput | SnippetScalarWhereWithAggregatesInput[]
+    OR?: SnippetScalarWhereWithAggregatesInput[]
+    NOT?: SnippetScalarWhereWithAggregatesInput | SnippetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Snippet"> | string
+    title?: StringWithAggregatesFilter<"Snippet"> | string
+    slug?: StringWithAggregatesFilter<"Snippet"> | string
+    fileName?: StringWithAggregatesFilter<"Snippet"> | string
+    language?: StringWithAggregatesFilter<"Snippet"> | string
+    content?: StringWithAggregatesFilter<"Snippet"> | string
+    userId?: StringNullableWithAggregatesFilter<"Snippet"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Snippet"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Snippet"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     clerkId: string
-    createdAt?: Date | string
     notes?: NoteCreateNestedManyWithoutUserInput
+    snippets?: SnippetCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     clerkId: string
-    createdAt?: Date | string
     notes?: NoteUncheckedCreateNestedManyWithoutUserInput
+    snippets?: SnippetUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     clerkId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NoteUpdateManyWithoutUserNestedInput
+    snippets?: SnippetUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     clerkId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     notes?: NoteUncheckedUpdateManyWithoutUserNestedInput
+    snippets?: SnippetUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     clerkId: string
-    createdAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     clerkId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     clerkId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NoteCreateInput = {
@@ -3472,6 +4800,89 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SnippetCreateInput = {
+    id?: string
+    title: string
+    slug: string
+    fileName: string
+    language: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    User?: UserCreateNestedOneWithoutSnippetsInput
+  }
+
+  export type SnippetUncheckedCreateInput = {
+    id?: string
+    title: string
+    slug: string
+    fileName: string
+    language: string
+    content: string
+    userId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SnippetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    User?: UserUpdateOneWithoutSnippetsNestedInput
+  }
+
+  export type SnippetUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnippetCreateManyInput = {
+    id?: string
+    title: string
+    slug: string
+    fileName: string
+    language: string
+    content: string
+    userId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SnippetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnippetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3487,43 +4898,39 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type NoteListRelationFilter = {
     every?: NoteWhereInput
     some?: NoteWhereInput
     none?: NoteWhereInput
   }
 
+  export type SnippetListRelationFilter = {
+    every?: SnippetWhereInput
+    some?: SnippetWhereInput
+    none?: SnippetWhereInput
+  }
+
   export type NoteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SnippetOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     clerkId?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     clerkId?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     clerkId?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3544,20 +4951,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -3571,6 +4964,17 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type UserNullableScalarRelationFilter = {
@@ -3631,11 +5035,68 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type SnippetCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    fileName?: SortOrder
+    language?: SortOrder
+    content?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SnippetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    fileName?: SortOrder
+    language?: SortOrder
+    content?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SnippetMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    slug?: SortOrder
+    fileName?: SortOrder
+    language?: SortOrder
+    content?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type NoteCreateNestedManyWithoutUserInput = {
     create?: XOR<NoteCreateWithoutUserInput, NoteUncheckedCreateWithoutUserInput> | NoteCreateWithoutUserInput[] | NoteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NoteCreateOrConnectWithoutUserInput | NoteCreateOrConnectWithoutUserInput[]
     createMany?: NoteCreateManyUserInputEnvelope
     connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
+  }
+
+  export type SnippetCreateNestedManyWithoutUserInput = {
+    create?: XOR<SnippetCreateWithoutUserInput, SnippetUncheckedCreateWithoutUserInput> | SnippetCreateWithoutUserInput[] | SnippetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SnippetCreateOrConnectWithoutUserInput | SnippetCreateOrConnectWithoutUserInput[]
+    createMany?: SnippetCreateManyUserInputEnvelope
+    connect?: SnippetWhereUniqueInput | SnippetWhereUniqueInput[]
   }
 
   export type NoteUncheckedCreateNestedManyWithoutUserInput = {
@@ -3645,12 +5106,15 @@ export namespace Prisma {
     connect?: NoteWhereUniqueInput | NoteWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
+  export type SnippetUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SnippetCreateWithoutUserInput, SnippetUncheckedCreateWithoutUserInput> | SnippetCreateWithoutUserInput[] | SnippetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SnippetCreateOrConnectWithoutUserInput | SnippetCreateOrConnectWithoutUserInput[]
+    createMany?: SnippetCreateManyUserInputEnvelope
+    connect?: SnippetWhereUniqueInput | SnippetWhereUniqueInput[]
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
   }
 
   export type NoteUpdateManyWithoutUserNestedInput = {
@@ -3667,6 +5131,20 @@ export namespace Prisma {
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
+  export type SnippetUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SnippetCreateWithoutUserInput, SnippetUncheckedCreateWithoutUserInput> | SnippetCreateWithoutUserInput[] | SnippetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SnippetCreateOrConnectWithoutUserInput | SnippetCreateOrConnectWithoutUserInput[]
+    upsert?: SnippetUpsertWithWhereUniqueWithoutUserInput | SnippetUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SnippetCreateManyUserInputEnvelope
+    set?: SnippetWhereUniqueInput | SnippetWhereUniqueInput[]
+    disconnect?: SnippetWhereUniqueInput | SnippetWhereUniqueInput[]
+    delete?: SnippetWhereUniqueInput | SnippetWhereUniqueInput[]
+    connect?: SnippetWhereUniqueInput | SnippetWhereUniqueInput[]
+    update?: SnippetUpdateWithWhereUniqueWithoutUserInput | SnippetUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SnippetUpdateManyWithWhereWithoutUserInput | SnippetUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SnippetScalarWhereInput | SnippetScalarWhereInput[]
+  }
+
   export type NoteUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<NoteCreateWithoutUserInput, NoteUncheckedCreateWithoutUserInput> | NoteCreateWithoutUserInput[] | NoteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NoteCreateOrConnectWithoutUserInput | NoteCreateOrConnectWithoutUserInput[]
@@ -3681,10 +5159,28 @@ export namespace Prisma {
     deleteMany?: NoteScalarWhereInput | NoteScalarWhereInput[]
   }
 
+  export type SnippetUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SnippetCreateWithoutUserInput, SnippetUncheckedCreateWithoutUserInput> | SnippetCreateWithoutUserInput[] | SnippetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SnippetCreateOrConnectWithoutUserInput | SnippetCreateOrConnectWithoutUserInput[]
+    upsert?: SnippetUpsertWithWhereUniqueWithoutUserInput | SnippetUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SnippetCreateManyUserInputEnvelope
+    set?: SnippetWhereUniqueInput | SnippetWhereUniqueInput[]
+    disconnect?: SnippetWhereUniqueInput | SnippetWhereUniqueInput[]
+    delete?: SnippetWhereUniqueInput | SnippetWhereUniqueInput[]
+    connect?: SnippetWhereUniqueInput | SnippetWhereUniqueInput[]
+    update?: SnippetUpdateWithWhereUniqueWithoutUserInput | SnippetUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SnippetUpdateManyWithWhereWithoutUserInput | SnippetUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SnippetScalarWhereInput | SnippetScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutNotesInput = {
     create?: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
     connectOrCreate?: UserCreateOrConnectWithoutNotesInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type UserUpdateOneWithoutNotesNestedInput = {
@@ -3701,6 +5197,22 @@ export namespace Prisma {
     set?: string | null
   }
 
+  export type UserCreateNestedOneWithoutSnippetsInput = {
+    create?: XOR<UserCreateWithoutSnippetsInput, UserUncheckedCreateWithoutSnippetsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSnippetsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneWithoutSnippetsNestedInput = {
+    create?: XOR<UserCreateWithoutSnippetsInput, UserUncheckedCreateWithoutSnippetsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSnippetsInput
+    upsert?: UserUpsertWithoutSnippetsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSnippetsInput, UserUpdateWithoutSnippetsInput>, UserUncheckedUpdateWithoutSnippetsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3713,17 +5225,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3754,20 +5255,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -3780,6 +5267,17 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -3810,6 +5308,20 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NoteCreateWithoutUserInput = {
     id?: string
     title: string
@@ -3835,6 +5347,38 @@ export namespace Prisma {
 
   export type NoteCreateManyUserInputEnvelope = {
     data: NoteCreateManyUserInput | NoteCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SnippetCreateWithoutUserInput = {
+    id?: string
+    title: string
+    slug: string
+    fileName: string
+    language: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SnippetUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    slug: string
+    fileName: string
+    language: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SnippetCreateOrConnectWithoutUserInput = {
+    where: SnippetWhereUniqueInput
+    create: XOR<SnippetCreateWithoutUserInput, SnippetUncheckedCreateWithoutUserInput>
+  }
+
+  export type SnippetCreateManyUserInputEnvelope = {
+    data: SnippetCreateManyUserInput | SnippetCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -3867,16 +5411,47 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Note"> | Date | string
   }
 
+  export type SnippetUpsertWithWhereUniqueWithoutUserInput = {
+    where: SnippetWhereUniqueInput
+    update: XOR<SnippetUpdateWithoutUserInput, SnippetUncheckedUpdateWithoutUserInput>
+    create: XOR<SnippetCreateWithoutUserInput, SnippetUncheckedCreateWithoutUserInput>
+  }
+
+  export type SnippetUpdateWithWhereUniqueWithoutUserInput = {
+    where: SnippetWhereUniqueInput
+    data: XOR<SnippetUpdateWithoutUserInput, SnippetUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SnippetUpdateManyWithWhereWithoutUserInput = {
+    where: SnippetScalarWhereInput
+    data: XOR<SnippetUpdateManyMutationInput, SnippetUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SnippetScalarWhereInput = {
+    AND?: SnippetScalarWhereInput | SnippetScalarWhereInput[]
+    OR?: SnippetScalarWhereInput[]
+    NOT?: SnippetScalarWhereInput | SnippetScalarWhereInput[]
+    id?: StringFilter<"Snippet"> | string
+    title?: StringFilter<"Snippet"> | string
+    slug?: StringFilter<"Snippet"> | string
+    fileName?: StringFilter<"Snippet"> | string
+    language?: StringFilter<"Snippet"> | string
+    content?: StringFilter<"Snippet"> | string
+    userId?: StringNullableFilter<"Snippet"> | string | null
+    createdAt?: DateTimeFilter<"Snippet"> | Date | string
+    updatedAt?: DateTimeFilter<"Snippet"> | Date | string
+  }
+
   export type UserCreateWithoutNotesInput = {
     id?: string
     clerkId: string
-    createdAt?: Date | string
+    snippets?: SnippetCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotesInput = {
     id?: string
     clerkId: string
-    createdAt?: Date | string
+    snippets?: SnippetUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotesInput = {
@@ -3898,19 +5473,70 @@ export namespace Prisma {
   export type UserUpdateWithoutNotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     clerkId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snippets?: SnippetUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     clerkId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snippets?: SnippetUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutSnippetsInput = {
+    id?: string
+    clerkId: string
+    notes?: NoteCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSnippetsInput = {
+    id?: string
+    clerkId: string
+    notes?: NoteUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSnippetsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSnippetsInput, UserUncheckedCreateWithoutSnippetsInput>
+  }
+
+  export type UserUpsertWithoutSnippetsInput = {
+    update: XOR<UserUpdateWithoutSnippetsInput, UserUncheckedUpdateWithoutSnippetsInput>
+    create: XOR<UserCreateWithoutSnippetsInput, UserUncheckedCreateWithoutSnippetsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSnippetsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSnippetsInput, UserUncheckedUpdateWithoutSnippetsInput>
+  }
+
+  export type UserUpdateWithoutSnippetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    notes?: NoteUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSnippetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    notes?: NoteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NoteCreateManyUserInput = {
     id?: string
     title: string
     slug: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SnippetCreateManyUserInput = {
+    id?: string
+    title: string
+    slug: string
+    fileName: string
+    language: string
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -3938,6 +5564,39 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnippetUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnippetUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnippetUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    language?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

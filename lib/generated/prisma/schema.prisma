@@ -15,11 +15,10 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  clerkId   String   @unique
-  notes     Note[]
-  // snippets Snippet[]
-  createdAt DateTime @default(now())
+  id       String    @id @default(cuid())
+  clerkId  String    @unique
+  notes    Note[]
+  snippets Snippet[]
 }
 
 model Note {
@@ -33,6 +32,15 @@ model Note {
   updatedAt DateTime @updatedAt
 }
 
-// model Snippet {
-
-// }
+model Snippet {
+  id        String   @id @default(uuid())
+  title     String
+  slug      String   @unique
+  fileName  String
+  language  String
+  content   String
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

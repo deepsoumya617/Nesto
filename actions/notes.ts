@@ -34,7 +34,7 @@ export async function createNote(
 
     return { success: true, message: 'Note created successfully!' }
   } catch (error) {
-    console.error('Error creating post:', error)
+    console.error('Error creating note:', error)
     return { success: false, message: 'Failed to create note' }
   }
 }
@@ -86,19 +86,22 @@ export async function deleteNote(slug: string) {
 }
 
 export async function updateNote(slug: string, title: string, content: string) {
-
   const newSLug = title.replace(/\s+/g, '-').toLowerCase()
- 
+
   try {
     await prisma.note.update({
       where: { slug },
       data: {
         title,
         content,
-        slug: newSLug
+        slug: newSLug,
       },
     })
-    return { success: true, slug: newSLug, message: 'Note updated successfully!' }
+    return {
+      success: true,
+      slug: newSLug,
+      message: 'Note updated successfully!',
+    }
   } catch (error) {
     console.error('Update error: ', error)
     return { success: false, message: 'Failed to update note.' }

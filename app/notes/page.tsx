@@ -2,25 +2,28 @@
 
 import { getNote } from '@/actions/notes'
 import { Button } from '@/components/ui/button'
-import NoteCard from '@/components/ui/NoteCard'
-import SearchBar from '@/components/ui/SearchBar'
+import NoteCard from '@/components/NoteCard'
+import SearchBar from '@/components/SearchBar'
 import { useAuth } from '@clerk/nextjs'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { BeatLoader } from 'react-spinners'
-import { useRouter } from 'next/navigation'
 
 export default function NotesPage() {
   const { isSignedIn } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
   const [notes, setNotes] = useState<
-    { id: string; title: string; slug: string; createdAt: Date }[]
+    {
+      id: string
+      title: string
+      slug: string
+      createdAt: Date
+      updatedAt: Date
+    }[]
   >([])
   const [searchVal, setSearchVal] = useState('')
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest')
-  const router = useRouter()
 
-  
   // dummy data
   // const notes = [
   //   { id: '1', title: 'Complete math homework' },
@@ -54,7 +57,6 @@ export default function NotesPage() {
         </h4>
       </div>
     )
-    // router.push('/sign-in')
   }
 
   if (isSignedIn && isLoading) {
@@ -93,7 +95,13 @@ export default function NotesPage() {
         {filteredNotes.length > 0 ? (
           filteredNotes.map((note) => {
             return (
-              <NoteCard key={note.id} slug={note.slug} title={note.title} />
+              <NoteCard
+                key={note.id}
+                slug={note.slug}
+                title={note.title}
+                createdAt={note.createdAt}
+                updatedAt={note.updatedAt}
+              />
             )
           })
         ) : (

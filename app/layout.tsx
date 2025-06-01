@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import './globals.css'
-import Container from '@/components/ui/Container'
-import Header from '@/components/ui/Header'
-import Footer from '@/components/ui/Footer'
+import '../styles/globals.css'
+import Container from '@/components/Container'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 import { ClerkProvider } from '@clerk/nextjs'
 import { neobrutalism } from '@clerk/themes'
 import { Toaster } from '@/components/ui/sonner'
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <Toaster/>
+        <Toaster />
         <ClerkProvider
           appearance={{
             baseTheme: neobrutalism,
