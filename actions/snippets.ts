@@ -40,3 +40,37 @@ export async function createSnippet(
     return { success: false, message: 'Failed to create note' }
   }
 }
+
+export async function getSnippets() {
+  try {
+    const { userId } = await auth()
+
+    if (!userId) {
+      console.warn('No userId found during getSnippets()')
+      return []
+    }
+
+    // get snippets
+    const snippets = await prisma.snippet.findMany({
+      where: {
+        User: {
+          clerkId: userId,
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    })
+
+    return snippets
+  } catch (error) {
+    console.error('Error getting Snippets: ', error)
+    return []
+  }
+}
+
+export async function deleteSnippet(slug: string) {
+  await prisma.snippet.delete({
+    where: {
+      slug,
+    },
+  })
+}
