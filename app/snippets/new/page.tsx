@@ -109,6 +109,8 @@ export default function CreateSnippetPage() {
           language={language}
           snippetContent={snippetContent}
           onChange={onChange}
+          isEditable={true}
+          heightMode='fixed'
         />
         {/* Submit Buttons */}
         <div className="flex justify-center mt-6 gap-3 tracking-wider">

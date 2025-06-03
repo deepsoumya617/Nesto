@@ -56,7 +56,7 @@ export default function SnippetsPage() {
     return (
       <div className="mt-16 text-center">
         <h4 className="text-3xl font-bold tracking-wide text-gray-400 leading-8">
-          Sign Up or Login <br /> to see notes.
+          Sign Up or Login <br /> to see snippets.
         </h4>
       </div>
     )

@@ -113,7 +113,7 @@ export default function SnippetCard({
 
       {/* buttons */}
       <div className="flex items-center gap-2 mt-auto">
-        <Link href={`/snippes/view/${slug}`}>
+        <Link href={`/snippets/view/${slug}`}>
           <Button
             className="text-sm tracking-widest cursor-pointer px-6 py-5"
             size={'sm'}

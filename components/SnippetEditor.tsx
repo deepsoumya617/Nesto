@@ -24,13 +24,15 @@ const jbMono = JetBrains_Mono({
 })
 
 type SnippetEditorProps = {
-  fileName: string
-  language: string
-  snippetContent: string
-  onChange: (val: string) => void
+  fileName: string | undefined
+  language: string | undefined
+  snippetContent: string | undefined
+  isEditable: boolean
+  onChange?: (val: string) => void
+  heightMode: 'auto' | 'fixed'
 }
 
-function getLanguageFromExtension(language: string) {
+function getLanguageFromExtension(language: string | undefined) {
   switch (language) {
     case 'cpp':
       return cpp()
@@ -49,7 +51,9 @@ export default function SnippetEditor({
   fileName,
   language,
   snippetContent,
+  isEditable,
   onChange,
+  heightMode = 'auto',
 }: SnippetEditorProps) {
   const languageExtension = getLanguageFromExtension(language)
 
@@ -92,6 +96,10 @@ export default function SnippetEditor({
     },
   })
 
+  // adjust height of the code editor
+  const height = heightMode === 'fixed' ? '400px' : 'auto'
+  const overflow = heightMode === 'fixed' ? 'auto' : 'visible'
+
   return (
     <div className="mt-4 shadow-[7px_9px_0px_rgba(0,0,0,1)] rounded">
       <div className="w-full border-t border-x py-3 px-5 rounded-t border-black">
@@ -102,16 +110,21 @@ export default function SnippetEditor({
       <div className="border rounded-b border-black overflow-hidden">
         <CodeMirror
           value={snippetContent}
-          height="400px"
+          height={height}
           theme={githubLight}
           extensions={[languageExtension, customFontTheme, removeFocusOutline]}
           onChange={onChange}
+          editable={isEditable}
           basicSetup={{
             lineNumbers: true,
             highlightActiveLine: false,
             highlightActiveLineGutter: false,
             highlightSelectionMatches: false,
             foldGutter: false,
+          }}
+          style={{
+            overflow,
+            paddingBottom: heightMode === 'auto' ? '2rem' : undefined,
           }}
         />
       </div>

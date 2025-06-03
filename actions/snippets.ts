@@ -67,6 +67,20 @@ export async function getSnippets() {
   }
 }
 
+export async function getSnippetFromSlug(slug: string) {
+  const snippet = await prisma.snippet.findUnique({
+    where: { slug },
+  })
+
+  if (!snippet) return null
+  return {
+    title: snippet.title,
+    content: snippet.content,
+    fileName: snippet.fileName,
+    language: snippet.language
+  }
+}
+
 export async function deleteSnippet(slug: string) {
   await prisma.snippet.delete({
     where: {
