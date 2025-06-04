@@ -77,7 +77,34 @@ export async function getSnippetFromSlug(slug: string) {
     title: snippet.title,
     content: snippet.content,
     fileName: snippet.fileName,
-    language: snippet.language
+    language: snippet.language,
+  }
+}
+
+export async function updateSnippet(
+  slug: string,
+  title: string,
+  content: string
+) {
+  const newSLug = title.replace(/\s+/g, '-').toLowerCase()
+
+  try {
+    await prisma.snippet.update({
+      where: { slug },
+      data: {
+        title,
+        content,
+        slug: newSLug,
+      },
+    })
+    return {
+      success: true,
+      slug: newSLug,
+      message: 'Snippet updated successfully!',
+    }
+  } catch (error) {
+    console.error('Update error: ', error)
+    return { success: false, message: 'Failed to update snippet.' }
   }
 }
 

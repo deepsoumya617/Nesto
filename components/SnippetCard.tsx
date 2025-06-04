@@ -67,13 +67,13 @@ export default function SnippetCard({
       <Image
         src="/images/javascript.svg"
         alt="javascript"
-        width={30}
-        height={30}
+        width={22}
+        height={22}
       />
     ),
-    cpp: <Image src="/images/cpp.svg" alt="cpp" width={30} height={30} />,
-    java: <Image src="/images/java.svg" alt="java" width={30} height={30} />,
-    py: <Image src="/images/python.svg" alt="python" width={30} height={30} />,
+    cpp: <Image src="/images/cpp.svg" alt="cpp" width={22} height={22} />,
+    java: <Image src="/images/java.svg" alt="java" width={22} height={22} />,
+    py: <Image src="/images/python.svg" alt="python" width={22} height={22} />,
   }
 
   // format createdAt and updatedAt

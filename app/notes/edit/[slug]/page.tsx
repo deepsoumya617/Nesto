@@ -61,7 +61,7 @@ export default function EditNotePage({
         toast('Note updated successfully!')
       } else alert(result.message)
     } catch (error) {
-      console.error('Failed to create note: ', error)
+      console.error('Failed to update  note: ', error)
     } finally {
       setIsSubmitting(false)
     }
