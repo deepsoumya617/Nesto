@@ -22,6 +22,7 @@ import { Roboto_Mono } from 'next/font/google'
 import { Button } from './ui/button'
 
 const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
   weight: ['400'],
   preload: true,
 })
