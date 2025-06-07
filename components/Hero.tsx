@@ -39,10 +39,10 @@ export default function Hero() {
         <InteractiveHoverButton
           className="mt-8 tracking-wide text-sm"
           onClick={() => {
-            router.push('/dashboard')
+            router.push('/snippets')
           }}
         >
-          Go to Dashboard
+          Go to Snippets
         </InteractiveHoverButton>
       ) : (
         <InteractiveHoverButton
