@@ -78,7 +78,7 @@ export default function CreateSnippetPage() {
           className="py-6 bg-gray-50 tracking-wide rounded"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title"
+          placeholder="Title(Don't put special chars eg: +{}..)"
           required
         />
         {/* Filename */}
