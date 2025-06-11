@@ -40,22 +40,24 @@ export default function Header() {
         </button>
       </Link>
       {/* desktop menu */}
-      <ul className="hidden md:inline-flex space-x-4 font-medium text-[13px] tracking-wider">
-        {navLinks.map((link, idx) => {
-          return (
-            <li key={idx}>
-              <Link
-                className={`${
-                  pathName === link.href ? 'text-zinc-900' : 'text-zinc-400'
-                }`}
-                href={link.href}
-              >
-                {link.label}
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
+      {isSignedIn && (
+        <ul className="hidden md:inline-flex space-x-4 font-medium text-[13px] tracking-wider">
+          {navLinks.map((link, idx) => {
+            return (
+              <li key={idx}>
+                <Link
+                  className={`${
+                    pathName === link.href ? 'text-zinc-900' : 'text-zinc-400'
+                  }`}
+                  href={link.href}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      )}
       {isSignedIn ? (
         <Button
           className="hidden md:inline-flex tracking-wider text-[12px] cursor-pointer mr-4"
