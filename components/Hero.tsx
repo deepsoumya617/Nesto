@@ -1,49 +1,82 @@
 'use client'
 
+import { ArrowRight, ArrowRightIcon, Check } from 'lucide-react'
+import { AnimatedShinyText } from './magicui/animated-shiny-text'
+import { RainbowButton } from './magicui/rainbow-button'
+import { cn } from '@/lib/utils'
 import { useAuth } from '@clerk/nextjs'
-import { InteractiveHoverButton } from './magicui/interactive-hover-button'
-import { useRouter } from 'next/navigation'
-import { AuroraText } from '@/components/magicui/aurora-text'
+import Link from 'next/link'
 
 export default function Hero() {
   const { isSignedIn } = useAuth()
-  const router = useRouter()
   return (
-    <div className="relative text-center mt-32 mx-auto md:px-4">
-      <h3 className="font-medium text-5xl md:text-6xl tracking-wide leading-14 md:leading-16 text-slate-900">
-        <AuroraText className="text-purple-500">Snippets</AuroraText>, notes,
-        and {}
-        <span className="underline underline-offset-8 decoration-purple-500">
-          ideas!
-        </span>{' '}
-        <span className="bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent ">
-          All in one tidy place.
-        </span>
-      </h3>
-      <p className="mt-4 text-gray-400 text-[15px] md:text-[17px] leading-relaxed tracking-wide px-5">
-        Stay organized, write better, and never lose your ideas again.{' '}
-        <br className="hidden md:block" />
-        Start capturing your thoughts today.
-      </p>
-      {isSignedIn ? (
-        <InteractiveHoverButton
-          className="mt-8 tracking-wide text-sm"
-          onClick={() => {
-            router.push('/snippets')
-          }}
-        >
-          Go to Snippets
-        </InteractiveHoverButton>
-      ) : (
-        <InteractiveHoverButton
-          className="mt-3 tracking-wide text-sm"
-          onClick={() => {
-            router.push('/sign-up')
-          }}
-        >
-          Get Started
-        </InteractiveHoverButton>
-      )}
-    </div>
+    <section className="w-full flex items-center justify-center py-24">
+      <div
+        className={cn(
+          'group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800 absolute top-44'
+        )}
+      >
+        <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+          <span>✨ Introducing Nesto v1.0</span>
+          <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+        </AnimatedShinyText>
+      </div>
+      <div className="max-w-4xl text-center px-4">
+        <h1 className="text-5xl font-bold tracking-tight mb-6 mt-14">
+          Where code meets clarity. <br />
+          Snippets and notes, together at last.
+        </h1>
+
+        <p className="text-md text-muted-foreground mb-8 max-w-2xl mx-auto tracking-wide">
+          Capture ideas, draft notes, and save code without distractions. Nesto
+          is your personal thinking space for everything that matters.
+        </p>
+
+        <div className="flex justify-center gap-3">
+          {isSignedIn ? (
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link href="/">
+                <RainbowButton size="lg">
+                  Start Writing
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </RainbowButton>
+              </Link>
+            </div>
+          ) : (
+            <div className="flex flex-col sm:flex-row justify-center gap-4 tracking-wide">
+              <Link href="/">
+                <RainbowButton size="lg">
+                  Get Started
+                  <ArrowRight className="h-4 w-4" />
+                </RainbowButton>
+              </Link>
+            </div>
+          )}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 tracking-wide">
+            <Link href="/">
+              <RainbowButton size="lg" variant={'outline'}>
+                Learn More
+                <ArrowRight className="h-4 w-4" />
+              </RainbowButton>
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 text-sm text-muted-foreground tracking-wide">
+          <div className="flex items-center gap-2">
+            <Check className="text-primary w-4 h-4" />
+            Syntax-Highlighted Snippets
+          </div>
+          <div className="flex items-center gap-2">
+            <Check className="text-primary w-4 h-4" />
+            Markdown Note Support
+          </div>
+          <div className="flex items-center gap-2">
+            <Check className="text-primary w-4 h-4" />
+            Instant Search & Filtering
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }

@@ -57,7 +57,6 @@ export default function CreateSnippetPage() {
       {/* Back Button */}
       <Link href="/snippets">
         <Button
-          variant="secondary"
           className="tracking-wider cursor-pointer ml-2"
         >
           <ArrowLeft />
