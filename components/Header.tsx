@@ -57,6 +57,7 @@ export default function Header() {
         </button>
       </Link>
       {/* desktop menu */}
+      { isSignedIn &&
       <ul className="hidden md:inline-flex space-x-4 font-medium text-[13px] tracking-wider">
         {navLinks.map((link, idx) => {
           return (
@@ -72,7 +73,7 @@ export default function Header() {
             </li>
           )
         })}
-      </ul>
+      </ul>}
       {isSignedIn ? (
         <Button
           className="hidden md:inline-flex tracking-wider text-[12px] cursor-pointer mr-4"
