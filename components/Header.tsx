@@ -68,7 +68,7 @@ export default function Header() {
       ) : (
         <Button
           className="hidden md:inline-flex tracking-wider text-[12px] cursor-pointer"
-          onClick={() => router.push('/sign-up')}
+          onClick={() => router.push('/sign-in')}
         >
           Get Started
         </Button>
@@ -119,7 +119,7 @@ export default function Header() {
               className="tracking-wider text-xl px-8 py-6"
               onClick={() => {
                 setShowMenu(false)
-                router.push('/sign-up')
+                router.push('/sign-in')
               }}
             >
               Get Started

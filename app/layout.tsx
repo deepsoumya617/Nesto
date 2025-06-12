@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
 import '../styles/globals.css'
 import Container from '@/components/Container'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { ClerkProvider } from '@clerk/nextjs'
-import { neobrutalism } from '@clerk/themes'
 import { Toaster } from '@/components/ui/sonner'
 
 import { Inter } from 'next/font/google'
@@ -21,21 +19,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <Toaster />
-        <ClerkProvider
-          appearance={{
-            baseTheme: neobrutalism,
-          }}
-        >
+        <ClerkProvider>
           <Container>
             <main className="flex-grow">
-              <Header />
+
               {children}
             </main>
             <Footer />
