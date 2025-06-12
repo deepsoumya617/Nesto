@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
+import { useSignUp } from '@clerk/nextjs'
 
 interface SignUpFormProps extends React.ComponentProps<'div'> {
   signUpWithEmail: (data: { emailAddress: string; password: string }) => void
@@ -17,6 +18,17 @@ export function SignupForm({
   className,
   ...props
 }: SignUpFormProps) {
+  const { signUp } = useSignUp()
+
+  const handleOAuthSignIn = (provider: 'google' | 'github') => {
+    if (!signUp) return
+    signUp.authenticateWithRedirect({
+      strategy: `oauth_${provider}`,
+      redirectUrl: '/',
+      redirectUrlComplete: '/',
+    })
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -32,13 +44,21 @@ export function SignupForm({
   }
 
   return (
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
+    <div className={cn('flex flex-col gap-4', className)} {...props}>
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-6">
-          <h1 className="text-xl text-center font-bold">Create your Nesto account</h1>
+        <div className="flex flex-col gap-4">
+          <h1 className="text-xl text-center font-bold">
+            Create your Nesto account.
+          </h1>
 
+          <div id="clerk-captcha" />
           <div className="grid gap-4 sm:grid-cols-2">
-            <Button variant="outline" type="button" className="w-full">
+            <Button
+              variant="outline"
+              type="button"
+              className="w-full"
+              onClick={() => handleOAuthSignIn('github')}
+            >
               <svg
                 height="32"
                 aria-hidden="true"
@@ -52,7 +72,12 @@ export function SignupForm({
               Github
             </Button>
 
-            <Button variant="outline" type="button" className="w-full">
+            <Button
+              variant="outline"
+              type="button"
+              className="w-full"
+              onClick={() => handleOAuthSignIn('google')}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -73,7 +98,7 @@ export function SignupForm({
             </span>
           </div>
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
             <div className="grid gap-3">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -105,9 +130,12 @@ export function SignupForm({
         </div>
       </form>
 
-      <div className="text-center text-sm">
+      <div className="text-center text-sm tracking-wide">
         Already have an account?{' '}
-        <Link href="/sign-in" className="underline underline-offset-4">
+        <Link
+          href="/sign-in"
+          className="hover:underline underline-offset-6 hover:text-blue-600"
+        >
           Login
         </Link>
       </div>
