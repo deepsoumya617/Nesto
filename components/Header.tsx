@@ -2,27 +2,15 @@
 
 import Link from 'next/link'
 import { Button } from './ui/button'
-import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@clerk/nextjs'
 
-const navLinks = [
-  {
-    href: '/notes',
-    label: 'Notes',
-  },
-  {
-    href: '/snippets',
-    label: 'Snippets',
-  },
-]
 
 export default function Header() {
   const router = useRouter()
   const { isSignedIn, signOut } = useAuth()
-  const pathName = usePathname()
   const [showMenu, setShowMenu] = useState(false)
 
   function handleLogout() {
@@ -39,25 +27,6 @@ export default function Header() {
           </h1>
         </button>
       </Link>
-      {/* desktop menu */}
-      {isSignedIn && (
-        <ul className="hidden md:inline-flex space-x-4 font-medium text-[13px] tracking-wider">
-          {navLinks.map((link, idx) => {
-            return (
-              <li key={idx}>
-                <Link
-                  className={`${
-                    pathName === link.href ? 'text-zinc-900' : 'text-zinc-400'
-                  }`}
-                  href={link.href}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
-      )}
       {isSignedIn ? (
         <Button
           className="hidden md:inline-flex tracking-wider text-[12px] cursor-pointer mr-4"
@@ -88,23 +57,6 @@ export default function Header() {
           >
             <X size={28} />
           </button>
-
-          {/* Mobile nav links */}
-          <ul className="font-medium text-xl tracking-wider flex flex-col space-y-4">
-            {navLinks.map((link, idx) => (
-              <li key={idx}>
-                <Link
-                  className={`${
-                    pathName === link.href ? 'text-zinc-900' : 'text-zinc-400'
-                  }`}
-                  href={link.href}
-                  onClick={() => setShowMenu(false)}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
 
           {/* Mobile Auth Button */}
           {isSignedIn ? (
