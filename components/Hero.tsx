@@ -16,7 +16,7 @@ export default function Hero() {
           'group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800 absolute top-44'
         )}
       >
-        <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+        <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 tracking-wide ">
           <span>✨ Introducing Nesto v1.0</span>
           <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
         </AnimatedShinyText>
@@ -34,35 +34,29 @@ export default function Hero() {
 
         <div className="flex justify-center gap-3">
           {isSignedIn ? (
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/">
-                <RainbowButton size="lg">
-                  Start Writing
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </RainbowButton>
-              </Link>
-            </div>
-          ) : (
-            <div className="flex flex-col sm:flex-row justify-center gap-4 tracking-wide">
-              <Link href="/">
-                <RainbowButton size="lg">
-                  Get Started
-                  <ArrowRight className="h-4 w-4" />
-                </RainbowButton>
-              </Link>
-            </div>
-          )}
-          <div className="flex flex-col sm:flex-row justify-center gap-4 tracking-wide">
             <Link href="/">
-              <RainbowButton size="lg" variant={'outline'}>
-                Learn More
-                <ArrowRight className="h-4 w-4" />
+              <RainbowButton size="lg" className="group">
+                Start Writing
+                <ArrowRight className="ml-2 h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-4" />
               </RainbowButton>
             </Link>
-          </div>
+          ) : (
+            <Link href="/">
+              <RainbowButton size="lg" className="group">
+                Get Started
+                <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
+              </RainbowButton>
+            </Link>
+          )}
+          <Link href="/" className='group'>
+            <RainbowButton size="lg" variant={'outline'}>
+              Learn More
+              <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
+            </RainbowButton>
+          </Link>
         </div>
 
-        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 text-sm text-muted-foreground tracking-wide">
+        <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 text-sm text-muted-foreground tracking-wide">
           <div className="flex items-center gap-2">
             <Check className="text-primary w-4 h-4" />
             Syntax-Highlighted Snippets
