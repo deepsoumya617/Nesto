@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import '../styles/globals.css'
-import Container from '@/components/Container'
-import Footer from '@/components/Footer'
+// import Footer from '@/components/Footer'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from '@/components/ui/sonner'
 
@@ -27,10 +26,8 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <Toaster />
         <ClerkProvider>
-          <Container>
             <main className="flex-grow">{children}</main>
-            <Footer />
-          </Container>
+            {/* <Footer /> */}
         </ClerkProvider>
       </body>
     </html>
