@@ -23,7 +23,7 @@ export default function Header() {
   }
 
   return (
-    <header className="w-full border-b px-6 py-4 sticky top-0 z-40 border-border supports-backdrop-blur:bg-background/80 bg-background/40 backdrop-blur-lg">
+    <header className="w-full border-b px-6 py-4 sticky top-0 z-40 border-border supports-backdrop-blur:bg-background/80 bg-background/40 backdrop-blur-lg shadow-md shadow-zinc-100/70 dark:shadow-none">
       <div className="mx-auto max-w-6xl flex items-center justify-between">
         <Waves
           // size={28}

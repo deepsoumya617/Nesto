@@ -6,6 +6,7 @@ import { RainbowButton } from './magicui/rainbow-button'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@clerk/nextjs'
 import Link from 'next/link'
+import { TextAnimate } from './magicui/text-animate'
 
 export default function Hero() {
   const { isSignedIn } = useAuth()
@@ -22,38 +23,54 @@ export default function Hero() {
         </AnimatedShinyText>
       </div>
       <div className="max-w-4xl text-center px-4">
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6 mt-8 sm:mt-14 hidden sm:block">
-          Where code meets clarity. <br />
-          Snippets and notes, together at last.
-        </h1>
+        <TextAnimate
+          className="text-4xl sm:text-5xl font-bold tracking-tight mb-6 mt-8 sm:mt-14 hidden sm:block px-6"
+          animate="blurInUp"
+          by="character"
+          duration={0.9}
+          once
+        >
+          Where code meets clarity - Snippets and notes, together at last.
+        </TextAnimate>
 
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6 mt-8 sm:mt-14 sm:hidden">
-          Where code <br /> meets clarity. 
-          Snippets and notes, together at last.
-        </h1>
+        <TextAnimate
+          className="text-4xl font-bold tracking-tight mb-6 mt-8 sm:hidden px-5"
+          animate="blurInUp"
+          by="character"
+          duration={0.9}
+          once
+        >
+          Where code meets clarity. 
+          Snippets & notes, together at last.
+        </TextAnimate>
 
-        <p className="text-md text-muted-foreground mb-8 max-w-2xl mx-auto tracking-wide">
+        <TextAnimate className="text-md text-muted-foreground mb-8 max-w-2xl mx-auto tracking-wider px-5 sm:px-10"
+        animate="blurInUp"
+        by='character'
+        delay={0.7}
+        duration={0.9}
+        once>
           Capture ideas, draft notes, and save code without distractions. Nesto
           is your personal thinking space for everything that matters.
-        </p>
+        </TextAnimate>
 
         <div className="flex justify-center gap-3">
           {isSignedIn ? (
             <Link href="/">
-              <RainbowButton size="lg" className="group">
+              <RainbowButton size="lg" className="group animate-fade-in-up animate-delay-300">
                 Start Writing
                 <ArrowRight className="ml-2 h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-4" />
               </RainbowButton>
             </Link>
           ) : (
             <Link href="/">
-              <RainbowButton size="lg" className="group">
+              <RainbowButton size="lg" className="group animate-fade-in-up animate-delay-300">
                 Get Started
-                <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
+                <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-" />
               </RainbowButton>
             </Link>
           )}
-          <Link href="/" className='group'>
+          <Link href="/" className="group animate-fade-in-up animate-delay-400">
             <RainbowButton size="lg" variant={'outline'}>
               Learn More
               <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
@@ -62,15 +79,15 @@ export default function Hero() {
         </div>
 
         <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 text-sm text-muted-foreground tracking-wide">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 animate-fade-in-up animate-delay-500">
             <Check className="text-primary w-4 h-4" />
             Syntax-Highlighted Snippets
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 animate-fade-in-up animate-delay-600">
             <Check className="text-primary w-4 h-4" />
             Markdown Note Support
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 animate-fade-in-up animate-delay-700">
             <Check className="text-primary w-4 h-4" />
             Instant Search & Filtering
           </div>
