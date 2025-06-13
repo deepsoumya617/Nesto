@@ -66,7 +66,7 @@ export default function Hero() {
             <Link href="/">
               <RainbowButton size="lg" className="group animate-fade-in-up animate-delay-300">
                 Get Started
-                <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-" />
+                <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
               </RainbowButton>
             </Link>
           )}
