@@ -5,6 +5,7 @@ import { Menu, X, Waves } from 'lucide-react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@clerk/nextjs'
+import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button'
 import { ModeToggle } from './themes/mode-toggle'
 
 export default function Header() {
@@ -35,58 +36,15 @@ export default function Header() {
               Logout
             </Button>
           ) : (
-            <Button
+            <InteractiveHoverButton
               className="tracking-wider text-[12px] cursor-pointer"
               onClick={() => router.push('/sign-in')}
             >
               Get Started
-            </Button>
+            </InteractiveHoverButton>
           )}
           <ModeToggle />
         </div>
-
-        {/* Mobile Menu Toggle */}
-        <button className="md:hidden" onClick={() => setShowMenu(!showMenu)}>
-          <Menu size={24} />
-        </button>
-
-        {/* Mobile Menu */}
-        {showMenu && (
-          <div className="fixed top-0 left-0 w-screen h-screen bg-white dark:bg-black flex flex-col items-start gap-8 z-50 px-10 py-20 overflow-y-auto">
-            <button
-              className="absolute top-8 right-4"
-              onClick={() => setShowMenu(false)}
-            >
-              <X size={28} />
-            </button>
-
-            {/* Optional: Add ModeToggle to mobile menu */}
-            <ModeToggle />
-
-            {/* Mobile Auth Button */}
-            {isSignedIn ? (
-              <Button
-                className="tracking-wider text-xl px-8 py-6"
-                onClick={() => {
-                  setShowMenu(false)
-                  handleLogout()
-                }}
-              >
-                Logout
-              </Button>
-            ) : (
-              <Button
-                className="tracking-wider text-xl px-8 py-6"
-                onClick={() => {
-                  setShowMenu(false)
-                  router.push('/sign-in')
-                }}
-              >
-                Get Started
-              </Button>
-            )}
-          </div>
-        )}
       </div>
     </header>
   )
