@@ -12,6 +12,9 @@ export default function Hero() {
   const { isSignedIn } = useAuth()
   return (
     <section className="w-full flex items-center justify-center py-24">
+      <div className="fixed inset-0 -z-10 pointer-events-none">
+        <div className="h-full w-full bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] opacity-50 animate-grid-pan-slow dark:opacity-70" />
+      </div>
       <div
         className={cn(
           'group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800 absolute top-40  sm:top-46'
@@ -40,16 +43,17 @@ export default function Hero() {
           duration={0.9}
           once
         >
-          Where code meets clarity. 
-          Snippets & notes, together at last.
+          Where code meets clarity. Snippets & notes, together at last.
         </TextAnimate>
 
-        <TextAnimate className="text-md text-muted-foreground mb-8 max-w-2xl mx-auto tracking-wider px-5 sm:px-10"
-        animate="blurInUp"
-        by='character'
-        delay={0.7}
-        duration={0.9}
-        once>
+        <TextAnimate
+          className="text-md text-muted-foreground mb-8 max-w-2xl mx-auto tracking-wider px-5 sm:px-10"
+          animate="blurInUp"
+          by="character"
+          delay={0.7}
+          duration={0.9}
+          once
+        >
           Capture ideas, draft notes, and save code without distractions. Nesto
           is your personal thinking space for everything that matters.
         </TextAnimate>
@@ -57,14 +61,20 @@ export default function Hero() {
         <div className="flex justify-center gap-3">
           {isSignedIn ? (
             <Link href="/">
-              <RainbowButton size="lg" className="group animate-fade-in-up animate-delay-300">
+              <RainbowButton
+                size="lg"
+                className="group animate-fade-in-up animate-delay-300"
+              >
                 Start Writing
                 <ArrowRight className="ml-2 h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-4" />
               </RainbowButton>
             </Link>
           ) : (
             <Link href="/">
-              <RainbowButton size="lg" className="group animate-fade-in-up animate-delay-300">
+              <RainbowButton
+                size="lg"
+                className="group animate-fade-in-up animate-delay-300"
+              >
                 Get Started
                 <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
               </RainbowButton>
