@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import '../styles/globals.css'
-// import Footer from '@/components/Footer'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from '@/components/ui/sonner'
 import { Inter } from 'next/font/google'
+import { ThemeProvider } from '@/components/themes/theme-provider'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -21,15 +21,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-        
-        <Toaster />
-        <ClerkProvider>
-          <main className="flex-grow">{children}</main>
-          {/* <Footer /> */}
-        </ClerkProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${inter.className} antialiased`}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className="flex-grow">{children}</main>
+            <Toaster />
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
