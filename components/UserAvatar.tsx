@@ -14,8 +14,8 @@ import {
   DropdownMenuPortal,
   DropdownMenuSubContent,
 } from './ui/dropdown-menu'
-import Image from 'next/image'
 import { Mail, LogOut } from 'lucide-react'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import ModeToggle from './themes/mode-toggle'
 
 export function UserAvatar() {
@@ -25,19 +25,14 @@ export function UserAvatar() {
     return null
   }
 
+  const { imageUrl } = user
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="hover:cursor-pointer focus:outline-none shrink-0">
-        <Image
-          src={user.imageUrl}
-          alt="user avatar"
-          width={44}
-          height={44}
-          quality={100}
-          priority
-          unoptimized
-          className="w-11 h-11 rounded-full border object-cover"
-        />
+        <Avatar className="cursor-pointer">
+          <AvatarImage src={imageUrl} alt="" />
+        </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-72 rounded-sm pl-1">
         <DropdownMenuLabel>
@@ -72,8 +67,8 @@ export function UserAvatar() {
           className="hover:cursor-pointer"
           onClick={() => signOut()}
         >
-          <LogOut size={16} className="text-black dark:text-white" />
-          <span className="text-sm tracking-wide">Sign Out</span>
+          <LogOut size={16} className="text-red-500" />
+          <span className="text-sm text-red-500 tracking-wide">Sign Out</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
