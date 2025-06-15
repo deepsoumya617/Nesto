@@ -4,12 +4,10 @@ import { ArrowRight, ArrowRightIcon, Check } from 'lucide-react'
 import { AnimatedShinyText } from './magicui/animated-shiny-text'
 import { RainbowButton } from './magicui/rainbow-button'
 import { cn } from '@/lib/utils'
-import { useAuth } from '@clerk/nextjs'
 import Link from 'next/link'
 import { TextAnimate } from './magicui/text-animate'
 
 export default function Hero() {
-  const { isSignedIn } = useAuth()
   return (
     <section className="w-full flex items-center justify-center py-24">
       <div className="fixed inset-0 -z-10 pointer-events-none">
@@ -26,8 +24,9 @@ export default function Hero() {
         </AnimatedShinyText>
       </div>
       <div className="max-w-4xl text-center px-4">
+        {/* desktop */}
         <TextAnimate
-          className="text-4xl sm:text-5xl font-bold tracking-tight mb-6 mt-8 sm:mt-14 hidden sm:block px-6"
+          className="text-5xl font-bold tracking-tight mb-6 mt-14 px-6 hidden md:block"
           animate="blurInUp"
           by="character"
           duration={0.9}
@@ -36,18 +35,20 @@ export default function Hero() {
           Where code meets clarity - Snippets and notes, together at last.
         </TextAnimate>
 
+        {/* mobile */}
         <TextAnimate
-          className="text-4xl font-bold tracking-tight mb-6 mt-8 sm:hidden px-5"
+          className="text-4xl font-bold tracking-tight mb-6 mt-8 md:hidden px-5"
           animate="blurInUp"
-          by="character"
+          by="word"
           duration={0.9}
           once
         >
-          Where code meets clarity. Snippets & notes, together at last.
+          Where code meets clarity. Snippets and notes, together at last.
         </TextAnimate>
 
+        {/* optimized for desktop */}
         <TextAnimate
-          className="text-md text-muted-foreground mb-8 max-w-2xl mx-auto tracking-wider px-5 sm:px-10"
+          className="text-md text-muted-foreground mb-8 max-w-2xl mx-auto tracking-wider px-5 hidden md:block"
           animate="blurInUp"
           by="character"
           delay={0.7}
@@ -58,30 +59,35 @@ export default function Hero() {
           is your personal thinking space for everything that matters.
         </TextAnimate>
 
+        {/* optimized for mobile */}
+        <TextAnimate
+          className="text-sm text-muted-foreground mb-8 max-w-2xl mx-auto tracking-wider px-5 md:hidden"
+          animate="blurInUp"
+          by="word"
+          delay={0.7}
+          duration={0.9}
+          once
+        >
+          Capture ideas, draft notes, and save code without distractions. Nesto
+          is your personal thinking space for everything that matters.
+        </TextAnimate>
+
         <div className="flex justify-center gap-3">
-          {isSignedIn ? (
-            <Link href="/">
-              <RainbowButton
-                size="lg"
-                className="group animate-fade-in-up animate-delay-300 tracking-wide"
-              >
-                Start Writing
-                <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
-              </RainbowButton>
-            </Link>
-          ) : (
-            <Link href="/">
-              <RainbowButton
-                size="lg"
-                className="group animate-fade-in-up animate-delay-300"
-              >
-                Get Started
-                <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
-              </RainbowButton>
-            </Link>
-          )}
           <Link href="/">
-            <RainbowButton size="lg" variant={'outline'} className='group animate-fade-in-up animate-delay-400 tracking-wide'>
+            <RainbowButton
+              size="lg"
+              className="group animate-fade-in-up animate-delay-300 tracking-wider"
+            >
+              Get Started
+              <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
+            </RainbowButton>
+          </Link>
+          <Link href="/">
+            <RainbowButton
+              size="lg"
+              variant={'outline'}
+              className="group animate-fade-in-up animate-delay-400 tracking-wide"
+            >
               Learn More
               <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
             </RainbowButton>

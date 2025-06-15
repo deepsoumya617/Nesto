@@ -36,7 +36,7 @@ export function UserAvatar() {
           </Avatar>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-72 rounded-sm pl-1">
+      <DropdownMenuContent className="w-72 rounded-sm pl-1 mr-3">
         <DropdownMenuLabel>
           <p className="font-medium text-[15px]">{user.fullName}</p>
           <div className="flex items-center gap-1 pl-0.5">

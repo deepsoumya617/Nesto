@@ -194,6 +194,7 @@
   }
 }
 
+/* top gradient */
 @keyframes gradient-x {
   0%,
   100% {
@@ -208,6 +209,7 @@
   animation: gradient-x 6s ease-in-out infinite;
 }
 
+/* grid animation */
 @keyframes pan {
   0% {
     background-position: 0px 0px;
@@ -221,6 +223,7 @@
   animation: pan 70s linear infinite;
 }
 
+/* hero words */
 @keyframes fade-in-up {
   0% {
     opacity: 0;
@@ -250,4 +253,10 @@
 }
 .animate-delay-700 {
   animation-delay: 0.7s;
+}
+
+/* remove scrollbar  */
+::-webkit-scrollbar {
+  width: 0px; /* Hides the scrollbar */
+  background: transparent; /* Makes it blend with the background */
 }
