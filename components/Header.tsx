@@ -2,16 +2,15 @@
 
 import { Button } from './ui/button'
 import { Menu, X, Waves } from 'lucide-react'
-import { useState } from 'react'
+// import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@clerk/nextjs'
-import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button'
-import { ModeToggle } from './themes/mode-toggle'
+import { UserAvatar } from './UserAvatar'
 
 export default function Header() {
   const router = useRouter()
   const { isSignedIn, signOut } = useAuth()
-  const [showMenu, setShowMenu] = useState(false)
+  // const [showMenu, setShowMenu] = useState(false)
 
   function handleLogout() {
     signOut()
@@ -29,21 +28,15 @@ export default function Header() {
         {/* Desktop Buttons */}
         <div className="hidden md:flex items-center gap-3">
           {isSignedIn ? (
-            <Button
-              className="tracking-wider text-[12px] cursor-pointer"
-              onClick={handleLogout}
-            >
-              Logout
-            </Button>
+            <UserAvatar />
           ) : (
-            <InteractiveHoverButton
+            <Button
               className="tracking-wider text-[12px] cursor-pointer"
               onClick={() => router.push('/sign-in')}
             >
               Get Started
-            </InteractiveHoverButton>
+            </Button>
           )}
-          <ModeToggle />
         </div>
       </div>
     </header>

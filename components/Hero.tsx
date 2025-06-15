@@ -63,10 +63,10 @@ export default function Hero() {
             <Link href="/">
               <RainbowButton
                 size="lg"
-                className="group animate-fade-in-up animate-delay-300"
+                className="group animate-fade-in-up animate-delay-300 tracking-wide"
               >
                 Start Writing
-                <ArrowRight className="ml-2 h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-4" />
+                <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
               </RainbowButton>
             </Link>
           ) : (
@@ -80,8 +80,8 @@ export default function Hero() {
               </RainbowButton>
             </Link>
           )}
-          <Link href="/" className="group animate-fade-in-up animate-delay-400">
-            <RainbowButton size="lg" variant={'outline'}>
+          <Link href="/">
+            <RainbowButton size="lg" variant={'outline'} className='group animate-fade-in-up animate-delay-400 tracking-wide'>
               Learn More
               <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
             </RainbowButton>
