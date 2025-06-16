@@ -5,3 +5,10 @@ export const navMenuLinks = [
   { label: 'Docs', href: '#docs' },
   { label: 'About', href: '#about' },
 ]
+
+export const navMenuLinksSignedIn = [
+  { label: 'Dashboard', href: '/dashboard' },
+  { label: 'Notes', href: '/notes' },
+  { label: 'Snippets', href: '/snippets' },
+  { label: 'Import From Github', href: '/import/github' },
+]
