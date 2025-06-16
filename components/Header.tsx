@@ -41,7 +41,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`${geist.className} text-[13px] tracking-wider transition-colors cursor-pointer font-semibold text-gray-600 hover:text-gray-900 hover:underline underline-gray-900 underline-offset-2`}
+                  className={`${geist.className} text-[13px] tracking-wider transition-colors cursor-pointer font-semibold text-gray-600 dark:text-gray-100 hover:text-gray-900 hover:underline underline-gray-900 underline-offset-2`}
                 >
                   {link.label}
                 </Link>
@@ -65,8 +65,8 @@ export default function Header() {
                     geist.className
                   } text-sm tracking-normal transition-colors cursor-pointer hover:underline underline-gray-900 hover:text-black underline-offset-4 decoration-2 ${
                     pathname === link.href
-                      ? 'text-gray-900 underline underline-gray-900 underline-offset-4 decoration-2'
-                      : 'text-gray-600 dark:text-gray-100'
+                      ? 'text-gray-900 dark:text-gray-100 underline underline-gray-900 underline-offset-4 decoration-2'
+                      : 'text-gray-600 dark:text-gray-300'
                   }`}
                 >
                   {link.label}

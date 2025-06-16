@@ -10,5 +10,5 @@ export const navMenuLinksSignedIn = [
   { label: 'Dashboard', href: '/dashboard' },
   { label: 'Notes', href: '/notes' },
   { label: 'Snippets', href: '/snippets' },
-  { label: 'Import From Github', href: '/import/github' },
+  { label: 'Import From Github', href: '/import' },
 ]
