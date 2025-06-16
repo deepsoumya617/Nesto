@@ -6,9 +6,10 @@ import { Waves } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@clerk/nextjs'
 import { UserAvatar } from './UserAvatar'
-import { navMenuLinks } from '@/lib/constans/nav'
+
 import { MobileMenu } from './MobileMenu'
 import { Geist } from 'next/font/google'
+import { navMenuLinks } from '@/lib/constants/nav'
 
 const geist = Geist({
   subsets: ['latin'],

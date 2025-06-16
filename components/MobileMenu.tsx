@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { navMenuLinks } from '@/lib/constans/nav'
 import { Button } from './ui/button'
+import { navMenuLinks } from '@/lib/constants/nav'
 
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false)
