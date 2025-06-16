@@ -4,6 +4,7 @@ import React from 'react'
 import { useUser } from '@clerk/nextjs'
 import Container from '@/components/Container'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { ActivityCalendar } from 'react-activity-calendar'
 import { Geist } from 'next/font/google'
 import {
   Card,
@@ -29,6 +30,25 @@ const geist = Geist({
   subsets: ['latin'],
   preload: true,
 })
+
+// Generate full year activity data
+const generateYearData = () => {
+  const today = new Date()
+  const startDate = new Date(today)
+  startDate.setDate(today.getDate() - 365)
+
+  const data = []
+  for (let d = new Date(startDate); d <= today; d.setDate(d.getDate() + 1)) {
+    data.push({
+      date: d.toISOString().split('T')[0],
+      count: Math.floor(Math.random() * 20),
+      level: Math.floor(Math.random() * 5),
+    })
+  }
+  return data
+}
+
+const data = generateYearData()
 
 export default function DashboardClient({
   snippetCount,
@@ -175,6 +195,20 @@ export default function DashboardClient({
             </Button>
           </CardFooter>
         </Card>
+      </div>
+
+      {/* full year activity calendar */}
+      <div className="mb-6 h-48 rounded-lg border">
+        <ActivityCalendar
+          blockMargin={4}
+          blockRadius={2}
+          blockSize={12}
+          colorScheme="dark"
+          fontSize={14}
+          maxLevel={4}
+          weekStart={0}
+          data={data}
+        />
       </div>
     </Container>
   )
