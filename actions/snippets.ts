@@ -2,6 +2,7 @@
 
 import prisma from '@/lib/prisma'
 import { auth } from '@clerk/nextjs/server'
+import { percent } from 'motion/react'
 
 export async function createSnippet(
   title: string,
@@ -114,4 +115,66 @@ export async function deleteSnippet(slug: string) {
       slug,
     },
   })
+}
+
+// get snippets count and also percentage of increase or decrease
+export async function getSnippetCount() {
+  const { userId } = await auth()
+  if (!userId) {
+    console.warn('No userId found during getSnippetCount()')
+    return {
+      snippetCount: 0,
+      percentChangeSnippets: 0,
+    }
+  }
+
+  const today = new Date()
+  const sevenDaysAgo = new Date(today.getDate() - 7)
+  const fourteenDaysAgo = new Date(today.getDate() - 14)
+
+  const [snippetCount, thisWeekCount, lastWeekCount] = await Promise.all([
+    prisma.snippet.count({
+      where: {
+        User: {
+          clerkId: userId,
+        },
+      },
+    }),
+    prisma.snippet.count({
+      where: {
+        User: {
+          clerkId: userId,
+        },
+        createdAt: {
+          gte: sevenDaysAgo,
+        },
+      },
+    }),
+    prisma.snippet.count({
+      where: {
+        User: {
+          clerkId: userId,
+        },
+        createdAt: {
+          gte: fourteenDaysAgo,
+          lt: sevenDaysAgo,
+        },
+      },
+    }),
+  ])
+
+  // calculate percentage change
+  let percentChangeSnippets = 0
+  if (lastWeekCount === 0 && thisWeekCount > 0) {
+    percentChangeSnippets = 100 // New snippets this week, no snippets last week
+  } else if (lastWeekCount === 0 && thisWeekCount === 0) {
+    percentChangeSnippets = 0 // No snippets in both weeks
+  } else {
+    percentChangeSnippets = ((thisWeekCount - lastWeekCount) / lastWeekCount) * 100
+  }
+
+  return {
+    snippetCount,
+    percentChangeSnippets,
+  }
 }

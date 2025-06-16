@@ -1,21 +1,16 @@
-'use client'
+import { getSnippetCount } from '@/actions/snippets'
+import DashboardClient from './DashboardClient'
+import { getNoteCount } from '@/actions/notes'
 
-import React from 'react'
-import { useUser } from '@clerk/nextjs'
-import Container from '@/components/Container'
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
-
-const Page = () => {
-  const { user } = useUser()
-
+export default async function DashboardPage() {
+  const { snippetCount, percentChangeSnippets } = await getSnippetCount()
+ const {noteCount, percentChangeNotes} =  await getNoteCount()
   return (
-    <Container>
-      <div className="flex items-center space-x-4">
-        <Avatar className="h-14 w-14">
-          <AvatarImage src={user?.imageUrl} alt={user?.fullName || 'User'} />
-        </Avatar>
-        <h1 className="text-3xl font-bold">Welcome, {user?.firstName}!</h1>
-      </div>
-    </Container>
+    <DashboardClient
+      snippetCount={snippetCount}
+      percentChangeSnippets={percentChangeSnippets}
+      noteCount={noteCount}
+      percentChangeNotes={percentChangeNotes}
+    />
   )
 }
