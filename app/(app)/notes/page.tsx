@@ -1,11 +1,7 @@
-import React from 'react'
-
-function NotesPage() {
+export default function NotesPage() {
   return (
     <div>
       NotesPage
     </div>
   )
 }
-
-export default NotesPage

@@ -19,5 +19,3 @@ const Page = () => {
     </Container>
   )
 }
-
-export default Page
