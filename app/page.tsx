@@ -5,7 +5,6 @@ import { GradientBlob } from '@/components/GradientBlob'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import { useAuth } from '@clerk/nextjs'
-import DashboardPage from './dashboard/page'
 
 export default function HomePage() {
   const { isSignedIn, isLoaded } = useAuth()
@@ -23,7 +22,7 @@ export default function HomePage() {
             <Hero />
           ) : (
             <div>
-              <DashboardPage />
+              
             </div>
           )}
         </Container>
