@@ -8,7 +8,7 @@ export async function createSnippet(
   title: string,
   fileName: string,
   language: string,
-  content: string
+  content: string,
 ): Promise<{ success: boolean; message: string }> {
   try {
     const { userId } = await auth()
@@ -85,7 +85,7 @@ export async function getSnippetFromSlug(slug: string) {
 export async function updateSnippet(
   slug: string,
   title: string,
-  content: string
+  content: string,
 ) {
   const newSLug = title.replace(/\s+/g, '-').toLowerCase()
 
@@ -170,11 +170,36 @@ export async function getSnippetCount() {
   } else if (lastWeekCount === 0 && thisWeekCount === 0) {
     percentChangeSnippets = 0 // No snippets in both weeks
   } else {
-    percentChangeSnippets = ((thisWeekCount - lastWeekCount) / lastWeekCount) * 100
+    percentChangeSnippets =
+      ((thisWeekCount - lastWeekCount) / lastWeekCount) * 100
   }
 
   return {
     snippetCount,
     percentChangeSnippets,
   }
+}
+
+// get snippet language stats
+export async function getSnippetLanguageStats() {
+  const { userId } = await auth()
+  if (!userId) {
+    console.warn('No userId found during getSnippetLanguageStats()')
+    return []
+  }
+
+  const stats = await prisma.snippet.groupBy({
+    by: ['language'],
+    where: {
+      User: {
+        clerkId: userId,
+      },
+    },
+    _count: true,
+  })
+  
+  return stats.map((stat) => ({
+    name: stat.language,
+    value: stat._count,
+  }))
 }
