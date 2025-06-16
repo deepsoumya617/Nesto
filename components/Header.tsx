@@ -5,17 +5,10 @@ import { Waves } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '@clerk/nextjs'
 import { UserAvatar } from './UserAvatar'
-<<<<<<< HEAD
-
 import { MobileMenu } from './MobileMenu'
 import { Geist } from 'next/font/google'
-import { navMenuLinks } from '@/lib/constants/nav'
-=======
-import { navMenuLinks, navMenuLinksSignedIn } from '@/lib/constans/nav'
-import { MobileMenu } from './MobileMenu'
-import { Geist } from 'next/font/google'
+import { navMenuLinks, navMenuLinksSignedIn } from '@/lib/constants/nav'
 import Link from 'next/link'
->>>>>>> 00714eb9a9ac9c4057368501b02542fe72d4a73e
 
 const geist = Geist({
   subsets: ['latin'],
