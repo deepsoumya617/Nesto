@@ -1,6 +1,6 @@
 'use client'
 
-import { ListFilter, Search } from 'lucide-react'
+import { ListFilter } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,21 +20,18 @@ export default function SearchBar({
   setSortOrder,
 }: SearchBarProps) {
   return (
-    <div className="mt-10 flex items-center">
+    <div className="-mt-2 flex items-center px-5">
       <input
         type="text"
         value={searchVal}
         onChange={(e) => setSearchVal(e.target.value)}
-        className="w-full h-15 px-5 bg-gray-100 rounded-l-xl border-none focus:outline-none font-medium tracking-wider text-lg"
+        className="h-14 w-full rounded-l-xl border-none bg-gray-100 dark:bg-zinc-900 px-5 text-[16px] font-medium focus:outline-none"
+        placeholder="search notes..."
+        autoFocus
       />
-      <button
-        // disabled={true}
-        className="text-zinc-500 text-xl bg-gray-100 h-15 px-6 rounded-r-xl"
-      >
-        <Search />
-      </button>
+      <div className="h-14 rounded-r-xl bg-gray-100 dark:bg-zinc-900  px-6" />
       <DropdownMenu>
-        <DropdownMenuTrigger className="bg-gray-100 h-15 px-5 rounded-xl mx-2 cursor-pointer">
+        <DropdownMenuTrigger className="ml-2 h-14 cursor-pointer rounded-xl bg-gray-100 px-5 dark:bg-zinc-900">
           <ListFilter />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
