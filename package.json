@@ -16,7 +16,7 @@
     "@codemirror/lang-java": "^6.0.1",
     "@codemirror/lang-javascript": "^6.2.4",
     "@codemirror/lang-python": "^6.2.1",
-    "@prisma/client": "^6.8.2",
+    "@prisma/client": "^6.10.1",
     "@prisma/extension-accelerate": "^2.0.0",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-avatar": "^1.1.10",
@@ -60,7 +60,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "prettier-plugin-tailwindcss": "^0.6.12",
-    "prisma": "^6.8.2",
+    "prisma": "^6.10.1",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.4",
     "typescript": "^5"

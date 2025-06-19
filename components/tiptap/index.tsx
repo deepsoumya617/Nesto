@@ -48,7 +48,7 @@ export default function Tiptap({
     editable,
     editorProps: {
       attributes: {
-        class: 'focus:outline-none  px-7 py-4 font-regular tracking-[0.3px]',
+        class: 'focus:outline-none  px-7 py-4 font-regular tracking-[0.2px]',
       },
     },
     onUpdate: ({ editor }) => {

@@ -3,8 +3,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import NoteSidebar from './NoteSidebar'
 import { Note } from '@/types/note'
-import { deleteNote, getNote } from '@/actions/notes'
+import { createNote, deleteNote, getNote, updateNote } from '@/actions/notes'
 import NoteEditor from './NoteEditor'
+import { toast } from 'sonner'
 
 export default function NoteLayout() {
   const [searchVal, setSearchVal] = useState('')
@@ -17,6 +18,12 @@ export default function NoteLayout() {
   const isEditable = mode !== 'view'
   const [isLoading, setIsLoading] = useState(false)
   const [deletingNoteId, setDeletingNoteId] = useState<string | null>(null)
+  const [isSaving, setIsSaving] = useState(false)
+
+  // // mobile tabs
+  // const [activeMobileView, setActiveMobileView] = useState<
+  //   'sidebar' | 'editor'
+  // >('sidebar')
 
   // Fetch notes from db and pass them to NoteSidebar
   useEffect(() => {
@@ -64,8 +71,50 @@ export default function NoteLayout() {
   }, [notes, searchVal, sortOrder])
 
   // crud operations
-  async function handleCreateNote() {}
-  async function handleUpdateNote() {}
+  // create note
+  async function handleCreateNote() {
+    if (isSaving) return // already saving a note
+    try {
+      setIsSaving(true)
+      const result = await createNote(title, content)
+      if (result.success && result.note) {
+        // reload the notes to reflect the newly created note
+        setNotes((prevNotes) => [result.note!, ...prevNotes])
+
+        // reset the editor
+        setTitle('')
+        setContent('')
+        setMode('create')
+        toast('Note created successfully!')
+      }
+    } catch (error) {
+      console.error('Error creating note:', error)
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  // update note
+  async function handleUpdateNote() {
+    if (isSaving || !selectedNoteId) return // already saving or no note selected
+    try {
+      setIsSaving(true)
+      const result = await updateNote(selectedNoteId!, title, content)
+      if (result.success) {
+        setNotes((prevNotes) =>
+          prevNotes.map((note) =>
+            note.id === selectedNoteId ? { ...note, title, content } : note,
+          ),
+        )
+        setMode('view') // switch back to view mode
+        toast.success('Note updated successfully!')
+      } else toast.error(result.message || 'Failed to update note')
+    } catch (error) {
+      console.error('Error updating note:', error)
+    } finally {
+      setIsSaving(false)
+    }
+  }
 
   // delete note
   async function handleDeleteNote(noteId: string) {
@@ -74,6 +123,7 @@ export default function NoteLayout() {
       setDeletingNoteId(noteId)
       await deleteNote(noteId)
       window.location.reload() // reload to reflect changes
+      toast('Note Deleted Successfully!')
     } catch (error) {
       console.error('Error deleting note:', error)
     } finally {
@@ -82,7 +132,7 @@ export default function NoteLayout() {
   }
 
   return (
-    <div className="mx-auto flex h-[calc(100vh-4.53rem)] max-w-6xl flex-col md:flex-row md:border-x">
+    <div className="mx-auto flex h-[calc(100vh-4.53rem)] max-w-6xl flex-col md:flex-row md:border-x"> 
       <NoteSidebar
         notes={filteredNotes}
         setTitle={setTitle}
@@ -99,11 +149,14 @@ export default function NoteLayout() {
       <NoteEditor
         title={title}
         content={content}
+        mode={mode}
         setTitle={setTitle}
         setContent={setContent}
-        mode={mode}
-        setMode={setMode}
         isEditable={isEditable}
+        handleCreateNote={handleCreateNote}
+        handleUpdateNote={handleUpdateNote}
+        isSaving={isSaving}
+        setMode={setMode}
       />
     </div>
   )

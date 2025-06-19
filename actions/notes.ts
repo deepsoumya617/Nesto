@@ -1,12 +1,13 @@
 'use server'
 
 import prisma from '@/lib/prisma'
+import { Note } from '@/types/note'
 import { auth } from '@clerk/nextjs/server'
 
 export async function createNote(
   title: string,
-  content: string
-): Promise<{ success: boolean; message: string }> {
+  content: string,
+): Promise<{ success: boolean; message: string; note?: Note }> {
   try {
     const { userId } = await auth()
     if (!userId) {
@@ -23,16 +24,15 @@ export async function createNote(
     }
 
     // create note
-    await prisma.note.create({
+    const note = await prisma.note.create({
       data: {
         title,
         content,
-        slug: title.replace(/\s+/g, '-').toLowerCase(),
         userId: user.id,
       },
     })
 
-    return { success: true, message: 'Note created successfully!' }
+    return { success: true, message: 'Note created successfully!', note }
   } catch (error) {
     console.error('Error creating note:', error)
     return { success: false, message: 'Failed to create note' }
@@ -65,18 +65,6 @@ export async function getNote() {
   }
 }
 
-export async function getFullNote(slug: string) {
-  const note = await prisma.note.findUnique({
-    where: { slug },
-  })
-
-  if (!note) return null
-  return {
-    title: note.title,
-    content: note.content,
-  }
-}
-
 export async function deleteNote(id: string) {
   await prisma.note.delete({
     where: {
@@ -85,21 +73,17 @@ export async function deleteNote(id: string) {
   })
 }
 
-export async function updateNote(slug: string, title: string, content: string) {
-  const newSLug = title.replace(/\s+/g, '-').toLowerCase()
-
+export async function updateNote(id: string, title: string, content: string) {
   try {
     await prisma.note.update({
-      where: { slug },
+      where: { id },
       data: {
         title,
         content,
-        slug: newSLug,
       },
     })
     return {
       success: true,
-      slug: newSLug,
       message: 'Note updated successfully!',
     }
   } catch (error) {

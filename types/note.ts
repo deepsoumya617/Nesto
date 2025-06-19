@@ -1,7 +1,6 @@
 export type Note = {
   id: string
   title: string
-  slug: string
   content: string
   createdAt: Date
   updatedAt: Date
@@ -24,9 +23,12 @@ export type NoteSidebarprops = {
 export type NoteEditorProps = {
   title: string
   content: string
+  isEditable: boolean
+  isSaving: boolean
+  mode: 'create' | 'view' | 'edit'
   setTitle: (title: string) => void
   setContent: (content: string) => void
-  mode: 'create' | 'view' | 'edit'
+  handleCreateNote: () => void
+  handleUpdateNote: () => void
   setMode: (mode: 'create' | 'view' | 'edit') => void
-  isEditable: boolean
 }

@@ -1,15 +1,18 @@
 import Tiptap from '@/components/tiptap'
-import { Button } from '@/components/ui/button'
 import { NoteEditorProps } from '@/types/note'
+import { Check, X } from 'lucide-react'
 
 export default function NoteEditor({
   title,
   content,
+  mode,
+  isEditable,
+  isSaving,
   setTitle,
   setContent,
-  mode,
   setMode,
-  isEditable,
+  handleCreateNote,
+  handleUpdateNote,
 }: NoteEditorProps) {
   return (
     <div className="flex flex-1 flex-col">
@@ -25,8 +28,38 @@ export default function NoteEditor({
       />
       {/* editor */}
       <Tiptap content={content} onChange={setContent} editable={isEditable} />
-      <div className='flex items-center'>
-        <Button>Save</Button>
+
+      {/* fab */}
+      <div
+        className={
+          'absolute right-56 bottom-6 z-30 flex gap-4' +
+          (!isEditable ? ' hidden' : '')
+        }
+      >
+        <button
+          className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-black transition-colors hover:bg-black/85 dark:bg-white dark:hover:bg-white/85"
+          onClick={() => {
+            if (mode === 'create') return handleCreateNote()
+            if (mode === 'edit') return handleUpdateNote()
+          }}
+          disabled={isSaving}
+        >
+          <Check strokeWidth={2.4} className="text-white dark:text-black" />
+        </button>
+        <button
+          className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-red-600"
+          onClick={() => {
+            if (mode === 'edit') return setMode('view')
+            if (mode === 'create') {
+              setTitle('')
+              setContent('')
+              return setMode('create')
+            }
+            setMode('view')
+          }}
+        >
+          <X strokeWidth={2.4} className="text-white" />
+        </button>
       </div>
     </div>
   )

@@ -2162,7 +2162,6 @@ export namespace Prisma {
   export type NoteMinAggregateOutputType = {
     id: string | null
     title: string | null
-    slug: string | null
     content: string | null
     userId: string | null
     createdAt: Date | null
@@ -2172,7 +2171,6 @@ export namespace Prisma {
   export type NoteMaxAggregateOutputType = {
     id: string | null
     title: string | null
-    slug: string | null
     content: string | null
     userId: string | null
     createdAt: Date | null
@@ -2182,7 +2180,6 @@ export namespace Prisma {
   export type NoteCountAggregateOutputType = {
     id: number
     title: number
-    slug: number
     content: number
     userId: number
     createdAt: number
@@ -2194,7 +2191,6 @@ export namespace Prisma {
   export type NoteMinAggregateInputType = {
     id?: true
     title?: true
-    slug?: true
     content?: true
     userId?: true
     createdAt?: true
@@ -2204,7 +2200,6 @@ export namespace Prisma {
   export type NoteMaxAggregateInputType = {
     id?: true
     title?: true
-    slug?: true
     content?: true
     userId?: true
     createdAt?: true
@@ -2214,7 +2209,6 @@ export namespace Prisma {
   export type NoteCountAggregateInputType = {
     id?: true
     title?: true
-    slug?: true
     content?: true
     userId?: true
     createdAt?: true
@@ -2297,7 +2291,6 @@ export namespace Prisma {
   export type NoteGroupByOutputType = {
     id: string
     title: string
-    slug: string
     content: string
     userId: string | null
     createdAt: Date
@@ -2324,7 +2317,6 @@ export namespace Prisma {
   export type NoteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    slug?: boolean
     content?: boolean
     userId?: boolean
     createdAt?: boolean
@@ -2335,7 +2327,6 @@ export namespace Prisma {
   export type NoteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    slug?: boolean
     content?: boolean
     userId?: boolean
     createdAt?: boolean
@@ -2346,7 +2337,6 @@ export namespace Prisma {
   export type NoteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    slug?: boolean
     content?: boolean
     userId?: boolean
     createdAt?: boolean
@@ -2357,14 +2347,13 @@ export namespace Prisma {
   export type NoteSelectScalar = {
     id?: boolean
     title?: boolean
-    slug?: boolean
     content?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type NoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "content" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["note"]>
+  export type NoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["note"]>
   export type NoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | Note$UserArgs<ExtArgs>
   }
@@ -2383,7 +2372,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
-      slug: string
       content: string
       userId: string | null
       createdAt: Date
@@ -2814,7 +2802,6 @@ export namespace Prisma {
   interface NoteFieldRefs {
     readonly id: FieldRef<"Note", 'String'>
     readonly title: FieldRef<"Note", 'String'>
-    readonly slug: FieldRef<"Note", 'String'>
     readonly content: FieldRef<"Note", 'String'>
     readonly userId: FieldRef<"Note", 'String'>
     readonly createdAt: FieldRef<"Note", 'DateTime'>
@@ -3265,7 +3252,6 @@ export namespace Prisma {
   export type SnippetMinAggregateOutputType = {
     id: string | null
     title: string | null
-    slug: string | null
     fileName: string | null
     language: string | null
     content: string | null
@@ -3277,7 +3263,6 @@ export namespace Prisma {
   export type SnippetMaxAggregateOutputType = {
     id: string | null
     title: string | null
-    slug: string | null
     fileName: string | null
     language: string | null
     content: string | null
@@ -3289,7 +3274,6 @@ export namespace Prisma {
   export type SnippetCountAggregateOutputType = {
     id: number
     title: number
-    slug: number
     fileName: number
     language: number
     content: number
@@ -3303,7 +3287,6 @@ export namespace Prisma {
   export type SnippetMinAggregateInputType = {
     id?: true
     title?: true
-    slug?: true
     fileName?: true
     language?: true
     content?: true
@@ -3315,7 +3298,6 @@ export namespace Prisma {
   export type SnippetMaxAggregateInputType = {
     id?: true
     title?: true
-    slug?: true
     fileName?: true
     language?: true
     content?: true
@@ -3327,7 +3309,6 @@ export namespace Prisma {
   export type SnippetCountAggregateInputType = {
     id?: true
     title?: true
-    slug?: true
     fileName?: true
     language?: true
     content?: true
@@ -3412,7 +3393,6 @@ export namespace Prisma {
   export type SnippetGroupByOutputType = {
     id: string
     title: string
-    slug: string
     fileName: string
     language: string
     content: string
@@ -3441,7 +3421,6 @@ export namespace Prisma {
   export type SnippetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    slug?: boolean
     fileName?: boolean
     language?: boolean
     content?: boolean
@@ -3454,7 +3433,6 @@ export namespace Prisma {
   export type SnippetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    slug?: boolean
     fileName?: boolean
     language?: boolean
     content?: boolean
@@ -3467,7 +3445,6 @@ export namespace Prisma {
   export type SnippetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    slug?: boolean
     fileName?: boolean
     language?: boolean
     content?: boolean
@@ -3480,7 +3457,6 @@ export namespace Prisma {
   export type SnippetSelectScalar = {
     id?: boolean
     title?: boolean
-    slug?: boolean
     fileName?: boolean
     language?: boolean
     content?: boolean
@@ -3489,7 +3465,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type SnippetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "fileName" | "language" | "content" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["snippet"]>
+  export type SnippetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "fileName" | "language" | "content" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["snippet"]>
   export type SnippetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | Snippet$UserArgs<ExtArgs>
   }
@@ -3508,7 +3484,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
-      slug: string
       fileName: string
       language: string
       content: string
@@ -3941,7 +3916,6 @@ export namespace Prisma {
   interface SnippetFieldRefs {
     readonly id: FieldRef<"Snippet", 'String'>
     readonly title: FieldRef<"Snippet", 'String'>
-    readonly slug: FieldRef<"Snippet", 'String'>
     readonly fileName: FieldRef<"Snippet", 'String'>
     readonly language: FieldRef<"Snippet", 'String'>
     readonly content: FieldRef<"Snippet", 'String'>
@@ -4406,7 +4380,6 @@ export namespace Prisma {
   export const NoteScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    slug: 'slug',
     content: 'content',
     userId: 'userId',
     createdAt: 'createdAt',
@@ -4419,7 +4392,6 @@ export namespace Prisma {
   export const SnippetScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    slug: 'slug',
     fileName: 'fileName',
     language: 'language',
     content: 'content',
@@ -4554,7 +4526,6 @@ export namespace Prisma {
     NOT?: NoteWhereInput | NoteWhereInput[]
     id?: StringFilter<"Note"> | string
     title?: StringFilter<"Note"> | string
-    slug?: StringFilter<"Note"> | string
     content?: StringFilter<"Note"> | string
     userId?: StringNullableFilter<"Note"> | string | null
     createdAt?: DateTimeFilter<"Note"> | Date | string
@@ -4565,7 +4536,6 @@ export namespace Prisma {
   export type NoteOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     content?: SortOrder
     userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -4575,7 +4545,6 @@ export namespace Prisma {
 
   export type NoteWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    slug?: string
     AND?: NoteWhereInput | NoteWhereInput[]
     OR?: NoteWhereInput[]
     NOT?: NoteWhereInput | NoteWhereInput[]
@@ -4585,12 +4554,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Note"> | Date | string
     updatedAt?: DateTimeFilter<"Note"> | Date | string
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }, "id" | "slug">
+  }, "id">
 
   export type NoteOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     content?: SortOrder
     userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -4606,7 +4574,6 @@ export namespace Prisma {
     NOT?: NoteScalarWhereWithAggregatesInput | NoteScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Note"> | string
     title?: StringWithAggregatesFilter<"Note"> | string
-    slug?: StringWithAggregatesFilter<"Note"> | string
     content?: StringWithAggregatesFilter<"Note"> | string
     userId?: StringNullableWithAggregatesFilter<"Note"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Note"> | Date | string
@@ -4619,7 +4586,6 @@ export namespace Prisma {
     NOT?: SnippetWhereInput | SnippetWhereInput[]
     id?: StringFilter<"Snippet"> | string
     title?: StringFilter<"Snippet"> | string
-    slug?: StringFilter<"Snippet"> | string
     fileName?: StringFilter<"Snippet"> | string
     language?: StringFilter<"Snippet"> | string
     content?: StringFilter<"Snippet"> | string
@@ -4632,7 +4598,6 @@ export namespace Prisma {
   export type SnippetOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     fileName?: SortOrder
     language?: SortOrder
     content?: SortOrder
@@ -4644,7 +4609,6 @@ export namespace Prisma {
 
   export type SnippetWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    slug?: string
     AND?: SnippetWhereInput | SnippetWhereInput[]
     OR?: SnippetWhereInput[]
     NOT?: SnippetWhereInput | SnippetWhereInput[]
@@ -4656,12 +4620,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Snippet"> | Date | string
     updatedAt?: DateTimeFilter<"Snippet"> | Date | string
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }, "id" | "slug">
+  }, "id">
 
   export type SnippetOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     fileName?: SortOrder
     language?: SortOrder
     content?: SortOrder
@@ -4679,7 +4642,6 @@ export namespace Prisma {
     NOT?: SnippetScalarWhereWithAggregatesInput | SnippetScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Snippet"> | string
     title?: StringWithAggregatesFilter<"Snippet"> | string
-    slug?: StringWithAggregatesFilter<"Snippet"> | string
     fileName?: StringWithAggregatesFilter<"Snippet"> | string
     language?: StringWithAggregatesFilter<"Snippet"> | string
     content?: StringWithAggregatesFilter<"Snippet"> | string
@@ -4734,7 +4696,6 @@ export namespace Prisma {
   export type NoteCreateInput = {
     id?: string
     title: string
-    slug: string
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -4744,7 +4705,6 @@ export namespace Prisma {
   export type NoteUncheckedCreateInput = {
     id?: string
     title: string
-    slug: string
     content: string
     userId?: string | null
     createdAt?: Date | string
@@ -4754,7 +4714,6 @@ export namespace Prisma {
   export type NoteUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4764,7 +4723,6 @@ export namespace Prisma {
   export type NoteUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4774,7 +4732,6 @@ export namespace Prisma {
   export type NoteCreateManyInput = {
     id?: string
     title: string
-    slug: string
     content: string
     userId?: string | null
     createdAt?: Date | string
@@ -4784,7 +4741,6 @@ export namespace Prisma {
   export type NoteUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4793,7 +4749,6 @@ export namespace Prisma {
   export type NoteUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4803,7 +4758,6 @@ export namespace Prisma {
   export type SnippetCreateInput = {
     id?: string
     title: string
-    slug: string
     fileName: string
     language: string
     content: string
@@ -4815,7 +4769,6 @@ export namespace Prisma {
   export type SnippetUncheckedCreateInput = {
     id?: string
     title: string
-    slug: string
     fileName: string
     language: string
     content: string
@@ -4827,7 +4780,6 @@ export namespace Prisma {
   export type SnippetUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
@@ -4839,7 +4791,6 @@ export namespace Prisma {
   export type SnippetUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
@@ -4851,7 +4802,6 @@ export namespace Prisma {
   export type SnippetCreateManyInput = {
     id?: string
     title: string
-    slug: string
     fileName: string
     language: string
     content: string
@@ -4863,7 +4813,6 @@ export namespace Prisma {
   export type SnippetUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
@@ -4874,7 +4823,6 @@ export namespace Prisma {
   export type SnippetUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
@@ -4990,7 +4938,6 @@ export namespace Prisma {
   export type NoteCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     content?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -5000,7 +4947,6 @@ export namespace Prisma {
   export type NoteMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     content?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -5010,7 +4956,6 @@ export namespace Prisma {
   export type NoteMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     content?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -5052,7 +4997,6 @@ export namespace Prisma {
   export type SnippetCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     fileName?: SortOrder
     language?: SortOrder
     content?: SortOrder
@@ -5064,7 +5008,6 @@ export namespace Prisma {
   export type SnippetMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     fileName?: SortOrder
     language?: SortOrder
     content?: SortOrder
@@ -5076,7 +5019,6 @@ export namespace Prisma {
   export type SnippetMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    slug?: SortOrder
     fileName?: SortOrder
     language?: SortOrder
     content?: SortOrder
@@ -5325,7 +5267,6 @@ export namespace Prisma {
   export type NoteCreateWithoutUserInput = {
     id?: string
     title: string
-    slug: string
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5334,7 +5275,6 @@ export namespace Prisma {
   export type NoteUncheckedCreateWithoutUserInput = {
     id?: string
     title: string
-    slug: string
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5353,7 +5293,6 @@ export namespace Prisma {
   export type SnippetCreateWithoutUserInput = {
     id?: string
     title: string
-    slug: string
     fileName: string
     language: string
     content: string
@@ -5364,7 +5303,6 @@ export namespace Prisma {
   export type SnippetUncheckedCreateWithoutUserInput = {
     id?: string
     title: string
-    slug: string
     fileName: string
     language: string
     content: string
@@ -5404,7 +5342,6 @@ export namespace Prisma {
     NOT?: NoteScalarWhereInput | NoteScalarWhereInput[]
     id?: StringFilter<"Note"> | string
     title?: StringFilter<"Note"> | string
-    slug?: StringFilter<"Note"> | string
     content?: StringFilter<"Note"> | string
     userId?: StringNullableFilter<"Note"> | string | null
     createdAt?: DateTimeFilter<"Note"> | Date | string
@@ -5433,7 +5370,6 @@ export namespace Prisma {
     NOT?: SnippetScalarWhereInput | SnippetScalarWhereInput[]
     id?: StringFilter<"Snippet"> | string
     title?: StringFilter<"Snippet"> | string
-    slug?: StringFilter<"Snippet"> | string
     fileName?: StringFilter<"Snippet"> | string
     language?: StringFilter<"Snippet"> | string
     content?: StringFilter<"Snippet"> | string
@@ -5525,7 +5461,6 @@ export namespace Prisma {
   export type NoteCreateManyUserInput = {
     id?: string
     title: string
-    slug: string
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5534,7 +5469,6 @@ export namespace Prisma {
   export type SnippetCreateManyUserInput = {
     id?: string
     title: string
-    slug: string
     fileName: string
     language: string
     content: string
@@ -5545,7 +5479,6 @@ export namespace Prisma {
   export type NoteUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5554,7 +5487,6 @@ export namespace Prisma {
   export type NoteUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5563,7 +5495,6 @@ export namespace Prisma {
   export type NoteUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5572,7 +5503,6 @@ export namespace Prisma {
   export type SnippetUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
@@ -5583,7 +5513,6 @@ export namespace Prisma {
   export type SnippetUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
@@ -5594,7 +5523,6 @@ export namespace Prisma {
   export type SnippetUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    slug?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     language?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string

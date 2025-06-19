@@ -24,7 +24,6 @@ model User {
 model Note {
   id        String   @id @default(uuid())
   title     String
-  slug      String   @unique
   content   String // will change it later
   User      User?    @relation(fields: [userId], references: [id])
   userId    String?
@@ -35,7 +34,6 @@ model Note {
 model Snippet {
   id        String   @id @default(uuid())
   title     String
-  slug      String   @unique
   fileName  String
   language  String
   content   String

@@ -281,3 +281,19 @@
   @apply text-lg font-medium mb-1;
 }
 
+/* toast */
+[data-sonner-toast] {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 12px !important;
+  line-height: 1.5;
+}
+
+[data-sonner-toast] .font-medium {
+  font-family: 'Poppins', sans-serif !important; /* for titles */
+  font-weight: 600 !important;
+}
+
+[data-sonner-toast] .text-sm {
+  font-family: 'Poppins', sans-serif !important; /* for descriptions */
+  font-size: 14px !important;
+}

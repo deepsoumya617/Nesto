@@ -86,7 +86,7 @@ export default function NoteSidebar({
                     />
                   </li>
                   <div className="flex cursor-pointer items-center gap-3 pr-6">
-                    <Pencil size="16" />
+                    <Pencil size="16" onClick={() => setMode('edit')}/>
                     {deletingNoteId === note.id ? (
                       <HashLoader size="10" />
                     ) : (
