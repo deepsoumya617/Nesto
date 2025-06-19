@@ -6,13 +6,15 @@ import MenuBar from './MenuBar'
 import TextAlign from '@tiptap/extension-text-align'
 import Highlight from '@tiptap/extension-highlight'
 import Underline from '@tiptap/extension-underline'
+import Placeholder from '@tiptap/extension-placeholder'
+import { TiptapEditorProps } from '@/types/tiptap'
+import { useEffect } from 'react'
 
-type EditorProp = {
-  content: string
-  onChange: (content: string) => void
-}
-
-export default function Tiptap({ content, onChange }: EditorProp) {
+export default function Tiptap({
+  content,
+  onChange,
+  editable,
+}: TiptapEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -35,19 +37,38 @@ export default function Tiptap({ content, onChange }: EditorProp) {
           class: 'bg-purple-500 text-white px-1 py-1',
         },
       }),
+      Placeholder.configure({
+        placeholder: 'Start typing your note...',
+        emptyEditorClass:
+          'text-gray-400 dark:text-gray-500 text-sm tracking-wide',
+      }),
       Underline,
     ],
     content: content,
+    editable,
     editorProps: {
       attributes: {
-        class:
-          'mt-4 min-h-[400px] md:min-h-96 bg-gray-50 px-6 py-6 focus:outline-none tracking-wide border border-black shadow-[6px_9px_0px_rgba(0,0,0,1)] rounded',
+        class: 'focus:outline-none  px-7 py-4 font-regular tracking-[0.3px]',
       },
     },
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML())
     },
+    immediatelyRender: false
   })
+
+  // Update the editor content when the content prop changes
+  useEffect(() => {
+    if (editor && content !== editor.getHTML()) {
+      editor.commands.setContent(content)
+    }
+  }, [content, editor])
+
+  useEffect(() => {
+    if (editor) {
+      editor.setEditable(editable)
+    }
+  }, [editable, editor])
 
   return (
     <div>

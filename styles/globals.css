@@ -260,3 +260,24 @@
   width: 0px; /* Hides the scrollbar */
   background: transparent; /* Makes it blend with the background */
 }
+
+.ProseMirror p::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* These will apply globally inside the editor */
+.ProseMirror h1 {
+  @apply text-2xl font-bold mb-3;
+}
+
+.ProseMirror h2 {
+  @apply text-xl font-semibold mb-2;
+}
+
+.ProseMirror h3 {
+  @apply text-lg font-medium mb-1;
+}
+
