@@ -1,4 +1,5 @@
 import Tiptap from '@/components/tiptap'
+import { Button } from '@/components/ui/button'
 import { NoteEditorProps } from '@/types/note'
 
 export default function NoteEditor({
@@ -20,9 +21,13 @@ export default function NoteEditor({
         placeholder="Note Title"
         className="w-full border-b py-5 pl-7 font-semibold tracking-wide outline-none"
         disabled={!isEditable}
+        required
       />
       {/* editor */}
       <Tiptap content={content} onChange={setContent} editable={isEditable} />
+      <div className='flex items-center'>
+        <Button>Save</Button>
+      </div>
     </div>
   )
 }

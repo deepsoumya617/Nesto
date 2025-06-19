@@ -270,7 +270,7 @@
 
 /* These will apply globally inside the editor */
 .ProseMirror h1 {
-  @apply text-2xl font-bold mb-3;
+  @apply text-2xl font-bold mb-3 pl-4 border-l-4 border-gray-400 dark:border-gray-400;
 }
 
 .ProseMirror h2 {

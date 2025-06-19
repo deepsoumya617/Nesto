@@ -1,5 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
-// import { url } from 'inspector'
+import { NextResponse } from 'next/server' // Import NextResponse
 
 const isProtectedRoute = createRouteMatcher([
   '/dashboard(.*)',
@@ -16,15 +16,20 @@ export default clerkMiddleware(async (auth, req) => {
   if (userId && pathname === '/') {
     const url = req.nextUrl.clone()
     url.pathname = '/dashboard'
-    return Response.redirect(url)
+    // Use NextResponse.redirect instead of Response.redirect
+    return NextResponse.redirect(url)
   }
 
   // If not authenticated and trying to access protected route, redirect to sign-in
   if (!userId && isProtectedRoute(req)) {
+    // redirectToSignIn typically returns a NextResponse.redirect internally,
+    // so this line is likely not the direct cause of the immutable error.
+    // The issue usually comes from Response.redirect.
     return redirectToSignIn({ returnBackUrl: req.url })
   }
 
   // Otherwise, allow the request to proceed
+  return NextResponse.next() // Explicitly return NextResponse.next() for clarity
 })
 
 export const config = {

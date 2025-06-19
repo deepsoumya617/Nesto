@@ -73,7 +73,7 @@ export default function Tiptap({
   return (
     <div>
       <MenuBar editor={editor} />
-      <EditorContent editor={editor} />
+      <EditorContent editor={editor} required />
     </div>
   )
 }

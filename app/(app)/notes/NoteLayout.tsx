@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import NoteSidebar from './NoteSidebar'
 import { Note } from '@/types/note'
-import { getNote } from '@/actions/notes'
+import { deleteNote, getNote } from '@/actions/notes'
 import NoteEditor from './NoteEditor'
 
 export default function NoteLayout() {
@@ -16,6 +16,7 @@ export default function NoteLayout() {
   const [mode, setMode] = useState<'create' | 'view' | 'edit'>('create')
   const isEditable = mode !== 'view'
   const [isLoading, setIsLoading] = useState(false)
+  const [deletingNoteId, setDeletingNoteId] = useState<string | null>(null)
 
   // Fetch notes from db and pass them to NoteSidebar
   useEffect(() => {
@@ -62,6 +63,24 @@ export default function NoteLayout() {
       })
   }, [notes, searchVal, sortOrder])
 
+  // crud operations
+  async function handleCreateNote() {}
+  async function handleUpdateNote() {}
+
+  // delete note
+  async function handleDeleteNote(noteId: string) {
+    if (deletingNoteId) return // already deleting a note
+    try {
+      setDeletingNoteId(noteId)
+      await deleteNote(noteId)
+      window.location.reload() // reload to reflect changes
+    } catch (error) {
+      console.error('Error deleting note:', error)
+    } finally {
+      setDeletingNoteId(null)
+    }
+  }
+
   return (
     <div className="mx-auto flex h-[calc(100vh-4.53rem)] max-w-6xl flex-col md:flex-row md:border-x">
       <NoteSidebar
@@ -74,6 +93,8 @@ export default function NoteLayout() {
         setSelectedNoteId={setSelectedNoteId}
         setMode={setMode}
         isLoading={isLoading}
+        handleDeleteNote={handleDeleteNote}
+        deletingNoteId={deletingNoteId}
       />
       <NoteEditor
         title={title}

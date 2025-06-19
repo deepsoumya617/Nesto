@@ -77,10 +77,10 @@ export async function getFullNote(slug: string) {
   }
 }
 
-export async function deleteNote(slug: string) {
+export async function deleteNote(id: string) {
   await prisma.note.delete({
     where: {
-      slug,
+      id,
     },
   })
 }
