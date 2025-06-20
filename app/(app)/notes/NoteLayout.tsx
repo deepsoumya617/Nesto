@@ -20,7 +20,6 @@ export default function NoteLayout() {
   const [deletingNoteId, setDeletingNoteId] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
 
-
   // Fetch notes from db and pass them to NoteSidebar
   useEffect(() => {
     async function getNotesFromDb() {
@@ -126,21 +125,29 @@ export default function NoteLayout() {
       setDeletingNoteId(null)
     }
   }
-
+  // h-[calc(100vh-4.53rem)]
+  // h-[100dvh]
   return (
-    <div className="mx-auto flex h-[calc(100vh-4.53rem)] max-w-6xl md:border-x"> 
+    <div className="mx-auto flex h-[calc(100vh-4.53rem)] max-w-6xl overflow-hidden md:border-x">
       <NoteSidebar
+        title={title}
+        content={content}
         notes={filteredNotes}
+        searchVal={searchVal}
+        mode={mode}
+        isSaving={isSaving}
+        deletingNoteId={deletingNoteId}
+        isLoading={isLoading}
+        isEditable={isEditable}
         setTitle={setTitle}
         setContent={setContent}
-        searchVal={searchVal}
         setSearchVal={setSearchVal}
         setSortOrder={setSortOrder}
         setSelectedNoteId={setSelectedNoteId}
         setMode={setMode}
-        isLoading={isLoading}
         handleDeleteNote={handleDeleteNote}
-        deletingNoteId={deletingNoteId}
+        handleCreateNote={handleCreateNote}
+        handleUpdateNote={handleUpdateNote}
       />
       <NoteEditor
         title={title}

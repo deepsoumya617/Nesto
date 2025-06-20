@@ -6,10 +6,16 @@ export type Note = {
   updatedAt: Date
 }
 
-export type NoteSidebarprops = {
+export type NoteSidebarProps = {
   notes: Note[]
   searchVal: string
+  isLoading: boolean
+  isSaving: boolean
+  mode: 'create' | 'view' | 'edit'
+  isEditable: boolean
   deletingNoteId: string | null
+  title: string
+  content: string
   setTitle: (title: string) => void
   setContent: (content: string) => void
   setSearchVal: (val: string) => void
@@ -17,10 +23,12 @@ export type NoteSidebarprops = {
   setSelectedNoteId: (id: string | null) => void
   setMode: (mode: 'create' | 'view' | 'edit') => void
   handleDeleteNote: (id: string) => void
-  isLoading: boolean
+  handleCreateNote: () => void
+  handleUpdateNote: () => void
 }
 
 export type NoteEditorProps = {
+  className?: string
   title: string
   content: string
   isEditable: boolean
@@ -28,7 +36,22 @@ export type NoteEditorProps = {
   mode: 'create' | 'view' | 'edit'
   setTitle: (title: string) => void
   setContent: (content: string) => void
+  setMode: (mode: 'create' | 'view' | 'edit') => void
+  handleCreateNote?: () => void
+  handleUpdateNote: () => void
+}
+
+export type NoteMobileModalProps = {
+  note: Note
+  title: string
+  content: string
+  mode: 'create' | 'view' | 'edit'
+  isSaving: boolean
+  isEditable: boolean
+  onClose: () => void
+  setTitle: (title: string) => void
+  setContent: (content: string) => void
+  setMode: (mode: 'create' | 'view' | 'edit') => void
   handleCreateNote: () => void
   handleUpdateNote: () => void
-  setMode: (mode: 'create' | 'view' | 'edit') => void
 }

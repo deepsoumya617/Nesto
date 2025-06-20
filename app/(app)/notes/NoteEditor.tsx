@@ -8,6 +8,7 @@ export default function NoteEditor({
   mode,
   isEditable,
   isSaving,
+  className,
   setTitle,
   setContent,
   setMode,
@@ -15,7 +16,10 @@ export default function NoteEditor({
   handleUpdateNote,
 }: NoteEditorProps) {
   return (
-    <div className="hidden flex-1 flex-col overflow-y-auto md:flex">
+    <div
+      className={`${className ?? 'hidden md:flex'} flex-1 flex-col overflow-hidden md:pb-28 pb-10`}
+      style={{ minHeight: '100vh' }} // mobile full height fix
+    >
       {/* Title */}
       <input
         type="text"
@@ -27,55 +31,60 @@ export default function NoteEditor({
         required
       />
       {/* editor */}
-      <Tiptap content={content} onChange={setContent} editable={isEditable} />
+      <div className="overflow-y-auto">
+        <Tiptap content={content} onChange={setContent} editable={isEditable} />
+      </div>
 
       {/* edit button */}
-      <button
-        className={
-          'absolute top-56 right-56 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full' +
-          (mode === 'edit' ? ' hidden' : '')
-        }
-        onClick={() => setMode('edit')}
-      >
-        <Pencil
-          strokeWidth={2}
-          className="text-black hover:text-black/80 dark:text-white"
-          size="18"
-        />
-      </button>
+      {mode !== 'edit' && (
+        <button
+          className="fixed top-4 right-16 z-60 flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-800 cursor-pointer"
+          onClick={() => setMode('edit')}
+        >
+          <Pencil
+            strokeWidth={2}
+            className="text-black dark:text-white"
+            size={18}
+          />
+        </button>
+      )}
 
       {/* fab */}
-      <div
-        className={
-          'absolute right-56 bottom-6 z-30 flex gap-4' +
-          (!isEditable ? ' hidden' : '')
-        }
-      >
-        <button
-          className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-black transition-colors hover:bg-black/85 dark:bg-white dark:hover:bg-white/85"
-          onClick={() => {
-            if (mode === 'create') return handleCreateNote()
-            if (mode === 'edit') return handleUpdateNote()
-          }}
-          disabled={isSaving}
-        >
-          <Check strokeWidth={2.4} className="text-white dark:text-black" />
-        </button>
-        <button
-          className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-red-600"
-          onClick={() => {
-            if (mode === 'edit') return setMode('view')
-            if (mode === 'create') {
-              setTitle('')
-              setContent('')
-              return setMode('create')
-            }
-            setMode('view')
-          }}
-        >
-          <X strokeWidth={2.4} className="text-white" />
-        </button>
-      </div>
+      {isEditable && (
+        <div className="fixed right-5 bottom-5 z-50 flex gap-4">
+          <button
+            className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-black transition-colors hover:bg-black/85 dark:bg-white dark:hover:bg-white/85"
+            onClick={() => {
+              if (mode === 'create') return handleCreateNote?.()
+              if (mode === 'edit') return handleUpdateNote()
+            }}
+            disabled={isSaving}
+          >
+            <Check
+              strokeWidth={2.4}
+              className={
+                isSaving
+                  ? 'text-white/70 dark:text-black/70'
+                  : 'text-white dark:text-black'
+              }
+            />
+          </button>
+          <button
+            className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-red-600"
+            onClick={() => {
+              if (mode === 'edit') return setMode('view')
+              if (mode === 'create') {
+                setTitle('')
+                setContent('')
+                return setMode('create')
+              }
+              setMode('view')
+            }}
+          >
+            <X strokeWidth={2.4} className="text-white" />
+          </button>
+        </div>
+      )}
     </div>
   )
 }
