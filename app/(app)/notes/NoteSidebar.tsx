@@ -30,7 +30,7 @@ export default function NoteSidebar({
   handleDeleteNote,
 }: NoteSidebarprops) {
   return (
-    <aside className="w-full md:w-[400px] md:border-r lg:w-[420px] xl:w-[440px]">
+    <aside className="w-full md:w-[400px] md:border-r lg:w-[420px] xl:w-[440px] border-b">
       <div className="flex flex-col gap-3">
         {/* header section */}
         <div className="z-10 w-full bg-white dark:bg-black">
@@ -85,8 +85,7 @@ export default function NoteSidebar({
                       className="transform duration-200 group-hover:translate-x-1.5 group-hover:transition"
                     />
                   </li>
-                  <div className="flex cursor-pointer items-center gap-3 pr-6">
-                    <Pencil size="16" onClick={() => setMode('edit')}/>
+                  <div className="cursor-pointer pr-6">
                     {deletingNoteId === note.id ? (
                       <HashLoader size="10" />
                     ) : (

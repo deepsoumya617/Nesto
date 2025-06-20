@@ -20,10 +20,6 @@ export default function NoteLayout() {
   const [deletingNoteId, setDeletingNoteId] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
 
-  // // mobile tabs
-  // const [activeMobileView, setActiveMobileView] = useState<
-  //   'sidebar' | 'editor'
-  // >('sidebar')
 
   // Fetch notes from db and pass them to NoteSidebar
   useEffect(() => {
@@ -132,7 +128,7 @@ export default function NoteLayout() {
   }
 
   return (
-    <div className="mx-auto flex h-[calc(100vh-4.53rem)] max-w-6xl flex-col md:flex-row md:border-x"> 
+    <div className="mx-auto flex h-[calc(100vh-4.53rem)] max-w-6xl md:border-x"> 
       <NoteSidebar
         notes={filteredNotes}
         setTitle={setTitle}

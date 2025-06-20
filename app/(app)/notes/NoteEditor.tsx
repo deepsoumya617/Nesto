@@ -1,6 +1,6 @@
 import Tiptap from '@/components/tiptap'
 import { NoteEditorProps } from '@/types/note'
-import { Check, X } from 'lucide-react'
+import { Check, Pencil, X } from 'lucide-react'
 
 export default function NoteEditor({
   title,
@@ -15,7 +15,7 @@ export default function NoteEditor({
   handleUpdateNote,
 }: NoteEditorProps) {
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="hidden flex-1 flex-col overflow-y-auto md:flex">
       {/* Title */}
       <input
         type="text"
@@ -28,6 +28,21 @@ export default function NoteEditor({
       />
       {/* editor */}
       <Tiptap content={content} onChange={setContent} editable={isEditable} />
+
+      {/* edit button */}
+      <button
+        className={
+          'absolute top-56 right-56 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full' +
+          (mode === 'edit' ? ' hidden' : '')
+        }
+        onClick={() => setMode('edit')}
+      >
+        <Pencil
+          strokeWidth={2}
+          className="text-black hover:text-black/80 dark:text-white"
+          size="18"
+        />
+      </button>
 
       {/* fab */}
       <div

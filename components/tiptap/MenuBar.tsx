@@ -92,14 +92,14 @@ export default function MenuBar({ editor }: editorProp) {
   ]
 
   return (
-    <div className="mt-3 px-3  w-full overflow-x-auto text-center border-b pb-3">
+    <div className="sticky top-0 z-10 mt-3 w-full overflow-x-auto border-b bg-white px-3 pb-3 text-center dark:bg-black">
       {formatOptions.map((option, idx) => {
         return (
           <Toggle
             key={idx}
             pressed={option.pressed}
             onPressedChange={option.onClick}
-            className='mr-0.5'
+            className="mr-0.5"
           >
             {option.icon}
           </Toggle>
