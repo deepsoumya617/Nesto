@@ -46,7 +46,7 @@ model Snippet {
 
 model Tag {
   id        String    @id @default(uuid())
-  name      String
+  name      String    @unique
   snippets  Snippet[] @relation("SnippetTags")
   createdAt DateTime  @default(now())
 }

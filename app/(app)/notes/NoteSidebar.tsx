@@ -1,5 +1,5 @@
 'use client'
-import SearchBar from '@/components/SearchBar'
+import NoteSearchBar from '@/components/searchbars/NoteSearchBar'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Note, NoteSidebarProps } from '@/types/note'
@@ -104,10 +104,11 @@ export default function NoteSidebar({
               + New Note
             </Button>
           </div>
-          <SearchBar
+          <NoteSearchBar
             searchVal={searchVal}
             setSearchVal={setSearchVal}
             setSortOrder={setSortOrder}
+            placeholder='search notes...'
           />
           <Separator className="mt-3" />
         </div>

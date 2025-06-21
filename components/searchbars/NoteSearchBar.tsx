@@ -7,17 +7,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { SearchBarProps } from '@/types/searchbar'
 
-type SearchBarProps = {
-  searchVal: string
-  setSearchVal: (val: string) => void
-  setSortOrder: (order: 'newest' | 'oldest') => void
-}
-
-export default function SearchBar({
+export default function NoteSearchBar({
   searchVal,
   setSearchVal,
   setSortOrder,
+  placeholder
 }: SearchBarProps) {
   return (
     <div className="-mt-2 flex items-center px-5">
@@ -26,7 +22,7 @@ export default function SearchBar({
         value={searchVal}
         onChange={(e) => setSearchVal(e.target.value)}
         className="h-14 w-full rounded-l-xl border-none bg-gray-100 dark:bg-zinc-900 px-5 text-[16px] font-medium focus:outline-none"
-        placeholder="search notes..."
+        placeholder={placeholder}
         autoFocus
       />
       <div className="h-14 rounded-r-xl bg-gray-100 dark:bg-zinc-900  px-6" />

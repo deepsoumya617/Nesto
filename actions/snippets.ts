@@ -2,13 +2,13 @@
 
 import prisma from '@/lib/prisma'
 import { auth } from '@clerk/nextjs/server'
-import { percent } from 'motion/react'
 
 export async function createSnippet(
   title: string,
   fileName: string,
   language: string,
   content: string,
+  tags: string[] = [],
 ): Promise<{ success: boolean; message: string }> {
   try {
     const { userId } = await auth()
@@ -24,14 +24,22 @@ export async function createSnippet(
       return { success: false, message: 'User not found in database' }
     }
 
+    // tags data
+    const tagsData = tags.map((tag) => ({
+      where: { name: tag },
+      create: { name: tag },
+    }))
+
     await prisma.snippet.create({
       data: {
         title,
-        slug: title.replace(/\s+/g, '-').toLowerCase(),
         fileName,
         language,
         content,
         userId: user.id,
+        tags: {
+          connectOrCreate: tagsData,
+        },
       },
     })
 
@@ -59,6 +67,9 @@ export async function getSnippets() {
         },
       },
       orderBy: { createdAt: 'desc' },
+      include: {
+        tags: true, // include tags
+      },
     })
 
     return snippets
@@ -68,27 +79,11 @@ export async function getSnippets() {
   }
 }
 
-export async function getSnippetFromSlug(slug: string) {
-  const snippet = await prisma.snippet.findUnique({
-    where: { slug },
-  })
-
-  if (!snippet) return null
-  return {
-    title: snippet.title,
-    content: snippet.content,
-    fileName: snippet.fileName,
-    language: snippet.language,
-  }
-}
-
 export async function updateSnippet(
   slug: string,
   title: string,
   content: string,
 ) {
-  const newSLug = title.replace(/\s+/g, '-').toLowerCase()
-
   try {
     await prisma.snippet.update({
       where: { slug },
@@ -109,10 +104,10 @@ export async function updateSnippet(
   }
 }
 
-export async function deleteSnippet(slug: string) {
+export async function deleteSnippet(id: string) {
   await prisma.snippet.delete({
     where: {
-      slug,
+      id,
     },
   })
 }
@@ -197,7 +192,7 @@ export async function getSnippetLanguageStats() {
     },
     _count: true,
   })
-  
+
   return stats.map((stat) => ({
     name: stat.language,
     value: stat._count,

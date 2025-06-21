@@ -41,12 +41,12 @@ model Snippet {
   userId    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  tags Tag[] @relation("SnippetTags")
+  tags      Tag[]    @relation("SnippetTags")
 }
 
 model Tag {
-  id String @id @default(uuid())
-  name String
-  snippets Snippet[] @relation("SnippetTags")
-  createdAt DateTime @default(now())
+  id        String    @id @default(uuid())
+  name      String    @unique
+  snippets  Snippet[] @relation("SnippetTags")
+  createdAt DateTime  @default(now())
 }

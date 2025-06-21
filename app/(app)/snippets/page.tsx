@@ -1,11 +1,5 @@
-import React from 'react'
+import SnippetLayout from '@/components/snippets/SnippetLayout'
 
-function SnippetsPage() {
-  return (
-    <div>
-      SnippetsPage
-    </div>
-  )
+export default function SnippetsPage() {
+  return <SnippetLayout />
 }
-
-export default SnippetsPage

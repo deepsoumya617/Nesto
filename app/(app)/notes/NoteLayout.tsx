@@ -22,6 +22,7 @@ export default function NoteLayout() {
 
   // Fetch notes from db and pass them to NoteSidebar
   useEffect(() => {
+    if (isLoading) return // prevent multiple fetches
     async function getNotesFromDb() {
       try {
         setIsLoading(true)

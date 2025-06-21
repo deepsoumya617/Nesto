@@ -5908,13 +5908,13 @@ export namespace Prisma {
 
   export type TagWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    name?: string
     AND?: TagWhereInput | TagWhereInput[]
     OR?: TagWhereInput[]
     NOT?: TagWhereInput | TagWhereInput[]
-    name?: StringFilter<"Tag"> | string
     createdAt?: DateTimeFilter<"Tag"> | Date | string
     snippets?: SnippetListRelationFilter
-  }, "id">
+  }, "id" | "name">
 
   export type TagOrderByWithAggregationInput = {
     id?: SortOrder
