@@ -10,9 +10,15 @@ export type Snippet = {
   fileName: string
   language: string
   content: string
-  tags?: Tag[]
+  tags: Tag[]
   createdAt: Date
   updatedAt: Date
+}
+
+export type TagInputProps = {
+  tags: string[]
+  setTags: (tags: string[]) => void
+  isEditable: boolean
 }
 
 export type SnippetSidebarProps = {
@@ -34,5 +40,25 @@ export type SnippetSidebarProps = {
   setMode: (mode: 'create' | 'view' | 'edit') => void
   handleDeleteSnippet: (id: string) => void
   handleCreateSnippet: () => void
+  handleUpdateSnippet: () => void
+}
+
+export type SnippetEditorProps = {
+  className?: string
+  title: string
+  content: string
+  fileName: string
+  language: string
+  tags: string[]
+  setTags: (tags: string[]) => void
+  isEditable: boolean
+  isSaving: boolean
+  mode: 'create' | 'view' | 'edit'
+  setTitle: (title: string) => void
+  setContent: (content: string) => void
+  setFileName: (fileName: string) => void
+  setLanguage: (language: string) => void
+  setMode: (mode: 'create' | 'view' | 'edit') => void
+  handleCreateSnippet?: () => void
   handleUpdateSnippet: () => void
 }

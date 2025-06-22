@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import SnippetSidebar from './SnippetSidebar'
 import { Snippet } from '@/types/snippet'
 import { getSnippets } from '@/actions/snippets'
+import SnippetEditor from './SnippetEditor'
 
 export default function SnippetLayout() {
   //    states
@@ -11,8 +12,22 @@ export default function SnippetLayout() {
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest')
   const [title, setTitle] = useState<string>('')
   const [content, setContent] = useState<string>('')
+  const [fileName, setFileName] = useState<string>('')
+  const [language, setLanguage] = useState<string>('')
+  const [tags, setTags] = useState<string[]>([])
   const [snippets, setSnippets] = useState<Snippet[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [deletingSnippetId, setDeletingSnippetId] = useState<string | null>(
+    null,
+  )
+  const [mode, setMode] = useState<'create' | 'view' | 'edit'>('view')
+  const [isEditable, setIsEditable] = useState(true)
+  const [selectedSnippetId, setSelectedSnippetId] = useState<string | null>(
+    null,
+  )
+  const [isSaving, setIsSaving] = useState(false)
+  // selected language for filtering
+  // this is used to filter snippets by language in the sidebar
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null)
 
   // fetch snippets from db and pass them to SnippetSidebar
@@ -56,6 +71,24 @@ export default function SnippetLayout() {
         setSortOrder={setSortOrder}
         isLoading={isLoading}
         setSelectedLanguage={setSelectedLanguage}
+      />
+      <SnippetEditor
+        title={title}
+        content={content}
+        fileName={fileName}
+        language={language}
+        tags={tags}
+        isEditable={isEditable}
+        isSaving={isSaving}
+        mode={mode}
+        setTitle={setTitle}
+        setContent={setContent}
+        setFileName={setFileName}
+        setLanguage={setLanguage}
+        setTags={setTags}
+        setMode={setMode}
+        handleCreateSnippet={() => {}}
+        handleUpdateSnippet={() => {}}
       />
     </div>
   )
