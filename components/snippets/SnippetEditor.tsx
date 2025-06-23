@@ -19,7 +19,7 @@ import { langs } from '@uiw/codemirror-extensions-langs'
 
 const geistMono = Geist_Mono({
   subsets: ['latin'],
-  weight: '500',
+  weight: 'variable',
   variable: '--font-geist-mono',
 })
 
@@ -293,14 +293,11 @@ export default function SnippetEditor() {
 
   // set custom font
   const customFontTheme = EditorView.theme({
-    // '&': {
-    //   fontFamily: geistMono.style.fontFamily,
-    //   fontSize: '13px',
-    //   letterSpacing: '0.02em',
-    // },
     '.cm-content': {
       fontFamily: geistMono.style.fontFamily,
       fontSize: '13px',
+      fontWeight: '400', // Increase font weight
+      lineHeight: '1.7', // Increase line height
       letterSpacing: '0.04em',
       paddingTop: '8px',
     },
@@ -313,6 +310,7 @@ export default function SnippetEditor() {
       fontFamily: geistMono.style.fontFamily,
       fontSize: '12px',
       letterSpacing: '0.02em',
+      fontWeight: '500', // Make line numbers match
     },
   })
 
@@ -362,7 +360,9 @@ export default function SnippetEditor() {
           required
           disabled={!isEditable}
         />
-        <div className={`w-1/5 text-center ${!isEditable ? 'pointer-events-none' : ''}`}>
+        <div
+          className={`w-1/5 text-center ${!isEditable || mode !== 'create' ? 'pointer-events-none' : ''}`}
+        >
           <DropdownMenu>
             <DropdownMenuTrigger className="cursor-pointer font-semibold tracking-wide text-neutral-500">
               {language || 'lang'}
@@ -394,7 +394,11 @@ export default function SnippetEditor() {
       </div>
 
       {/* tags */}
-      <TagInput tags={tags ?? []} setTags={setTags} isEditable={isEditable} />
+      <TagInput
+        tags={tags ?? []}
+        setTags={setTags}
+        isEditable={mode === 'create'}
+      />
 
       <div className="px-6 py-3">
         <Badge

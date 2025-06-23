@@ -15,6 +15,7 @@ type SnippetStore = {
   fileName: string
   language: string
   tags: string[]
+  allTags: string[]
   snippets: Snippet[]
   mode: 'create' | 'view' | 'edit'
   searchVal: string
@@ -31,6 +32,7 @@ type SnippetStore = {
   setFileName: (fileName: string) => void
   setLanguage: (language: string) => void
   setTags: (tags: string[]) => void
+  setAllTags: (tags: string[]) => void
   setMode: (mode: 'create' | 'view' | 'edit') => void
   setSearchVal: (val: string) => void
   setSortOrder: (order: 'newest' | 'oldest') => void
@@ -53,6 +55,7 @@ export const useSnippetStore = create<SnippetStore>((set, get) => ({
   fileName: '',
   language: '',
   tags: [],
+  allTags: [],
   snippets: [],
   mode: 'create',
   searchVal: '',
@@ -69,6 +72,7 @@ export const useSnippetStore = create<SnippetStore>((set, get) => ({
   setFileName: (fileName) => set({ fileName }),
   setLanguage: (language) => set({ language }),
   setTags: (tags) => set({ tags }),
+  setAllTags: (tags: string[]) => set({ allTags: tags }),
   setMode: (mode) => set({ mode }),
   setSearchVal: (val) => set({ searchVal: val }),
   setSortOrder: (order) => set({ sortOrder: order }),
@@ -101,11 +105,21 @@ export const useSnippetStore = create<SnippetStore>((set, get) => ({
   },
 
   getSnippetsFromDB: async () => {
-    if (get().isLoading) return // prevent multiple fetches
+    if (get().isLoading) return
     try {
       set({ isLoading: true })
       const result = await getSnippets()
-      set({ snippets: result || [] })
+      const snippets = result || []
+
+      const allTags = Array.from(
+        new Set(
+          snippets.flatMap((snippet) => snippet.tags.map((tag) => tag.name)),
+        ),
+      )
+      set({
+        snippets,
+        allTags,
+      })
     } catch (error) {
       console.error('Error fetching snippets:', error)
     } finally {

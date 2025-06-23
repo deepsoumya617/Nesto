@@ -28,13 +28,14 @@ export default function SnippetSidebar() {
     selectedTags,
     sortOrder,
     deletingSnippetId,
+    allTags,
     setSearchVal,
     setSortOrder,
     setSelectedLanguage,
     setSelectedSnippetId,
     handleDeleteSnippet,
     resetEditor,
-    getSnippetsFromDB
+    getSnippetsFromDB,
   } = useSnippetStore()
 
   // fetch snippets on mount
@@ -100,6 +101,10 @@ export default function SnippetSidebar() {
             languages={allLanguages}
             setSelectedLanguage={setSelectedLanguage}
           />
+          {/* {allTags.length > 0 &&
+            allTags.map((tag) => {
+              return <p key={tag}>{tag}</p>
+            })} */}
           <Separator className="mt-3" />
 
           {/* render the snippets */}
