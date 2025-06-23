@@ -1,7 +1,12 @@
 // integration with Zustand for global state management
 import { create } from 'zustand'
 import { Snippet } from '@/types/snippet'
-import { createSnippet, deleteSnippet, getSnippets } from '@/actions/snippets'
+import {
+  createSnippet,
+  deleteSnippet,
+  getSnippets,
+  updateSnippet,
+} from '@/actions/snippets'
 import { toast } from 'sonner'
 
 type SnippetStore = {
@@ -138,7 +143,45 @@ export const useSnippetStore = create<SnippetStore>((set, get) => ({
     }
   },
 
-  handleUpdateSnippet: async () => {},
+  handleUpdateSnippet: async () => {
+    const { selectedSnippetId, title, content, fileName, language } = get()
+    if (!selectedSnippetId) return // No snippet selected for update
+
+    try {
+      set({ isSaving: true })
+      const result = await updateSnippet(
+        selectedSnippetId,
+        title,
+        content,
+        fileName,
+        language,
+      )
+      if (result.success) {
+        set((state) => ({
+          snippets: state.snippets.map((snippet) =>
+            snippet.id === selectedSnippetId
+              ? { ...snippet, title, content, fileName, language }
+              : snippet,
+          ),
+          mode: 'view',
+          selectedSnippetId: null,
+          title: '',
+          content: '',
+          fileName: '',
+          language: '',
+        }))
+        toast.success('Snippet updated successfully!')
+      } else {
+        toast.error(result.message || 'Failed to update snippet')
+      }
+    } catch (error) {
+      console.error('Error updating snippet:', error)
+      toast.error('Failed to update snippet')
+    } finally {
+      set({ isSaving: false })
+    }
+  },
+
   handleDeleteSnippet: async (id) => {
     if (get().deletingSnippetId) return // prevent multiple deletions
     try {

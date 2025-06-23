@@ -48,7 +48,7 @@ export default function TagInput({ tags, setTags, isEditable }: TagInputProps) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={addTag}
-          placeholder="Add a tag and press Enter"
+          placeholder={tags.length === 0 ? 'Add a tag and press Enter' : ''}
           className="w-full font-semibold tracking-wide outline-none placeholder:text-neutral-450"
         />
       )}

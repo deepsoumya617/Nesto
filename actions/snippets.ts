@@ -87,6 +87,8 @@ export async function updateSnippet(
   id: string,
   title: string,
   content: string,
+  fileName: string,
+  language: string,
 ) {
   try {
     await prisma.snippet.update({
@@ -94,6 +96,8 @@ export async function updateSnippet(
       data: {
         title,
         content,
+        fileName,
+        language
       },
     })
     return {

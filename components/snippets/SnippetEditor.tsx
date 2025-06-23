@@ -15,8 +15,8 @@ import { java } from '@codemirror/lang-java'
 import { python } from '@codemirror/lang-python'
 import { githubLight, githubDark } from '@uiw/codemirror-theme-github'
 import { useTheme } from 'next-themes'
-import { Geist_Mono } from 'next/font/google'
-import { Check, X } from 'lucide-react'
+import { Geist_Mono, Geist } from 'next/font/google'
+import { Check, Pencil, X } from 'lucide-react'
 import { Badge } from '../ui/badge'
 import { JSX } from 'react'
 
@@ -24,6 +24,12 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
   weight: '500',
   variable: '--font-geist-mono',
+})
+
+const geist = Geist({
+  subsets: ['latin'],
+  weight: '500',
+  variable: '--font-geist',
 })
 
 // get full language name from extension
@@ -37,6 +43,8 @@ function getLanguageFromExtension(language: string | undefined) {
       return java()
     case 'py':
       return python()
+    case 'ts':
+      return javascript({typescript: true})
     default:
       return cpp()
   }
@@ -225,7 +233,7 @@ export default function SnippetEditor() {
     // },
     '.cm-content': {
       fontFamily: geistMono.style.fontFamily,
-      fontSize: '14px',
+      fontSize: '13px',
       letterSpacing: '0.04em',
       paddingTop: '8px',
     },
@@ -241,6 +249,20 @@ export default function SnippetEditor() {
     },
   })
 
+  // transparent background for code editor
+  const transparentBackground = EditorView.theme({
+    '&': {
+      backgroundColor: 'transparent !important',
+    },
+    '.cm-scroller': {
+      backgroundColor: 'transparent !important',
+    },
+    '.cm-gutters': {
+      backgroundColor: 'transparent !important',
+      border: 'none',
+    },
+  })
+
   // Remove outline
   const removeFocusOutline = EditorView.theme({
     '&.cm-focused': {
@@ -250,7 +272,7 @@ export default function SnippetEditor() {
   })
 
   return (
-    <div className="flex max-h-screen flex-1 flex-col overflow-y-auto pb-10 md:pb-20">
+    <div className="flex max-h-screen flex-1 flex-col overflow-y-auto pb-5">
       {/* title */}
       <input
         type="text"
@@ -299,12 +321,14 @@ export default function SnippetEditor() {
       <div className="px-6 py-3">
         <Badge
           variant="secondary"
-          className="flex items-center gap-2 rounded-md px-4 py-1.5 text-[13px] tracking-tight"
+          className="flex items-center gap-2 rounded-md px-4 py-1.5 text-[13px]"
         >
           <span className="h-3 w-3 [&>svg]:h-full [&>svg]:w-full">
             {languageIcons[language]?.icon ?? null}
           </span>
-          {fileName && language && <p className={`${geistMono.className}`}>{`${fileName}.${language}`}</p>}
+          {fileName && language && (
+            <p className={`${geist.className}`}>{`${fileName}.${language}`}</p>
+          )}
         </Badge>
       </div>
 
@@ -315,7 +339,12 @@ export default function SnippetEditor() {
           onChange={(value) => setContent(value)}
           theme={resolvedTheme === 'light' ? githubLight : githubDark}
           editable={isEditable}
-          extensions={[languageExtension, customFontTheme, removeFocusOutline]}
+          extensions={[
+            languageExtension,
+            customFontTheme,
+            removeFocusOutline,
+            transparentBackground,
+          ]}
           basicSetup={{
             lineNumbers: true,
             highlightActiveLine: false,
@@ -325,6 +354,20 @@ export default function SnippetEditor() {
           }}
         />
       </div>
+
+      {/* edit button */}
+      {mode !== 'edit' && (
+        <button
+          className="fixed top-72 right-4 z-50 flex h-14 w-14 cursor-pointer items-center justify-center gap-3 rounded-full sm:right-10 md:right-5 lg:right-5 xl:right-40 2xl:right-56"
+          onClick={() => setMode('edit')}
+        >
+          <Pencil
+            strokeWidth={2}
+            className="text-black dark:text-white"
+            size={20}
+          />
+        </button>
+      )}
 
       {/* fab */}
       {isEditable && (
