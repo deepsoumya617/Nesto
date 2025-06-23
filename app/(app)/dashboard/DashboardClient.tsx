@@ -36,7 +36,6 @@ import {
   XAxis,
 } from 'recharts'
 import {
-  ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,

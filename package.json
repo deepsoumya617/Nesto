@@ -12,10 +12,6 @@
   "dependencies": {
     "@clerk/nextjs": "^6.18.0",
     "@clerk/themes": "^2.2.37",
-    "@codemirror/lang-cpp": "^6.0.2",
-    "@codemirror/lang-java": "^6.0.1",
-    "@codemirror/lang-javascript": "^6.2.4",
-    "@codemirror/lang-python": "^6.2.1",
     "@prisma/client": "^6.10.1",
     "@prisma/extension-accelerate": "^2.0.0",
     "@radix-ui/react-alert-dialog": "^1.1.14",
@@ -35,6 +31,7 @@
     "@tiptap/pm": "^2.11.9",
     "@tiptap/react": "^2.11.9",
     "@tiptap/starter-kit": "^2.11.9",
+    "@uiw/codemirror-extensions-langs": "^4.23.13",
     "@uiw/codemirror-theme-github": "^4.23.12",
     "@uiw/react-codemirror": "^4.23.12",
     "class-variance-authority": "^0.7.1",
