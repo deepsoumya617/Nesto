@@ -1,0 +1,173 @@
+// integration with Zustand for global state management
+import { create } from 'zustand'
+import { Snippet } from '@/types/snippet'
+import { createSnippet, deleteSnippet, getSnippets } from '@/actions/snippets'
+import { toast } from 'sonner'
+
+type SnippetStore = {
+  title: string
+  content: string
+  fileName: string
+  language: string
+  tags: string[]
+  snippets: Snippet[]
+  mode: 'create' | 'view' | 'edit'
+  searchVal: string
+  sortOrder: 'newest' | 'oldest'
+  selectedLanguage: string | null
+  selectedSnippetId: string | null
+  deletingSnippetId: string | null
+  selectedTags: string[]
+  isLoading: boolean
+  isSaving: boolean
+
+  setTitle: (title: string) => void
+  setContent: (content: string) => void
+  setFileName: (fileName: string) => void
+  setLanguage: (language: string) => void
+  setTags: (tags: string[]) => void
+  setMode: (mode: 'create' | 'view' | 'edit') => void
+  setSearchVal: (val: string) => void
+  setSortOrder: (order: 'newest' | 'oldest') => void
+  setSelectedLanguage: (language: string | null) => void
+  setSelectedSnippetId: (id: string | null) => void
+  setSnippets: (snippets: Snippet[]) => void
+  setSelectedTags: (tags: string[]) => void
+
+  getSnippetsFromDB: () => Promise<void>
+  handleCreateSnippet: () => Promise<void>
+  handleUpdateSnippet: () => Promise<void>
+  handleDeleteSnippet: (id: string) => Promise<void>
+
+  resetEditor: () => void
+}
+
+export const useSnippetStore = create<SnippetStore>((set, get) => ({
+  title: '',
+  content: '',
+  fileName: '',
+  language: '',
+  tags: [],
+  snippets: [],
+  mode: 'create',
+  searchVal: '',
+  sortOrder: 'newest',
+  selectedLanguage: null,
+  selectedSnippetId: null,
+  deletingSnippetId: null,
+  selectedTags: [],
+  isLoading: false,
+  isSaving: false,
+
+  setTitle: (title) => set({ title }),
+  setContent: (content) => set({ content }),
+  setFileName: (fileName) => set({ fileName }),
+  setLanguage: (language) => set({ language }),
+  setTags: (tags) => set({ tags }),
+  setMode: (mode) => set({ mode }),
+  setSearchVal: (val) => set({ searchVal: val }),
+  setSortOrder: (order) => set({ sortOrder: order }),
+  setSelectedLanguage: (language) => set({ selectedLanguage: language }),
+  setSelectedTags: (tags) => set({ selectedTags: tags }),
+  setSnippets: (snippets) => set({ snippets }),
+  setSelectedSnippetId: (id) => {
+    const snippet = get().snippets.find((s) => s.id === id)
+    if (snippet) {
+      set({
+        selectedSnippetId: id,
+        title: snippet.title,
+        content: snippet.content,
+        fileName: snippet.fileName,
+        language: snippet.language,
+        tags: snippet.tags.map((t) => t.name),
+        mode: 'view',
+      })
+    } else {
+      set({
+        selectedSnippetId: null,
+        title: '',
+        content: '',
+        fileName: '',
+        language: '',
+        tags: [],
+        mode: 'create',
+      })
+    }
+  },
+
+  getSnippetsFromDB: async () => {
+    if (get().isLoading) return // prevent multiple fetches
+    try {
+      set({ isLoading: true })
+      const result = await getSnippets()
+      set({ snippets: result || [] })
+    } catch (error) {
+      console.error('Error fetching snippets:', error)
+    } finally {
+      set({ isLoading: false })
+    }
+  },
+
+  handleCreateSnippet: async () => {
+    const { title, content, fileName, language, tags, snippets } = get()
+    try {
+      set({ isSaving: true })
+      const result = await createSnippet(
+        title,
+        fileName,
+        language,
+        content,
+        tags,
+      )
+      if (result.success) {
+        set({
+          snippets: [result.snippet!, ...snippets],
+          title: '',
+          content: '',
+          fileName: '',
+          language: '',
+          tags: [],
+          mode: 'create',
+        })
+        toast.success('Snippet created successfully!')
+      }
+    } catch (error) {
+      console.error('Error creating snippet:', error)
+    } finally {
+      set({ isSaving: false })
+    }
+  },
+
+  handleUpdateSnippet: async () => {},
+  handleDeleteSnippet: async (id) => {
+    if (get().deletingSnippetId) return // prevent multiple deletions
+    try {
+      set({ deletingSnippetId: id })
+      await deleteSnippet(id)
+      // Remove the deleted snippet from the store
+      set((state) => ({
+        snippets: state.snippets.filter((snippet) => snippet.id !== id),
+        selectedSnippetId:
+          state.selectedSnippetId === id ? null : state.selectedSnippetId,
+        mode: state.selectedSnippetId === id ? 'create' : state.mode,
+      }))
+      toast.success('Snippet deleted successfully!')
+    } catch (error) {
+      console.error('Error deleting snippet:', error)
+      toast.error('Failed to delete snippet')
+    } finally {
+      set({ deletingSnippetId: null })
+    }
+  },
+
+  resetEditor: () =>
+    set({
+      title: '',
+      content: '',
+      fileName: '',
+      language: '',
+      tags: [],
+      mode: 'create',
+      selectedSnippetId: null,
+    }),
+}))

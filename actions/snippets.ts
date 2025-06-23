@@ -1,6 +1,7 @@
 'use server'
 
 import prisma from '@/lib/prisma'
+import { Snippet } from '@/types/snippet'
 import { auth } from '@clerk/nextjs/server'
 
 export async function createSnippet(
@@ -9,7 +10,7 @@ export async function createSnippet(
   language: string,
   content: string,
   tags: string[] = [],
-): Promise<{ success: boolean; message: string }> {
+): Promise<{ success: boolean; message: string; snippet?: Snippet }> {
   try {
     const { userId } = await auth()
     if (!userId) {
@@ -30,7 +31,7 @@ export async function createSnippet(
       create: { name: tag },
     }))
 
-    await prisma.snippet.create({
+    const snippet = await prisma.snippet.create({
       data: {
         title,
         fileName,
@@ -41,9 +42,12 @@ export async function createSnippet(
           connectOrCreate: tagsData,
         },
       },
+      include: {
+        tags: true,
+      },
     })
 
-    return { success: true, message: 'Note created successfully!' }
+    return { success: true, message: 'Note created successfully!', snippet }
   } catch (error) {
     console.error('Error creating snippet:', error)
     return { success: false, message: 'Failed to create note' }
@@ -80,22 +84,20 @@ export async function getSnippets() {
 }
 
 export async function updateSnippet(
-  slug: string,
+  id: string,
   title: string,
   content: string,
 ) {
   try {
     await prisma.snippet.update({
-      where: { slug },
+      where: { id },
       data: {
         title,
         content,
-        slug: newSLug,
       },
     })
     return {
       success: true,
-      slug: newSLug,
       message: 'Snippet updated successfully!',
     }
   } catch (error) {

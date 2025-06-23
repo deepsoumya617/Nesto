@@ -1,4 +1,6 @@
-import { SnippetSidebarProps } from '@/types/snippet'
+'use client'
+
+import { useSnippetStore } from '@/store/useSnippetStore'
 import SnippetSearchBar from '../searchbars/SnippetSearchBar'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
@@ -15,16 +17,56 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '../ui/alert-dialog'
+import { useEffect, useMemo } from 'react'
 
-export default function SnippetSidebar({
-  snippets,
-  searchVal,
-  isLoading,
-  deletingSnippetId,
-  setSearchVal,
-  setSortOrder,
-  setSelectedLanguage,
-}: SnippetSidebarProps) {
+export default function SnippetSidebar() {
+  const {
+    snippets,
+    isLoading,
+    searchVal,
+    selectedLanguage,
+    selectedTags,
+    sortOrder,
+    deletingSnippetId,
+    setSearchVal,
+    setSortOrder,
+    setSelectedLanguage,
+    setSelectedSnippetId,
+    handleDeleteSnippet,
+    resetEditor,
+    getSnippetsFromDB
+  } = useSnippetStore()
+
+  // fetch snippets on mount
+  useEffect(() => {
+    getSnippetsFromDB()
+  }, [])
+
+  // filter snippets
+  const filteredSnippets = useMemo(() => {
+    return snippets
+      .filter((snippet) =>
+        snippet.title.toLowerCase().includes(searchVal.toLowerCase()),
+      )
+      .filter((snippet) =>
+        selectedLanguage ? snippet.language === selectedLanguage : true,
+      )
+      .filter((snippet) =>
+        selectedTags.length > 0
+          ? selectedTags.every((tag) =>
+              snippet.tags.some(
+                (t) => t.name.toLowerCase() === tag.toLowerCase(),
+              ),
+            )
+          : true,
+      )
+      .sort((a, b) => {
+        const dateA = new Date(a.createdAt).getTime()
+        const dateB = new Date(b.createdAt).getTime()
+        return sortOrder === 'newest' ? dateB - dateA : dateA - dateB
+      })
+  }, [snippets, searchVal, selectedLanguage, selectedTags, sortOrder])
+
   // all languages
   const allLanguages = [
     { label: 'Cpp', value: 'cpp' },
@@ -42,7 +84,11 @@ export default function SnippetSidebar({
             <p className="text-[19px] font-bold tracking-tight underline">
               All Snippets
             </p>
-            <Button className="cursor-pointer text-xs tracking-wide" size="sm">
+            <Button
+              className="cursor-pointer text-xs tracking-wide"
+              size="sm"
+              onClick={resetEditor}
+            >
               + New Snippet
             </Button>
           </div>
@@ -65,14 +111,14 @@ export default function SnippetSidebar({
             <>
               <div>
                 <ul className="divide-border z-0 divide-y">
-                  {snippets.map((snippet) => (
+                  {filteredSnippets.map((snippet) => (
                     <div
                       className="flex items-center justify-between"
                       key={snippet.id}
                     >
                       <li
                         className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
-                        //   onClick={() => handleNoteClick(note, note.id)}
+                        onClick={() => setSelectedSnippetId(snippet.id)}
                       >
                         {snippet.title}
                         <ChevronRight
@@ -102,7 +148,9 @@ export default function SnippetSidebar({
                               <AlertDialogFooter>
                                 <AlertDialogCancel>Canel</AlertDialogCancel>
                                 <AlertDialogAction
-                                  //   onClick={() => handleDeleteNote(note.id)}
+                                  onClick={() =>
+                                    handleDeleteSnippet(snippet.id)
+                                  }
                                   className="bg-red-600 hover:bg-red-700"
                                 >
                                   Continue
