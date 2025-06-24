@@ -5,7 +5,7 @@ import SnippetSearchBar from '../searchbars/SnippetSearchBar'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 import { BeatLoader, HashLoader } from 'react-spinners'
-import { ChevronRight, Trash } from 'lucide-react'
+import { ChevronRight, FolderCode, Plus, Trash } from 'lucide-react'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,6 +18,7 @@ import {
   AlertDialogTrigger,
 } from '../ui/alert-dialog'
 import { useEffect, useMemo } from 'react'
+import { RainbowButton } from '../magicui/rainbow-button'
 
 export default function SnippetSidebar() {
   const {
@@ -81,16 +82,24 @@ export default function SnippetSidebar() {
       <div className="flex flex-col gap-3">
         {/* header section */}
         <div className="z-10 w-full bg-white dark:bg-black">
-          <div className="mb-2 flex items-center justify-between px-5 py-4">
-            <p className="text-[19px] font-bold tracking-tight underline">
-              All Snippets
-            </p>
+          <p className="mt-3 ml-5 text-[19px] font-bold tracking-tight underline">
+            All Snippets
+          </p>
+          <div className="mb-2 flex items-center gap-3 px-5 py-3">
             <Button
-              className="cursor-pointer text-xs tracking-wide"
+              className="cursor-pointer text-xs tracking-wide font-semibold"
               size="sm"
               onClick={resetEditor}
             >
-              + New Snippet
+              New Snippet
+              <Plus className="-ml-1" size="17" />
+            </Button>
+            <Button
+              className="cursor-pointer text-xs tracking-wide shadow-none font-semibold px-3 group"
+              size="sm"
+            >
+              Import from GitHub
+              <ChevronRight className="-ml-2 transform duration-200 group-hover:translate-x-1 group-hover:transition" size="17" />
             </Button>
           </div>
           <SnippetSearchBar
@@ -106,6 +115,7 @@ export default function SnippetSidebar() {
               return <p key={tag}>{tag}</p>
             })} */}
           <Separator className="mt-3" />
+          </div>
 
           {/* render the snippets */}
           {isLoading ? (
@@ -115,7 +125,7 @@ export default function SnippetSidebar() {
           ) : (
             <>
               <div>
-                <ul className="divide-border z-0 divide-y">
+                <ul className="divide-border z-0 divide-y -mt-2">
                   {filteredSnippets.map((snippet) => (
                     <div
                       className="flex items-center justify-between"
@@ -171,7 +181,7 @@ export default function SnippetSidebar() {
               </div>
             </>
           )}
-        </div>
+        {/* </div> */}
       </div>
     </aside>
   )
