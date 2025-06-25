@@ -5,7 +5,6 @@ type GistSnippet = {
   content: string
   fileName: string
   language: string
-  tags: string[]
 }
 
 type GistImportStore = {

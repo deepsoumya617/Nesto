@@ -52,6 +52,8 @@ function getLanguageFromExtension(language: string | undefined) {
       return langs.rust()
     case 'json':
       return langs.json()
+    case 'xml':
+      return langs.xml()
     default:
       return langs.cpp()
   }
@@ -371,14 +373,15 @@ export default function SnippetEditor() {
               {[
                 'cpp',
                 'js',
+                'ts',
                 'java',
                 'py',
                 'rs',
+                'go',
+                'xml',
+                'json',
                 'jsx',
                 'tsx',
-                'go',
-                'json',
-                'ts',
               ].map((lang) => (
                 <DropdownMenuItem
                   key={lang}

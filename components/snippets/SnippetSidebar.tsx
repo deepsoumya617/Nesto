@@ -5,7 +5,7 @@ import SnippetSearchBar from '../searchbars/SnippetSearchBar'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 import { BeatLoader, HashLoader } from 'react-spinners'
-import { ChevronRight, FolderCode, Plus, Trash } from 'lucide-react'
+import { ChevronRight, Plus, Trash } from 'lucide-react'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,6 +19,12 @@ import {
 } from '../ui/alert-dialog'
 import { useEffect, useMemo } from 'react'
 import { useGistImportStore } from '@/store/useGistImportStore'
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
+
+// truncate title text
+function truncateText(text: string): string {
+  return text.slice(0, 37) + '...'
+}
 
 export default function SnippetSidebar() {
   const {
@@ -132,55 +138,81 @@ export default function SnippetSidebar() {
           <>
             <div>
               <ul className="divide-border z-0 -mt-2 divide-y">
-                {filteredSnippets.map((snippet) => (
-                  <div
-                    className="flex items-center justify-between"
-                    key={snippet.id}
-                  >
-                    <li
-                      className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
-                      onClick={() => setSelectedSnippetId(snippet.id)}
+                {filteredSnippets.map((snippet) => {
+                  const isTruncated = snippet.title.length > 37
+                  const truncatedTitle = truncateText(snippet.title)
+
+                  return (
+                    <div
+                      className="flex items-center justify-between"
+                      key={snippet.id}
                     >
-                      {snippet.title}
-                      <ChevronRight
-                        size={17}
-                        className="transform duration-200 group-hover:translate-x-1.5 group-hover:transition"
-                      />
-                    </li>
-                    <div className="cursor-pointer pr-6">
-                      {deletingSnippetId === snippet.id ? (
-                        <HashLoader size="10" />
+                      {isTruncated ? (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <li
+                              className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
+                              onClick={() => setSelectedSnippetId(snippet.id)}
+                            >
+                              {truncatedTitle}
+                              <ChevronRight
+                                size={17}
+                                className="transform duration-200 group-hover:translate-x-1.5 group-hover:transition"
+                              />
+                            </li>
+                          </TooltipTrigger>
+                          <TooltipContent>{snippet.title}</TooltipContent>
+                        </Tooltip>
                       ) : (
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Trash size="17" />
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                Are you absolutely sure?
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                This action cannot be undone. This will
-                                permanently delete your snippet and remove from
-                                our database.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Canel</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => handleDeleteSnippet(snippet.id)}
-                                className="bg-red-600 hover:bg-red-700"
-                              >
-                                Continue
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
+                        <li
+                          className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
+                          onClick={() => setSelectedSnippetId(snippet.id)}
+                        >
+                          {snippet.title}
+                          <ChevronRight
+                            size={17}
+                            className="transform duration-200 group-hover:translate-x-1.5 group-hover:transition"
+                          />
+                        </li>
                       )}
+
+                      <div className="cursor-pointer pr-6">
+                        {deletingSnippetId === snippet.id ? (
+                          <HashLoader size="10" />
+                        ) : (
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Trash size="17" />
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                  Are you absolutely sure?
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  This action cannot be undone. This will
+                                  permanently delete your snippet and remove it
+                                  from our database.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() =>
+                                    handleDeleteSnippet(snippet.id)
+                                  }
+                                  className="bg-red-600 hover:bg-red-700"
+                                >
+                                  Continue
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </ul>
             </div>
           </>

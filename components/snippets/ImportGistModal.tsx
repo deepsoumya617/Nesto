@@ -1,6 +1,8 @@
 'use client'
 
 import { useGistImportStore } from '@/store/useGistImportStore'
+import { useSnippetStore } from '@/store/useSnippetStore'
+
 import {
   Dialog,
   DialogContent,
@@ -10,10 +12,56 @@ import {
 } from '../ui/dialog'
 import { useTransition } from 'react'
 import { Button } from '../ui/button'
+import { Separator } from '../ui/separator'
+import { importGist } from '@/actions/importGist'
+import { toast } from 'sonner'
 
 export default function ImportGistModal() {
   const [isPending, startTransition] = useTransition()
-  const { isModalOpen, setIsModalOpen } = useGistImportStore()
+  const { isModalOpen, setIsModalOpen, setGistSnippet, gistSnippet } =
+    useGistImportStore()
+  const {
+    setTitle,
+    setContent,
+    setLanguage,
+    setFileName,
+    isSaving,
+    handleCreateSnippet,
+  } = useSnippetStore()
+
+  // Handle form submission
+  async function handleFetch(formData: FormData) {
+    const input = formData.get('gist') as string
+    const gistId = input.trim().split('/').pop() || ''
+
+    startTransition(async () => {
+      const data = await importGist(gistId)
+      if (!data) {
+        alert('Failed to fetch Gist. Please check the URL or ID and try again.')
+        return
+      }
+      console.log('Fetched Gist:', data)
+      setGistSnippet(data)
+    })
+  }
+
+  // save gist snippet to db directly
+  async function handleSave() {
+    if (!gistSnippet) {
+      toast.error('No Gist loaded')
+      return
+    }
+    
+    setTitle(gistSnippet.title)
+    setContent(gistSnippet.content)
+    setFileName(gistSnippet.fileName)
+    setLanguage(gistSnippet.language)
+
+    // save the snippet
+    await handleCreateSnippet()
+    setIsModalOpen(false)
+    toast.success('Gist snippet saved successfully!')
+  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -26,12 +74,13 @@ export default function ImportGistModal() {
           </DialogDescription>
         </DialogHeader>
         {/* fetch gist  */}
-        <form>
+        <form action={handleFetch}>
           <input
             type="text"
             name="gist"
             placeholder="Paste GitHub Gist URL or ID"
             className="w-full rounded border px-4 py-3 text-sm focus:border-black focus:outline-none"
+            required
           />
           <Button
             type="submit"
@@ -42,7 +91,19 @@ export default function ImportGistModal() {
           </Button>
         </form>
 
+        <Separator />
+
         {/* show preview */}
+        <div className="space-x-4">
+          <Button
+            disabled={isSaving}
+            className="cursor-pointer"
+            onClick={handleSave}
+          >
+            {isSaving ? 'Saving...' : 'Save'}
+          </Button>
+          <Button>Open in Editor</Button>
+        </div>
       </DialogContent>
     </Dialog>
   )
