@@ -18,7 +18,7 @@ import {
   AlertDialogTrigger,
 } from '../ui/alert-dialog'
 import { useEffect, useMemo } from 'react'
-import { RainbowButton } from '../magicui/rainbow-button'
+import { useGistImportStore } from '@/store/useGistImportStore'
 
 export default function SnippetSidebar() {
   const {
@@ -38,6 +38,8 @@ export default function SnippetSidebar() {
     resetEditor,
     getSnippetsFromDB,
   } = useSnippetStore()
+
+  const { setIsModalOpen } = useGistImportStore()
 
   // fetch snippets on mount
   useEffect(() => {
@@ -87,7 +89,7 @@ export default function SnippetSidebar() {
           </p>
           <div className="mb-2 flex items-center gap-3 px-5 py-3">
             <Button
-              className="cursor-pointer text-xs tracking-wide font-semibold"
+              className="cursor-pointer text-xs font-semibold tracking-wide"
               size="sm"
               onClick={resetEditor}
             >
@@ -95,11 +97,15 @@ export default function SnippetSidebar() {
               <Plus className="-ml-1" size="17" />
             </Button>
             <Button
-              className="cursor-pointer text-xs tracking-wide shadow-none font-semibold px-3 group"
+              className="group cursor-pointer px-3 text-xs font-semibold tracking-wide shadow-none"
               size="sm"
+              onClick={() => setIsModalOpen(true)}
             >
               Import from GitHub
-              <ChevronRight className="-ml-2 transform duration-200 group-hover:translate-x-1 group-hover:transition" size="17" />
+              <ChevronRight
+                className="-ml-2 transform duration-200 group-hover:translate-x-1 group-hover:transition"
+                size="17"
+              />
             </Button>
           </div>
           <SnippetSearchBar
@@ -115,72 +121,70 @@ export default function SnippetSidebar() {
               return <p key={tag}>{tag}</p>
             })} */}
           <Separator className="mt-3" />
-          </div>
+        </div>
 
-          {/* render the snippets */}
-          {isLoading ? (
-            <div className="mt-3 flex justify-center">
-              <BeatLoader color="#000000" size={15} loading={isLoading} />
-            </div>
-          ) : (
-            <>
-              <div>
-                <ul className="divide-border z-0 divide-y -mt-2">
-                  {filteredSnippets.map((snippet) => (
-                    <div
-                      className="flex items-center justify-between"
-                      key={snippet.id}
+        {/* render the snippets */}
+        {isLoading ? (
+          <div className="mt-3 flex justify-center">
+            <BeatLoader color="#000000" size={15} loading={isLoading} />
+          </div>
+        ) : (
+          <>
+            <div>
+              <ul className="divide-border z-0 -mt-2 divide-y">
+                {filteredSnippets.map((snippet) => (
+                  <div
+                    className="flex items-center justify-between"
+                    key={snippet.id}
+                  >
+                    <li
+                      className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
+                      onClick={() => setSelectedSnippetId(snippet.id)}
                     >
-                      <li
-                        className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
-                        onClick={() => setSelectedSnippetId(snippet.id)}
-                      >
-                        {snippet.title}
-                        <ChevronRight
-                          size={17}
-                          className="transform duration-200 group-hover:translate-x-1.5 group-hover:transition"
-                        />
-                      </li>
-                      <div className="cursor-pointer pr-6">
-                        {deletingSnippetId === snippet.id ? (
-                          <HashLoader size="10" />
-                        ) : (
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <Trash size="17" />
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                  Are you absolutely sure?
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  This action cannot be undone. This will
-                                  permanently delete your snippet and remove
-                                  from our database.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Canel</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() =>
-                                    handleDeleteSnippet(snippet.id)
-                                  }
-                                  className="bg-red-600 hover:bg-red-700"
-                                >
-                                  Continue
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        )}
-                      </div>
+                      {snippet.title}
+                      <ChevronRight
+                        size={17}
+                        className="transform duration-200 group-hover:translate-x-1.5 group-hover:transition"
+                      />
+                    </li>
+                    <div className="cursor-pointer pr-6">
+                      {deletingSnippetId === snippet.id ? (
+                        <HashLoader size="10" />
+                      ) : (
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Trash size="17" />
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>
+                                Are you absolutely sure?
+                              </AlertDialogTitle>
+                              <AlertDialogDescription>
+                                This action cannot be undone. This will
+                                permanently delete your snippet and remove from
+                                our database.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Canel</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => handleDeleteSnippet(snippet.id)}
+                                className="bg-red-600 hover:bg-red-700"
+                              >
+                                Continue
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      )}
                     </div>
-                  ))}
-                </ul>
-              </div>
-            </>
-          )}
+                  </div>
+                ))}
+              </ul>
+            </div>
+          </>
+        )}
         {/* </div> */}
       </div>
     </aside>

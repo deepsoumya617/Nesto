@@ -224,17 +224,17 @@ const languageIcons: Record<string, { icon: JSX.Element }> = {
         />
         <path
           stroke="#61DAFB"
-          stroke-width="5"
+          strokeWidth="5"
           d="M50.307 68.063c26.126 0 47.306-8.087 47.306-18.063s-21.18-18.062-47.306-18.062C24.18 31.938 3 40.024 3 50s21.18 18.063 47.307 18.063Z"
         />
         <path
           stroke="#61DAFB"
-          stroke-width="5"
+          strokeWidth="5"
           d="M34.664 59.031C47.727 81.658 65.321 95.957 73.96 90.97c8.64-4.988 5.053-27.374-8.01-50C52.885 18.342 35.291 4.043 26.652 9.03s-5.052 27.374 8.011 50Z"
         />
         <path
           stroke="#61DAFB"
-          stroke-width="5"
+          strokeWidth="5"
           d="M34.664 40.969c-13.063 22.626-16.65 45.012-8.01 50 8.638 4.988 26.232-9.311 39.295-31.938s16.65-45.012 8.01-50c-8.638-4.988-26.232 9.311-39.295 31.938Z"
         />
       </svg>
@@ -249,17 +249,17 @@ const languageIcons: Record<string, { icon: JSX.Element }> = {
         />
         <path
           stroke="#61DAFB"
-          stroke-width="5"
+          strokeWidth="5"
           d="M50.307 68.063c26.126 0 47.306-8.087 47.306-18.063s-21.18-18.062-47.306-18.062C24.18 31.938 3 40.024 3 50s21.18 18.063 47.307 18.063Z"
         />
         <path
           stroke="#61DAFB"
-          stroke-width="5"
+          strokeWidth="5"
           d="M34.664 59.031C47.727 81.658 65.321 95.957 73.96 90.97c8.64-4.988 5.053-27.374-8.01-50C52.885 18.342 35.291 4.043 26.652 9.03s-5.052 27.374 8.011 50Z"
         />
         <path
           stroke="#61DAFB"
-          stroke-width="5"
+          strokeWidth="5"
           d="M34.664 40.969c-13.063 22.626-16.65 45.012-8.01 50 8.638 4.988 26.232-9.311 39.295-31.938s16.65-45.012 8.01-50c-8.638-4.988-26.232 9.311-39.295 31.938Z"
         />
       </svg>
@@ -310,7 +310,7 @@ export default function SnippetEditor() {
       fontFamily: geistMono.style.fontFamily,
       fontSize: '12px',
       letterSpacing: '0.02em',
-      fontWeight: '500', // Make line numbers match
+      fontWeight: '400', // Make line numbers match
     },
   })
 
