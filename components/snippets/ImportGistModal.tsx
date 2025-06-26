@@ -21,11 +21,12 @@ export default function ImportGistModal() {
   const { isModalOpen, setIsModalOpen, setGistSnippet, gistSnippet } =
     useGistImportStore()
   const {
+    isSaving,
     setTitle,
     setContent,
     setLanguage,
     setFileName,
-    isSaving,
+    setMode,
     handleCreateSnippet,
   } = useSnippetStore()
 
@@ -51,7 +52,7 @@ export default function ImportGistModal() {
       toast.error('No Gist loaded')
       return
     }
-    
+
     setTitle(gistSnippet.title)
     setContent(gistSnippet.content)
     setFileName(gistSnippet.fileName)
@@ -61,6 +62,21 @@ export default function ImportGistModal() {
     await handleCreateSnippet()
     setIsModalOpen(false)
     toast.success('Gist snippet saved successfully!')
+  }
+
+  // open gist in editor
+  async function handleOpenInEditor() {
+    if (!gistSnippet) {
+      toast.error('No Gist loaded')
+      return
+    }
+
+    setMode('create')
+    setTitle(gistSnippet.title)
+    setContent(gistSnippet.content)
+    setFileName(gistSnippet.fileName)
+    setLanguage(gistSnippet.language)
+    setIsModalOpen(false)
   }
 
   return (
@@ -102,7 +118,7 @@ export default function ImportGistModal() {
           >
             {isSaving ? 'Saving...' : 'Save'}
           </Button>
-          <Button>Open in Editor</Button>
+          <Button onClick={handleOpenInEditor}>Open in Editor</Button>
         </div>
       </DialogContent>
     </Dialog>

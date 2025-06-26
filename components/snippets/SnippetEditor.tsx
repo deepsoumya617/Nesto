@@ -16,6 +16,7 @@ import { Check, Pencil, X } from 'lucide-react'
 import { Badge } from '../ui/badge'
 import { JSX } from 'react'
 import { langs } from '@uiw/codemirror-extensions-langs'
+import { useGistImportStore } from '@/store/useGistImportStore'
 
 const geistMono = Geist_Mono({
   subsets: ['latin'],
@@ -267,6 +268,12 @@ const languageIcons: Record<string, { icon: JSX.Element }> = {
       </svg>
     ),
   },
+  xml: {
+    icon: <img src="/xml.svg" />,
+  },
+  json: {
+    icon: <img src="/json.svg" />,
+  },
 }
 
 export default function SnippetEditor() {
@@ -287,6 +294,8 @@ export default function SnippetEditor() {
     handleCreateSnippet,
     handleUpdateSnippet,
   } = useSnippetStore()
+
+  const { gistSnippet } = useGistImportStore()
 
   const isEditable = mode === 'create' || mode === 'edit'
 
@@ -363,7 +372,7 @@ export default function SnippetEditor() {
           disabled={!isEditable}
         />
         <div
-          className={`w-1/5 text-center ${!isEditable || mode !== 'create' ? 'pointer-events-none' : ''}`}
+          className={`w-1/5 text-center ${!isEditable || mode !== 'create' || gistSnippet?.language ? 'pointer-events-none' : ''}`}
         >
           <DropdownMenu>
             <DropdownMenuTrigger className="cursor-pointer font-semibold tracking-wide text-neutral-500">
@@ -406,7 +415,7 @@ export default function SnippetEditor() {
       <div className="px-6 py-3">
         <Badge
           variant="secondary"
-          className="flex items-center gap-2 rounded-md px-4 py-1.5 text-[13px]"
+          className="flex items-center gap-1 rounded-md px-4 py-1.5 text-[13px]"
         >
           <span className="h-4 w-4 [&>svg]:h-full [&>svg]:w-full">
             {languageIcons[language]?.icon ?? null}
