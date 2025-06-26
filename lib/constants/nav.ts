@@ -7,8 +7,9 @@ export const navMenuLinks = [
 ]
 
 export const navMenuLinksSignedIn = [
+  { label: 'Ask Ai', href: '/ask-ai' },
   { label: 'Dashboard', href: '/dashboard' },
   { label: 'Notes', href: '/notes' },
   { label: 'Snippets', href: '/snippets' },
-  { label: 'Import From Github', href: '/import' },
+  // { label: 'Import From Github', href: '/import' },
 ]

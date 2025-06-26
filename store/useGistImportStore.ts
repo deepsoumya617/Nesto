@@ -10,17 +10,13 @@ type GistSnippet = {
 type GistImportStore = {
   gistSnippet: GistSnippet | null
   setGistSnippet: (snippet: GistSnippet | null) => void
-  editMode: boolean
-  setEditMode: (mode: boolean) => void
-  isModalOpen: boolean
-  setIsModalOpen: (isOpen: boolean) => void
+  isGistImportModalOpen: boolean
+  setIsGistImportModalOpen: (isOpen: boolean) => void
 }
 
 export const useGistImportStore = create<GistImportStore>((set) => ({
   gistSnippet: null,
   setGistSnippet: (snippet) => set({ gistSnippet: snippet }),
-  editMode: false,
-  setEditMode: (mode) => set({ editMode: mode }),
-  isModalOpen: false,
-  setIsModalOpen: (isOpen) => set({ isModalOpen: isOpen }),
+  isGistImportModalOpen: false,
+  setIsGistImportModalOpen: (isOpen) => set({ isGistImportModalOpen: isOpen }),
 }))

@@ -18,8 +18,12 @@ import { toast } from 'sonner'
 
 export default function ImportGistModal() {
   const [isPending, startTransition] = useTransition()
-  const { isModalOpen, setIsModalOpen, setGistSnippet, gistSnippet } =
-    useGistImportStore()
+  const {
+    isGistImportModalOpen,
+    setIsGistImportModalOpen,
+    setGistSnippet,
+    gistSnippet,
+  } = useGistImportStore()
   const {
     isSaving,
     setTitle,
@@ -60,7 +64,7 @@ export default function ImportGistModal() {
 
     // save the snippet
     await handleCreateSnippet()
-    setIsModalOpen(false)
+    setIsGistImportModalOpen(false)
     toast.success('Gist snippet saved successfully!')
   }
 
@@ -76,11 +80,14 @@ export default function ImportGistModal() {
     setContent(gistSnippet.content)
     setFileName(gistSnippet.fileName)
     setLanguage(gistSnippet.language)
-    setIsModalOpen(false)
+    setIsGistImportModalOpen(false)
   }
 
   return (
-    <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+    <Dialog
+      open={isGistImportModalOpen}
+      onOpenChange={setIsGistImportModalOpen}
+    >
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Import from GitHub Gist</DialogTitle>

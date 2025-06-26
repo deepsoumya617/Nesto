@@ -20,11 +20,22 @@ import {
 import { useEffect, useMemo } from 'react'
 import { useGistImportStore } from '@/store/useGistImportStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
+import ImportGistModal from './ImportGistModal'
+import { useSnippetMobileModalStore } from '@/store/useSnippetMobileModalStore'
+import SnippetMobileModal from './SnippetMobileModal'
 
 // truncate title text
 function truncateText(text: string): string {
   return text.slice(0, 37) + '...'
 }
+
+// all languages
+const allLanguages = [
+  { label: 'Cpp', value: 'cpp' },
+  { label: 'Javascript', value: 'js' },
+  { label: 'Java', value: 'java' },
+  { label: 'Python', value: 'py' },
+]
 
 export default function SnippetSidebar() {
   const {
@@ -45,7 +56,22 @@ export default function SnippetSidebar() {
     getSnippetsFromDB,
   } = useSnippetStore()
 
-  const { setIsModalOpen } = useGistImportStore()
+  // Close modal if screen becomes large (≥640px)
+  useEffect(() => {
+    const closeModalOnResize = () => {
+      if (window.innerWidth >= 640) {
+        setOpenModal(false)
+      }
+    }
+    window.addEventListener('resize', closeModalOnResize)
+    return () => window.removeEventListener('resize', closeModalOnResize)
+  }, [])
+
+  
+
+  const { setIsGistImportModalOpen } = useGistImportStore()
+
+  const { openModal, isMobile, setOpenModal } = useSnippetMobileModalStore()
 
   // fetch snippets on mount
   useEffect(() => {
@@ -77,13 +103,21 @@ export default function SnippetSidebar() {
       })
   }, [snippets, searchVal, selectedLanguage, selectedTags, sortOrder])
 
-  // all languages
-  const allLanguages = [
-    { label: 'Cpp', value: 'cpp' },
-    { label: 'Javascript', value: 'js' },
-    { label: 'Java', value: 'java' },
-    { label: 'Python', value: 'py' },
-  ]
+  // handle create snippet click
+  function handleCreateClick() {
+    if (isMobile) {
+      setOpenModal(true)
+    }
+    resetEditor()
+  }
+
+  // handle snippet click
+  function handleSnippetClick(snippetId: string) {
+    if (isMobile) {
+      setOpenModal(true)
+    }
+    setSelectedSnippetId(snippetId)
+  }
 
   return (
     <aside className="w-full md:w-[400px] md:border-r lg:w-[420px] xl:w-[440px]">
@@ -97,7 +131,8 @@ export default function SnippetSidebar() {
             <Button
               className="cursor-pointer text-xs font-semibold tracking-wide"
               size="sm"
-              onClick={resetEditor}
+              // onClick={resetEditor}
+              onClick={handleCreateClick}
             >
               New Snippet
               <Plus className="-ml-1" size="17" />
@@ -105,7 +140,7 @@ export default function SnippetSidebar() {
             <Button
               className="group cursor-pointer px-3 text-xs font-semibold tracking-wide shadow-none"
               size="sm"
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => setIsGistImportModalOpen(true)}
             >
               Import from GitHub
               <ChevronRight
@@ -152,7 +187,7 @@ export default function SnippetSidebar() {
                           <TooltipTrigger asChild>
                             <li
                               className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
-                              onClick={() => setSelectedSnippetId(snippet.id)}
+                              onClick={() => handleSnippetClick(snippet.id)}
                             >
                               {truncatedTitle}
                               <ChevronRight
@@ -166,7 +201,7 @@ export default function SnippetSidebar() {
                       ) : (
                         <li
                           className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
-                          onClick={() => setSelectedSnippetId(snippet.id)}
+                          onClick={() => handleSnippetClick(snippet.id)}
                         >
                           {snippet.title}
                           <ChevronRight
@@ -215,9 +250,12 @@ export default function SnippetSidebar() {
                 })}
               </ul>
             </div>
+            {/* gist modal */}
+            <ImportGistModal />
+            {/* open snippet modal in mobile */}
+            {openModal && isMobile && <SnippetMobileModal />}
           </>
         )}
-        {/* </div> */}
       </div>
     </aside>
   )

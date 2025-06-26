@@ -17,6 +17,7 @@ import { Badge } from '../ui/badge'
 import { JSX } from 'react'
 import { langs } from '@uiw/codemirror-extensions-langs'
 import { useGistImportStore } from '@/store/useGistImportStore'
+import { useSnippetMobileModalStore } from '@/store/useSnippetMobileModalStore'
 
 const geistMono = Geist_Mono({
   subsets: ['latin'],
@@ -276,7 +277,7 @@ const languageIcons: Record<string, { icon: JSX.Element }> = {
   },
 }
 
-export default function SnippetEditor() {
+export default function SnippetEditor({ className }: { className?: string }) {
   const {
     title,
     fileName,
@@ -296,6 +297,7 @@ export default function SnippetEditor() {
   } = useSnippetStore()
 
   const { gistSnippet } = useGistImportStore()
+  const { isMobile } = useSnippetMobileModalStore()
 
   const isEditable = mode === 'create' || mode === 'edit'
 
@@ -311,6 +313,7 @@ export default function SnippetEditor() {
       lineHeight: '1.7', // Increase line height
       letterSpacing: '0.04em',
       paddingTop: '8px',
+      paddingLeft: '4px'
     },
     '.cm-gutters': {
       letterSpacing: '0.05em',
@@ -330,13 +333,13 @@ export default function SnippetEditor() {
     '&': {
       backgroundColor: 'transparent !important',
     },
-    '.cm-scroller': {
-      backgroundColor: 'transparent !important',
-    },
-    '.cm-gutters': {
-      backgroundColor: 'transparent !important',
-      border: 'none',
-    },
+    // '.cm-scroller': {
+    //   backgroundColor: 'transparent !important',
+    // },
+    // '.cm-gutters': {
+    //   backgroundColor: 'transparent !important',
+    //   border: 'none',
+    // },
   })
 
   // Remove outline
@@ -348,7 +351,9 @@ export default function SnippetEditor() {
   })
 
   return (
-    <div className="flex max-h-screen flex-1 flex-col overflow-y-auto pb-5">
+    <div
+      className={`${className ?? 'hidden pb-5 md:flex'} flex max-h-screen flex-1 flex-col overflow-y-auto`}
+    >
       {/* title */}
       <input
         type="text"
@@ -427,7 +432,7 @@ export default function SnippetEditor() {
       </div>
 
       {/* snippet editor */}
-      <div className="flex-1 overflow-y-auto">
+      <div className={`flex-1 overflow-y-auto ${isMobile ? ' pr-6' : ''}`}>
         <CodeMirror
           value={content}
           onChange={(value) => setContent(value)}
@@ -452,13 +457,13 @@ export default function SnippetEditor() {
       {/* edit button */}
       {mode !== 'edit' && (
         <button
-          className="fixed top-72 right-4 z-50 flex h-14 w-14 cursor-pointer items-center justify-center gap-3 rounded-full sm:right-10 md:right-5 lg:right-5 xl:right-40 2xl:right-56"
+          className="fixed top-72 right-4 z-50 flex h-12 w-12 cursor-pointer items-center justify-center gap-3 sm:right-10 md:right-5 lg:right-5 xl:right-40 2xl:right-56 bg-zinc-100 rounded-full"
           onClick={() => setMode('edit')}
         >
           <Pencil
             strokeWidth={2}
             className="text-black dark:text-white"
-            size={20}
+            size={18}
           />
         </button>
       )}
