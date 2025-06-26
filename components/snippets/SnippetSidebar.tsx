@@ -17,7 +17,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '../ui/alert-dialog'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useGistImportStore } from '@/store/useGistImportStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 import ImportGistModal from './ImportGistModal'
@@ -57,6 +57,12 @@ export default function SnippetSidebar() {
   } = useSnippetStore()
 
   // Close modal if screen becomes large (≥640px)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768)
+  }, [])
+
   useEffect(() => {
     const closeModalOnResize = () => {
       if (window.innerWidth >= 640) {
@@ -67,11 +73,11 @@ export default function SnippetSidebar() {
     return () => window.removeEventListener('resize', closeModalOnResize)
   }, [])
 
-  
+  // const isMobile =  typeof window !== 'undefined' && window.innerWidth < 640
 
   const { setIsGistImportModalOpen } = useGistImportStore()
 
-  const { openModal, isMobile, setOpenModal } = useSnippetMobileModalStore()
+  const { openModal, setOpenModal } = useSnippetMobileModalStore()
 
   // fetch snippets on mount
   useEffect(() => {

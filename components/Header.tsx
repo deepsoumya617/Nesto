@@ -9,6 +9,7 @@ import { MobileMenu } from './MobileMenu'
 import { Geist } from 'next/font/google'
 import { navMenuLinks, navMenuLinksSignedIn } from '@/lib/constants/nav'
 import Link from 'next/link'
+import { AuroraText } from './magicui/aurora-text'
 
 const geist = Geist({
   subsets: ['latin'],

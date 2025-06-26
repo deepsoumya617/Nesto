@@ -12,12 +12,13 @@ import CodeMirror, { EditorView } from '@uiw/react-codemirror'
 import { githubLight, githubDark } from '@uiw/codemirror-theme-github'
 import { useTheme } from 'next-themes'
 import { Geist_Mono, Geist } from 'next/font/google'
-import { Check, Pencil, X } from 'lucide-react'
+import { Check, Clipboard, Pencil, Share, X } from 'lucide-react'
 import { Badge } from '../ui/badge'
-import { JSX } from 'react'
+import { JSX, useEffect, useState } from 'react'
 import { langs } from '@uiw/codemirror-extensions-langs'
 import { useGistImportStore } from '@/store/useGistImportStore'
 import { useSnippetMobileModalStore } from '@/store/useSnippetMobileModalStore'
+import { toast } from 'sonner'
 
 const geistMono = Geist_Mono({
   subsets: ['latin'],
@@ -285,6 +286,7 @@ export default function SnippetEditor({ className }: { className?: string }) {
     language,
     tags,
     mode,
+    selectedSnippetId,
     isSaving,
     setTitle,
     setFileName,
@@ -297,12 +299,27 @@ export default function SnippetEditor({ className }: { className?: string }) {
   } = useSnippetStore()
 
   const { gistSnippet } = useGistImportStore()
-  const { isMobile } = useSnippetMobileModalStore()
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768)
+  }, [])
 
   const isEditable = mode === 'create' || mode === 'edit'
 
   const { resolvedTheme } = useTheme()
   const languageExtension = getLanguageFromExtension(language)
+
+  // cop content to clipboard from editor
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(selectedSnippetId ? content : '')
+      toast.success('Content copied to clipboard')
+    } catch (error) {
+      console.error('Failed to copy content:', error)
+      toast.error('Failed to copy content')
+    }
+  }
 
   // set custom font
   const customFontTheme = EditorView.theme({
@@ -313,7 +330,7 @@ export default function SnippetEditor({ className }: { className?: string }) {
       lineHeight: '1.7', // Increase line height
       letterSpacing: '0.04em',
       paddingTop: '8px',
-      paddingLeft: '4px'
+      paddingLeft: '4px',
     },
     '.cm-gutters': {
       letterSpacing: '0.05em',
@@ -417,7 +434,7 @@ export default function SnippetEditor({ className }: { className?: string }) {
         isEditable={mode === 'create'}
       />
 
-      <div className="px-6 py-3">
+      <div className="flex items-center gap-2 px-6 py-3">
         <Badge
           variant="secondary"
           className="flex items-center gap-1 rounded-md px-4 py-1.5 text-[13px]"
@@ -429,10 +446,19 @@ export default function SnippetEditor({ className }: { className?: string }) {
             <p className={`${geist.className}`}>{`${fileName}.${language}`}</p>
           )}
         </Badge>
+        <Clipboard
+          size="16"
+          className="cursor-pointer hover:text-black/70 dark:text-white dark:hover:text-white/70"
+          onClick={handleCopy}
+        />
+        <Share
+          size="16"
+          className="cursor-pointer hover:text-black/70 dark:text-white dark:hover:text-white/70"
+        />
       </div>
 
       {/* snippet editor */}
-      <div className={`flex-1 overflow-y-auto ${isMobile ? ' pr-6' : ''}`}>
+      <div className={`flex-1 overflow-y-auto ${isMobile ? 'pr-6' : ''}`}>
         <CodeMirror
           value={content}
           onChange={(value) => setContent(value)}
@@ -455,18 +481,17 @@ export default function SnippetEditor({ className }: { className?: string }) {
       </div>
 
       {/* edit button */}
-      {mode !== 'edit' && (
-        <button
-          className="fixed top-72 right-4 z-50 flex h-12 w-12 cursor-pointer items-center justify-center gap-3 sm:right-10 md:right-5 lg:right-5 xl:right-40 2xl:right-56 bg-zinc-100 rounded-full"
-          onClick={() => setMode('edit')}
-        >
-          <Pencil
-            strokeWidth={2}
-            className="text-black dark:text-white"
-            size={18}
-          />
-        </button>
-      )}
+      <button
+        className="fixed top-72 right-4 z-50 flex h-12 w-12 cursor-pointer items-center justify-center gap-3 rounded-full bg-zinc-100 sm:right-10 md:right-5 lg:right-5 xl:right-40 2xl:right-56"
+        onClick={() => setMode('edit')}
+        disabled={mode === 'edit' || isSaving}
+      >
+        <Pencil
+          strokeWidth={2}
+          className="text-black dark:text-white"
+          size={18}
+        />
+      </button>
 
       {/* fab */}
       {isEditable && (
