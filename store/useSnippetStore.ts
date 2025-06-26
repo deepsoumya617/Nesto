@@ -206,8 +206,9 @@ export const useSnippetStore = create<SnippetStore>((set, get) => ({
         snippets: state.snippets.filter((snippet) => snippet.id !== id),
         selectedSnippetId:
           state.selectedSnippetId === id ? null : state.selectedSnippetId,
-        mode: state.selectedSnippetId === id ? 'create' : state.mode,
+        // mode: state.selectedSnippetId === id ? 'create' : state.mode,
       }))
+      get().resetEditor()
       toast.success('Snippet deleted successfully!')
     } catch (error) {
       console.error('Error deleting snippet:', error)
