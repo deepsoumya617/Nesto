@@ -278,7 +278,13 @@ const languageIcons: Record<string, { icon: JSX.Element }> = {
   },
 }
 
-export default function SnippetEditor({ className }: { className?: string }) {
+export default function SnippetEditor({
+  className,
+  isMobile,
+}: {
+  className?: string
+  isMobile?: boolean
+}) {
   const {
     title,
     fileName,
@@ -299,11 +305,6 @@ export default function SnippetEditor({ className }: { className?: string }) {
   } = useSnippetStore()
 
   const { gistSnippet } = useGistImportStore()
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768)
-  }, [])
 
   const isEditable = mode === 'create' || mode === 'edit'
 

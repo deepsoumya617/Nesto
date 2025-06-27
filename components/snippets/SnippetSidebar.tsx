@@ -37,7 +37,7 @@ const allLanguages = [
   { label: 'Python', value: 'py' },
 ]
 
-export default function SnippetSidebar() {
+export default function SnippetSidebar({ isMobile }: { isMobile?: boolean }) {
   const {
     snippets,
     isLoading,
@@ -57,11 +57,6 @@ export default function SnippetSidebar() {
   } = useSnippetStore()
 
   // Close modal if screen becomes large (≥640px)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768)
-  }, [])
 
   useEffect(() => {
     const closeModalOnResize = () => {
@@ -257,7 +252,7 @@ export default function SnippetSidebar() {
               </ul>
             </div>
             {/* gist modal */}
-            <ImportGistModal />
+            <ImportGistModal isMobile={isMobile}/>
             {/* open snippet modal in mobile */}
             {openModal && isMobile && <SnippetMobileModal />}
           </>

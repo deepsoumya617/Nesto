@@ -15,8 +15,9 @@ import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 import { importGist } from '@/actions/importGist'
 import { toast } from 'sonner'
+import { useSnippetMobileModalStore } from '@/store/useSnippetMobileModalStore'
 
-export default function ImportGistModal() {
+export default function ImportGistModal({ isMobile }: { isMobile?: boolean }) {
   const [isPending, startTransition] = useTransition()
   const {
     isGistImportModalOpen,
@@ -33,6 +34,8 @@ export default function ImportGistModal() {
     setMode,
     handleCreateSnippet,
   } = useSnippetStore()
+
+  const { setOpenModal } = useSnippetMobileModalStore()
 
   // Handle form submission
   async function handleFetch(formData: FormData) {
@@ -75,6 +78,9 @@ export default function ImportGistModal() {
       return
     }
 
+    if (isMobile) {
+      setOpenModal(true)
+    }
     setMode('create')
     setTitle(gistSnippet.title)
     setContent(gistSnippet.content)
