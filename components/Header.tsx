@@ -5,7 +5,7 @@ import { Waves } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAuth, useClerk } from '@clerk/nextjs'
 import { MobileMenu } from './MobileMenu'
-import { navMenuLinks, navMenuLinksSignedIn } from '@/lib/constants/nav'
+import { navMenuLinksSignedOut, navMenuLinksSignedIn } from '@/lib/constants/nav'
 import Link from 'next/link'
 import ModeToggleButton from './themes/mode-toggle'
 

@@ -1,9 +1,9 @@
 // Nav pages
-export const navMenuLinks = [
-  { label: 'Features', href: '#features' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Docs', href: '#docs' },
-  { label: 'About', href: '#about' },
+export const navMenuLinksSignedOut = [
+  { label: 'FEATURES', href: '#features' },
+  { label: 'PRICING', href: '#pricing' },
+  { label: 'DOCS', href: '#docs' },
+  { label: 'ABOUT', href: '#about' },
 ]
 
 export const navMenuLinksSignedIn = [

@@ -73,7 +73,7 @@ export default function Hero() {
           is your personal thinking space for everything that matters.
         </TextAnimate>
 
-        <div className="flex justify-center gap-3">
+        <div className="flex flex-col justify-center gap-3 md:flex-row">
           <Link href="/">
             <RainbowButton
               size="lg"
@@ -94,36 +94,6 @@ export default function Hero() {
             </RainbowButton>
           </Link>
         </div>
-
-        <div className="text-muted-foreground mt-10 flex flex-col items-center justify-center gap-4 text-sm tracking-wide sm:flex-row">
-          <div className="animate-fade-in-up animate-delay-500 flex items-center gap-2">
-            <Check className="text-primary h-4 w-4" />
-            Syntax-Highlighted Snippets
-          </div>
-          <div className="animate-fade-in-up animate-delay-600 flex items-center gap-2">
-            <Check className="text-primary h-4 w-4" />
-            Markdown Note Support
-          </div>
-          <div className="animate-fade-in-up animate-delay-700 flex items-center gap-2">
-            <Check className="text-primary h-4 w-4" />
-            Instant Search & Filtering
-          </div>
-        </div>
-
-        {/* hero dialog */}
-        {/* <div className="relative z-40 mt-14 px-4">
-          <div className="overflow-hidden rounded-md border bg-white">
-            <Image
-              src="/dashboard.png"
-              alt="Dashboard"
-              width={1200}
-              height={800}
-              className="block h-auto w-full"
-              unoptimized
-              priority
-            />
-          </div>
-        </div> */}
       </div>
     </section>
   )
