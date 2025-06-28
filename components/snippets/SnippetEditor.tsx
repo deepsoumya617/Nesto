@@ -11,26 +11,12 @@ import TagInput from './TagInput'
 import CodeMirror, { EditorView } from '@uiw/react-codemirror'
 import { githubLight, githubDark } from '@uiw/codemirror-theme-github'
 import { useTheme } from 'next-themes'
-import { Geist_Mono, Geist } from 'next/font/google'
 import { Check, Clipboard, Pencil, Share, X } from 'lucide-react'
 import { Badge } from '../ui/badge'
-import { JSX, useEffect, useState } from 'react'
+import { JSX } from 'react'
 import { langs } from '@uiw/codemirror-extensions-langs'
 import { useGistImportStore } from '@/store/useGistImportStore'
-import { useSnippetMobileModalStore } from '@/store/useSnippetMobileModalStore'
 import { toast } from 'sonner'
-
-const geistMono = Geist_Mono({
-  subsets: ['latin'],
-  weight: 'variable',
-  variable: '--font-geist-mono',
-})
-
-const geist = Geist({
-  subsets: ['latin'],
-  weight: '500',
-  variable: '--font-geist',
-})
 
 // get full language name from extension
 function getLanguageFromExtension(language: string | undefined) {
@@ -325,7 +311,7 @@ export default function SnippetEditor({
   // set custom font
   const customFontTheme = EditorView.theme({
     '.cm-content': {
-      fontFamily: geistMono.style.fontFamily,
+      fontFamily: 'var(--font-geist-mono)',
       fontSize: '13px',
       fontWeight: '400', // Increase font weight
       lineHeight: '1.7', // Increase line height
@@ -339,7 +325,7 @@ export default function SnippetEditor({
       paddingLeft: '12px',
     },
     '.cm-lineNumbers': {
-      fontFamily: geistMono.style.fontFamily,
+      fontFamily: 'var(--font-geist-mono)',
       fontSize: '12px',
       letterSpacing: '0.02em',
       fontWeight: '400', // Make line numbers match
@@ -444,7 +430,7 @@ export default function SnippetEditor({
             {languageIcons[language]?.icon ?? null}
           </span>
           {fileName && language && (
-            <p className={`${geist.className}`}>{`${fileName}.${language}`}</p>
+            <p className='font-geist'>{`${fileName}.${language}`}</p>
           )}
         </Badge>
         <Clipboard

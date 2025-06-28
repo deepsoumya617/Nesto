@@ -23,7 +23,7 @@ export default function TagInput({ tags, setTags, isEditable }: TagInputProps) {
   }
 
   return (
-    <div className="w-full border-b py-5 pl-7">
+    <div className="w-full border-b py-5 pl-7 font-base font-medium">
       <div className="mb-1 flex flex-wrap gap-2">
         {tags.map((tag) => (
           <div

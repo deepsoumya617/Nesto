@@ -46,7 +46,7 @@ export default function SnippetSidebar({ isMobile }: { isMobile?: boolean }) {
     selectedTags,
     sortOrder,
     deletingSnippetId,
-    allTags,
+    // allTags,
     setSearchVal,
     setSortOrder,
     setSelectedLanguage,
@@ -252,7 +252,7 @@ export default function SnippetSidebar({ isMobile }: { isMobile?: boolean }) {
               </ul>
             </div>
             {/* gist modal */}
-            <ImportGistModal isMobile={isMobile}/>
+            <ImportGistModal isMobile={isMobile} />
             {/* open snippet modal in mobile */}
             {openModal && isMobile && <SnippetMobileModal />}
           </>

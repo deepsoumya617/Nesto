@@ -2,12 +2,24 @@ import type { Metadata } from 'next'
 import '../styles/globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from '@/components/ui/sonner'
-import { Inter } from 'next/font/google'
+import { Inter, Geist, Geist_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/themes/theme-provider'
 
 const inter = Inter({
   subsets: ['latin'],
-  preload: true,
+  variable: '--font-inter',
+})
+
+const geist = Geist({
+  weight: 'variable',
+  subsets: ['latin'],
+  variable: '--font-geist',
+})
+
+const geistMono = Geist_Mono({
+  weight: 'variable',
+  subsets: ['latin'],
+  variable: '--font-geist-mono',
 })
 
 export const metadata: Metadata = {
@@ -23,7 +35,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={`${inter.className} antialiased`}>
+        <body className={`${inter.variable} ${geist.variable} ${geistMono.variable} font-base  antialiased`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="light"

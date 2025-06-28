@@ -567,10 +567,10 @@ export default function DashboardClient({
               </p>
             ) : (
               <ChartContainer
-                className="[&_.recharts-pie-label-text]:fill-foreground mx-auto mt-3 aspect-square max-h-[300px] max-w-[300px] overflow-visible"
+                className="[&_.recharts-pie-label-text]:fill-foreground mx-auto aspect-square max-h-[300px] max-w-[300px] overflow-visible"
                 config={{}}
               >
-                <PieChart width={350} height={350}>
+                <PieChart>
                   <ChartTooltip
                     cursor={false}
                     content={<ChartTooltipContent hideLabel />}
@@ -581,8 +581,8 @@ export default function DashboardClient({
                     nameKey="name"
                     cx="50%"
                     cy="50%"
-                    outerRadius={90}
-                    innerRadius={40}
+                    outerRadius={75}
+                    innerRadius={35}
                     isAnimationActive
                     animationDuration={800}
                     label={({
@@ -609,7 +609,7 @@ export default function DashboardClient({
                           }
                           textAnchor={x > cx ? 'start' : 'end'}
                           dominantBaseline="central"
-                          fontSize={13}
+                          fontSize={12}
                           fontWeight={500}
                         >
                           {`${languageData[index].name} (${(percent * 100).toFixed(0)}%)`}
@@ -628,7 +628,7 @@ export default function DashboardClient({
               </ChartContainer>
             )}
           </CardContent>
-          <CardFooter className="-mt-2 ml-1 flex flex-wrap items-center gap-2">
+          <CardFooter className="-mt-7 ml-1 flex flex-wrap items-center gap-2">
             {fullLanguageNamesWithIcons.map((lang, index) => {
               return (
                 <Badge

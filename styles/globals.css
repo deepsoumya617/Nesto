@@ -4,6 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --color-red-orange-50: color-mix(in srgb, theme(colors.red.500) 50%, theme(colors.orange.500) 50%);
   --secondary-background: oklch(100% 0 0);
   --main-foreground: oklch(0% 0 0);
   --main: oklch(76.89% 0.139164 219.13);
@@ -94,6 +95,11 @@
 }
 
 @theme inline {
+  --font-base: var(--font-inter);
+  --font-geist: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+
+  --color-red-orange-50: var(--color-red-orange-50);
   --color-main: var(--main);
   --color-background: var(--background);
   --color-secondary-background: var(--secondary-background);
@@ -168,30 +174,44 @@
       background-position: 200%;
     }
   }
-  --animate-aurora: aurora 8s ease-in-out infinite alternate
-;
+  --animate-aurora: aurora 8s ease-in-out infinite alternate;
   @keyframes aurora {
-  0% {
-    background-position: 0% 50%;
-    transform: rotate(-5deg) scale(0.9);
+    0% {
+      background-position: 0% 50%;
+      transform: rotate(-5deg) scale(0.9);
     }
-  25% {
-    background-position: 50% 100%;
-    transform: rotate(5deg) scale(1.1);
+    25% {
+      background-position: 50% 100%;
+      transform: rotate(5deg) scale(1.1);
     }
-  50% {
-    background-position: 100% 50%;
-    transform: rotate(-3deg) scale(0.95);
+    50% {
+      background-position: 100% 50%;
+      transform: rotate(-3deg) scale(0.95);
     }
-  75% {
-    background-position: 50% 0%;
-    transform: rotate(3deg) scale(1.05);
+    75% {
+      background-position: 50% 0%;
+      transform: rotate(3deg) scale(1.05);
     }
-  100% {
-    background-position: 0% 50%;
-    transform: rotate(-5deg) scale(0.9);
+    100% {
+      background-position: 0% 50%;
+      transform: rotate(-5deg) scale(0.9);
     }
-  }}
+  }
+}
+
+/* mode toggle */
+html {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+/* html.theme-transition *,
+body.theme-transition * {
+  transition: all 0.4s ease !important;
+  filter: blur(3px);
+} */
 
 @layer base {
   body {
@@ -293,15 +313,15 @@
 
 /* These will apply globally inside the editor */
 .ProseMirror h1 {
-  @apply text-2xl font-bold mb-3 pl-4 border-l-4 border-gray-400 dark:border-gray-400;
+  @apply mb-3 border-l-4 border-gray-400 pl-4 text-2xl font-bold dark:border-gray-400;
 }
 
 .ProseMirror h2 {
-  @apply text-xl font-semibold mb-2;
+  @apply mb-2 text-xl font-semibold;
 }
 
 .ProseMirror h3 {
-  @apply text-lg font-medium mb-1;
+  @apply mb-1 text-lg font-medium;
 }
 
 /* toast */

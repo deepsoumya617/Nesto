@@ -2,12 +2,10 @@
 
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { Moon, Sun } from 'lucide-react'
+import { motion } from 'framer-motion'
 
-export default function ModeToggle({
-  children,
-}: {
-  children: (props: { isDark: boolean; toggle: () => void }) => React.ReactNode
-}) {
+export default function ModeToggleButton() {
   const { setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -18,7 +16,26 @@ export default function ModeToggle({
   if (!mounted) return null
 
   const isDark = resolvedTheme === 'dark'
-  const toggle = () => setTheme(isDark ? 'light' : 'dark')
+  const toggleTheme = () => setTheme(isDark ? 'light' : 'dark')
 
-  return <>{children({ isDark, toggle })}</>
+  return (
+    <button
+      onClick={toggleTheme}
+      className="border-border bg-background hover:bg-muted relative flex h-9 w-9 items-center justify-center rounded-full border transition-colors duration-300 cursor-pointer"
+    >
+      <motion.div
+        key={isDark ? 'moon' : 'sun'}
+        initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
+        animate={{ rotate: 0, opacity: 1, scale: 1 }}
+        exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
+        transition={{ duration: 0.3 }}
+      >
+        {isDark ? (
+          <Moon className="text-foreground h-4 w-4" />
+        ) : (
+          <Sun className="h-4 w-4 text-foreground" />
+        )}
+      </motion.div>
+    </button>
+  )
 }
