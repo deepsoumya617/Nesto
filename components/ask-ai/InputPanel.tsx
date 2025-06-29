@@ -13,9 +13,12 @@ import {
 } from '../ui/select'
 import { Separator } from '../ui/separator'
 import CodeEditor from './CodeEditor'
+import { Textarea } from '../ui/textarea'
+import { ChevronRight } from 'lucide-react'
 
 export default function InputPanel() {
-  const { task, language, setTask, setLanguage } = useAskAiStore()
+  const { task, language, extraInfo, setTask, setLanguage, setExtraInfo } =
+    useAskAiStore()
   return (
     <div className="font-geist flex w-full flex-col border-r md:w-1/2">
       {/* heading */}
@@ -29,7 +32,7 @@ export default function InputPanel() {
 
       <Separator />
       {/* inputs */}
-      <section className="mt-4 mb-2 px-8">
+      <section className="mt-4 mb-2 px-8 overflow-y-auto">
         <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-2">
           {/* select tasks */}
           <div className="space-y-2">
@@ -70,6 +73,7 @@ export default function InputPanel() {
               </SelectContent>
             </Select>
           </div>
+          {/* code editor/viewer */}
           <div className="col-span-1 space-y-2 md:col-span-2">
             <div className="flex h-5 items-center gap-2">
               <Label>Code editor</Label>
@@ -79,6 +83,35 @@ export default function InputPanel() {
               </button>
             </div>
             <CodeEditor />
+          </div>
+          {/* additional info */}
+          <div className="col-span-1 space-y-2 md:col-span-2">
+            <Label>Additional Instructions</Label>
+            <Textarea
+              placeholder="e.g. Explain this like I'm new to Go..."
+              className="h-[100px] resize-none overflow-y-auto shadow-none"
+              value={extraInfo || ''}
+              onChange={(e) => setExtraInfo(e.target.value)}
+            />
+          </div>
+          {/* buttons */}
+          <div className="flex items-center gap-3">
+            <button
+              className="group font-geist flex cursor-pointer items-center gap-2 rounded-md bg-black px-4 py-2 text-[15px] font-medium tracking-wide text-white shadow-none dark:bg-white dark:text-black"
+              // size="sm"
+            >
+              Ask AI
+              <ChevronRight
+                className="-ml-2 transform duration-200 group-hover:translate-x-1 group-hover:transition"
+                size="20"
+              />
+            </button>
+            <button
+              className="group font-geist cursor-pointer rounded-md bg-stone-100 px-4 py-2 text-[15px] font-medium tracking-wide text-stone-900 shadow-none dark:bg-stone-900 dark:text-stone-50"
+              // size="sm"
+            >
+              Clear
+            </button>
           </div>
         </div>
       </section>
