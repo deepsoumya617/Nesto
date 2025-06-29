@@ -6,7 +6,6 @@ import { RainbowButton } from './magicui/rainbow-button'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { TextAnimate } from './magicui/text-animate'
-import Image from 'next/image'
 
 export default function Hero() {
   return (
