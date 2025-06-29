@@ -1,4 +1,6 @@
-import { Button } from '../ui/button'
+'use client'
+
+import { useAskAiStore } from '@/store/useAskAiStore'
 import { Label } from '../ui/label'
 import {
   Select,
@@ -13,6 +15,7 @@ import { Separator } from '../ui/separator'
 import CodeEditor from './CodeEditor'
 
 export default function InputPanel() {
+  const { task, language, setTask, setLanguage } = useAskAiStore()
   return (
     <div className="font-geist flex w-full flex-col border-r md:w-1/2">
       {/* heading */}
@@ -31,7 +34,7 @@ export default function InputPanel() {
           {/* select tasks */}
           <div className="space-y-2">
             <Label>Tasks</Label>
-            <Select required>
+            <Select required value={task || ''} onValueChange={setTask}>
               <SelectTrigger className="w-full cursor-pointer">
                 <SelectValue placeholder="Choose task" />
               </SelectTrigger>
@@ -49,15 +52,15 @@ export default function InputPanel() {
           {/* select language */}
           <div className="space-y-2">
             <Label>Languages</Label>
-            <Select required>
+            <Select required value={language || ''} onValueChange={setLanguage}>
               <SelectTrigger className="w-full cursor-pointer">
                 <SelectValue placeholder="Select language" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Languages</SelectLabel>
-                  <SelectItem value="javascript">JavaScript</SelectItem>
-                  <SelectItem value="typescript">TypeScript</SelectItem>
+                  <SelectItem value="javascript">Javascript</SelectItem>
+                  <SelectItem value="typescript">Typescript</SelectItem>
                   <SelectItem value="python">Python</SelectItem>
                   <SelectItem value="go">Go</SelectItem>
                   <SelectItem value="java">Java</SelectItem>
@@ -67,16 +70,18 @@ export default function InputPanel() {
               </SelectContent>
             </Select>
           </div>
-          <div className="col-span-1 md:col-span-2 space-y-2">
-            <Label>Code editor</Label>
+          <div className="col-span-1 space-y-2 md:col-span-2">
+            <div className="flex h-5 items-center gap-2">
+              <Label>Code editor</Label>
+              <Separator orientation="vertical" />
+              <button className="cursor-pointer text-sm font-medium underline-offset-4 hover:underline">
+                + Import snippet
+              </button>
+            </div>
             <CodeEditor />
           </div>
         </div>
       </section>
-
-      {/* <Separator /> */}
-      {/* import snippet from database */}
-      {/* <div className="font-geist mt-4 mb-6 ml-6 lg:w-[70%] max-w-3xl overflow-y-auto border p-4 text-[18px] font-bold tracking-tight rounded-sm  lg:h-[350px]"></div> */}
     </div>
   )
 }
