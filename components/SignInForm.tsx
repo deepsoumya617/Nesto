@@ -45,21 +45,21 @@ export function SigninForm({
         console.error('OAuth error:', err)
       }
     },
-    [signIn]
+    [signIn],
   )
 
   return (
     <div className={cn('flex flex-col gap-3', className)} {...props}>
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-4">
-          <h1 className="text-xl text-center font-bold">Welcome to Nesto.</h1>
+        <div className="font-geist flex flex-col gap-3 px-6 lg:px-0">
+          <h1 className="text-center text-xl font-bold">Welcome to Nesto.</h1>
 
           <div id="clerk-captcha" />
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="-mt-3 grid gap-4 sm:grid-cols-2">
             <Button
               variant="outline"
               type="button"
-              className="w-full tracking-wide"
+              className="w-full tracking-wide cursor-pointer"
               onClick={() => handleOAuthSignIn('github')}
             >
               <svg
@@ -78,7 +78,7 @@ export function SigninForm({
             <Button
               variant="outline"
               type="button"
-              className="w-full tracking-wide"
+              className="w-full cursor-pointer tracking-wide"
               onClick={() => handleOAuthSignIn('google')}
             >
               <svg
@@ -112,28 +112,23 @@ export function SigninForm({
               />
             </div>
 
-            {clerkError && <p className="text-red-500 text-sm">{clerkError}</p>}
+            {clerkError && <p className="text-sm text-red-500">{clerkError}</p>}
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full cursor-pointer">
               Login
             </Button>
           </div>
+          <div className="text-center text-sm tracking-wide">
+            Don&apos;t have an account?{' '}
+            <Link
+              href="/sign-up"
+              className="underline-offset-6 hover:text-blue-600 hover:underline"
+            >
+              Sign up
+            </Link>
+          </div>
         </div>
       </form>
-      <div className="text-center text-sm tracking-wide">
-        Don&apos;t have an account?{' '}
-        <Link
-          href="/sign-up"
-          className="hover:underline underline-offset-6 hover:text-blue-600"
-        >
-          Sign up
-        </Link>
-      </div>
-
-      {/* <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{' '}
-        and <a href="#">Privacy Policy</a>.
-      </div> */}
     </div>
   )
 }
