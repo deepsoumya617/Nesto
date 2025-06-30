@@ -7,9 +7,9 @@ import { useTheme } from 'next-themes'
 import { useAskAiStore } from '@/store/useAskAiStore'
 
 export default function CodeEditor() {
-  const { task, language, codeInput, setCodeInput } = useAskAiStore()
+  const { task, language, codeInput, isImported, setCodeInput } =
+    useAskAiStore()
   const { resolvedTheme } = useTheme()
-
   const customFontTheme = EditorView.theme({
     '.cm-content': {
       fontFamily: 'var(--font-geist-mono)',
@@ -126,6 +126,7 @@ export default function CodeEditor() {
     <div className="w-full overflow-hidden rounded-sm border">
       <CodeMirror
         height="250px"
+        editable={isImported || task !== 'generate'}
         theme={resolvedTheme === 'light' ? githubLight : githubDark}
         value={codeInput}
         onChange={(e) => setCodeInput(e)}

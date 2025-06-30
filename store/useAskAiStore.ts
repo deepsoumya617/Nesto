@@ -7,6 +7,7 @@ type AskAIStore = {
   extraInfo?: string
   searchVal: string
   isOpen: boolean
+  isImported: boolean
 
   setTask: (task: string) => void
   setLanguage: (language: string) => void
@@ -14,6 +15,7 @@ type AskAIStore = {
   setExtraInfo: (info: string) => void
   setIsOpen: (isOpen: boolean) => void
   setSearchVal: (val: string) => void
+  setIsImported: (isImported: boolean) => void
   reset: () => void
 }
 
@@ -24,6 +26,7 @@ export const useAskAiStore = create<AskAIStore>((set) => ({
   extraInfo: undefined,
   searchVal: '',
   isOpen: false,
+  isImported: false,
 
   setTask: (task) => set({ task }),
   setLanguage: (language) => set({ language }),
@@ -31,6 +34,7 @@ export const useAskAiStore = create<AskAIStore>((set) => ({
   setExtraInfo: (info) => set({ extraInfo: info }),
   setSearchVal: (val) => set({ searchVal: val }),
   setIsOpen: (e) => set({ isOpen: e }),
+  setIsImported: (isImported) => set({ isImported }),
 
   reset: () =>
     set({
@@ -38,5 +42,6 @@ export const useAskAiStore = create<AskAIStore>((set) => ({
       language: null,
       codeInput: '',
       extraInfo: undefined,
+      isImported: false,
     }),
 }))

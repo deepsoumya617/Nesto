@@ -22,8 +22,31 @@ export default function ImportSnippetModal() {
     setSearchVal,
     setCodeInput,
     setLanguage,
+    setIsImported,
   } = useAskAiStore()
   const { snippets, getSnippetsFromDB } = useSnippetStore()
+
+  // full language
+  function getFullLanguageName(language: string) {
+    switch (language) {
+      case 'js':
+        return 'javascript'
+      case 'ts':
+        return 'typescript'
+      case 'py':
+        return 'python'
+      case 'java':
+        return 'java'
+      case 'cpp':
+        return 'cpp'
+      case 'go':
+        return 'go'
+      case 'rs':
+        return 'rust'
+      default:
+        return language.charAt(0).toUpperCase() + language.slice(1)
+    }
+  }
 
   // fetch snippets on mount
   useEffect(() => {
@@ -76,7 +99,8 @@ export default function ImportSnippetModal() {
                     onClick={() => {
                       //   console.log(snippet.language)
                       setCodeInput(snippet.content)
-                      //   setLanguage(snippet.language)
+                      setLanguage(getFullLanguageName(snippet.language))
+                      setIsImported(true)
                       setIsOpen(false)
                     }}
                   >
