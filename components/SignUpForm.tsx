@@ -44,10 +44,10 @@ export function SignupForm({
   }
 
   return (
-    <div className={cn('flex flex-col gap-4', className)} {...props}>
+    <div className={cn('flex flex-col gap-3', className)} {...props}>
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-4">
-          <h1 className="text-xl text-center font-bold">
+        <div className="font-geist flex flex-col gap-2 px-6 lg:px-0">
+          <h1 className="text-center text-xl font-bold">
             Create your Nesto account.
           </h1>
 
@@ -56,7 +56,7 @@ export function SignupForm({
             <Button
               variant="outline"
               type="button"
-              className="w-full"
+              className="w-full cursor-pointer"
               onClick={() => handleOAuthSignIn('github')}
             >
               <svg
@@ -75,7 +75,7 @@ export function SignupForm({
             <Button
               variant="outline"
               type="button"
-              className="w-full"
+              className="w-full cursor-pointer"
               onClick={() => handleOAuthSignIn('google')}
             >
               <svg
@@ -121,24 +121,23 @@ export function SignupForm({
               />
             </div>
 
-            {clerkError && <p className="text-red-500 text-sm">{clerkError}</p>}
+            {clerkError && <p className="text-sm text-red-500">{clerkError}</p>}
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full cursor-pointer">
               Create Account
             </Button>
           </div>
+          <div className="text-center text-sm tracking-wide">
+            Already have an account?{' '}
+            <Link
+              href="/sign-in"
+              className="underline-offset-6 hover:text-blue-600 hover:underline"
+            >
+              Login
+            </Link>
+          </div>
         </div>
       </form>
-
-      <div className="text-center text-sm tracking-wide">
-        Already have an account?{' '}
-        <Link
-          href="/sign-in"
-          className="hover:underline underline-offset-6 hover:text-blue-600"
-        >
-          Login
-        </Link>
-      </div>
     </div>
   )
 }
