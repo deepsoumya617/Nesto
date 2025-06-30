@@ -80,9 +80,9 @@ export function MobileMenu() {
           >
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-6 flex size-9 items-center justify-center rounded-full border border-stone-900"
+              className="absolute top-4 right-6 flex size-9 items-center justify-center rounded-full border border-stone-900 dark:border-stone-50"
             >
-              <X size={22} className="text-stone-900" />
+              <X size={22} className="text-stone-900 dark:text-stone-50" />
             </button>
             <motion.nav
               variants={navMenuVariants}
@@ -100,7 +100,7 @@ export function MobileMenu() {
                           router.push(link.href)
                           setIsOpen(false)
                         }}
-                        className="text-left text-4xl font-medium tracking-widest text-stone-900"
+                        className="text-left text-4xl font-medium tracking-widest text-stone-900 dark:text-stone-50"
                       >
                         <p className="flex items-center">
                           {link.label}
@@ -111,7 +111,7 @@ export function MobileMenu() {
                         <motion.div
                           variants={underlineVariants}
                           transition={{ duration: 0.4 }}
-                          className="h-[0.1rem] w-full bg-stone-900"
+                          className="h-[0.1rem] w-full bg-stone-900 dark:bg-stone-50"
                         />
                       </motion.button>
                     )

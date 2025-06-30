@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes'
 import { useAskAiStore } from '@/store/useAskAiStore'
 
 export default function CodeEditor() {
-  const { language, codeInput, setCodeInput } = useAskAiStore()
+  const { task, language, codeInput, setCodeInput } = useAskAiStore()
   const { resolvedTheme } = useTheme()
 
   const customFontTheme = EditorView.theme({

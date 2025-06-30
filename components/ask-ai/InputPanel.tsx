@@ -15,10 +15,19 @@ import { Separator } from '../ui/separator'
 import CodeEditor from './CodeEditor'
 import { Textarea } from '../ui/textarea'
 import { ChevronRight } from 'lucide-react'
+import ImportSnippetModal from './ImportSnippetModal'
 
 export default function InputPanel() {
-  const { task, language, extraInfo, setTask, setLanguage, setExtraInfo } =
-    useAskAiStore()
+  const {
+    task,
+    language,
+    extraInfo,
+    setIsOpen,
+    setTask,
+    setLanguage,
+    setExtraInfo,
+    reset,
+  } = useAskAiStore()
   return (
     <div className="font-geist flex w-full flex-col border-r md:w-1/2">
       {/* heading */}
@@ -32,7 +41,7 @@ export default function InputPanel() {
 
       <Separator />
       {/* inputs */}
-      <section className="mt-4 mb-2 px-8 overflow-y-auto">
+      <section className="mt-4 mb-2 overflow-y-auto px-8">
         <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-2">
           {/* select tasks */}
           <div className="space-y-2">
@@ -78,7 +87,11 @@ export default function InputPanel() {
             <div className="flex h-5 items-center gap-2">
               <Label>Code editor</Label>
               <Separator orientation="vertical" />
-              <button className="cursor-pointer text-sm font-medium underline-offset-4 hover:underline">
+              <button
+                className="cursor-pointer text-sm font-medium underline-offset-4 hover:underline"
+                onClick={() => setIsOpen(true)}
+                disabled={!task || task === 'generate'}
+              >
                 + Import snippet
               </button>
             </div>
@@ -109,12 +122,16 @@ export default function InputPanel() {
             <button
               className="group font-geist cursor-pointer rounded-md bg-stone-100 px-4 py-2 text-[15px] font-medium tracking-wide text-stone-900 shadow-none dark:bg-stone-900 dark:text-stone-50"
               // size="sm"
+              onClick={reset}
             >
               Clear
             </button>
           </div>
         </div>
       </section>
+
+      {/* mount importSnippetModal */}
+      <ImportSnippetModal />
     </div>
   )
 }
