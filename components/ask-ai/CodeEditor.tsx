@@ -82,6 +82,17 @@ export default function CodeEditor() {
     },
   })
 
+  // placeholder font
+  const placeholderFont = EditorView.theme({
+    '.cm-placeholder': {
+      fontFamily: 'var(--font-geist)',
+      fontSize: '15px',
+      fontWeight: '400',
+      letterSpacing: '0.001em',
+      color: 'var(--muted-foreground)',
+    },
+  })
+
   function getLanguageExtension(language: string | undefined) {
     switch (language) {
       case 'cpp':
@@ -124,6 +135,7 @@ export default function CodeEditor() {
           resolvedTheme === 'light' ? editorLight : editorDark,
           removeFocusOutline,
           languageExtension,
+          placeholderFont,
         ]}
         basicSetup={{
           lineNumbers: true,
