@@ -5,7 +5,10 @@ import { Waves } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAuth, useClerk } from '@clerk/nextjs'
 import { MobileMenu } from './MobileMenu'
-import { navMenuLinksSignedOut, navMenuLinksSignedIn } from '@/lib/constants/nav'
+import {
+  navMenuLinksSignedOut,
+  navMenuLinksSignedIn,
+} from '@/lib/constants/nav'
 import Link from 'next/link'
 import ModeToggleButton from './themes/mode-toggle'
 
@@ -53,26 +56,27 @@ export default function Header() {
         <div className="hidden items-center gap-4 md:flex">
           <ModeToggleButton />
           {!isSignedIn ? (
-            <button
-              className="bg-red-orange-50 cursor-pointer rounded-md px-4 py-2.5 text-[13px] tracking-wider text-stone-100"
+            <Button
+              className="font-geist cursor-pointer rounded-md px-4 py-2.5 text-[13px] tracking-wider text-stone-100"
               onClick={() => router.push('/sign-in')}
             >
-              GET STARTED
-            </button>
+              Get Started
+            </Button>
           ) : (
-            <button
-              className="bg-red-orange-50 cursor-pointer rounded-md px-5 py-2.5 text-[12px] tracking-widest text-stone-100"
+            <Button
+              className="cursor-pointer rounded-md px-5 py-2.5 text-sm text-stone-100"
               onClick={() => signOut()}
+              variant="destructive"
             >
-              SIGN OUT
-            </button>
+              Sign Out
+            </Button>
           )}
         </div>
 
         {/* mobile menu — only for unsigned users */}
-        <div className="md:hidden">
+        {/* <div className="md:hidden">
           <MobileMenu />
-        </div>
+        </div> */}
       </div>
     </header>
   )

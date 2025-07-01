@@ -3,10 +3,14 @@
 import { useState } from 'react'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { navMenuLinksSignedIn, navMenuLinksSignedOut } from '@/lib/constants/nav'
+import {
+  navMenuLinksSignedIn,
+  navMenuLinksSignedOut,
+} from '@/lib/constants/nav'
 import { useAuth, useClerk } from '@clerk/nextjs'
 import ModeToggleButton from './themes/mode-toggle'
 import { AnimatePresence, motion } from 'motion/react'
+import { Button } from './ui/button'
 
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false)
@@ -60,14 +64,16 @@ export function MobileMenu() {
   }
 
   return (
-    <div className="relative z-50 flex items-center gap-3 md:hidden">
-      <ModeToggleButton />
-      <button
-        onClick={() => setIsOpen(true)}
-        className="flex size-9 items-center justify-center rounded-full border focus:outline-none"
-      >
-        <Menu size={22} />
-      </button>
+    <>
+      <div className="fixed top-4 right-6 z-50 flex items-center gap-3 md:hidden">
+        <ModeToggleButton />
+        <button
+          onClick={() => setIsOpen(true)}
+          className="flex size-9 items-center justify-center rounded-full border focus:outline-none"
+        >
+          <Menu size={22} />
+        </button>
+      </div>
 
       <AnimatePresence>
         {isOpen && (
@@ -76,11 +82,11 @@ export function MobileMenu() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.3, type: 'tween' }}
-            className="bg-background fixed top-0 right-0 z-50 flex h-screen w-full flex-col items-start gap-4 p-6"
+            className="fixed top-0 right-0 z-50 flex h-screen w-full flex-col items-start gap-4 bg-background/80 px-8 backdrop-blur-md"
           >
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-6 flex size-9 items-center justify-center rounded-full border border-stone-900 dark:border-stone-50"
+              className="absolute top-4 right-6 flex size-9 items-center justify-center rounded-full border dark:border-stone-50"
             >
               <X size={22} className="text-stone-900 dark:text-stone-50" />
             </button>
@@ -88,7 +94,7 @@ export function MobileMenu() {
               variants={navMenuVariants}
               initial="hidden"
               animate="show"
-              className="font-geist mt-40 flex flex-col gap-3"
+              className="font-geist mt-40 flex flex-col gap-2"
             >
               {isSignedIn
                 ? navMenuLinksSignedIn.map((link) => {
@@ -100,19 +106,19 @@ export function MobileMenu() {
                           router.push(link.href)
                           setIsOpen(false)
                         }}
-                        className="text-left text-4xl font-medium tracking-widest text-stone-900 dark:text-stone-50"
+                        className="text-left text-4xl font-medium text-stone-900 dark:text-stone-50"
                       >
                         <p className="flex items-center">
                           {link.label}
-                          <span>
+                          {/* <span>
                             <ArrowUpRight size={26} className="mb-2" />
-                          </span>
+                          </span> */}
                         </p>
-                        <motion.div
+                        {/* <motion.div
                           variants={underlineVariants}
                           transition={{ duration: 0.4 }}
                           className="h-[0.1rem] w-full bg-stone-900 dark:bg-stone-50"
-                        />
+                        /> */}
                       </motion.button>
                     )
                   })
@@ -129,9 +135,9 @@ export function MobileMenu() {
                       >
                         <p className="flex items-center">
                           {link.label}
-                          <span>
+                          {/* <span>
                             <ArrowUpRight size={26} className="mb-2" />
-                          </span>
+                          </span> */}
                         </p>
                         <motion.div
                           variants={underlineVariants}
@@ -150,19 +156,20 @@ export function MobileMenu() {
               animate="show"
               transition={{ delay: 0.6 }}
             >
-              <button
-                className="bg-red-orange-50 mt-3 w-full cursor-pointer rounded-md px-5 py-2.5 text-lg font-semibold tracking-wider text-stone-50"
+              <Button
+                className="font-geist mt-3 w-full cursor-pointer rounded-md px-5 py-6 text-lg font-semibold text-stone-50"
+                variant="destructive"
                 onClick={() => {
                   if (isSignedIn) signOut()
                   else router.push('/sign-in')
                 }}
               >
-                {isSignedIn ? 'SIGN OUT' : 'GET STARTED'}
-              </button>
+                {isSignedIn ? 'Sign Out' : 'Get Started'}
+              </Button>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   )
 }

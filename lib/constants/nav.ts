@@ -1,15 +1,15 @@
 // Nav pages
 export const navMenuLinksSignedOut = [
-  { label: 'FEATURES', href: '#features' },
-  { label: 'PRICING', href: '#pricing' },
-  { label: 'DOCS', href: '#docs' },
-  { label: 'ABOUT', href: '#about' },
+  { label: 'Features', href: '#features' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'Docs', href: '#docs' },
+  { label: 'About', href: '#about' },
 ]
 
 export const navMenuLinksSignedIn = [
-  { label: 'ASK AI', href: '/ask-ai' },
-  { label: 'DASHBOARD', href: '/dashboard' },
-  { label: 'NOTES', href: '/notes' },
-  { label: 'SNIPPETS', href: '/snippets' },
+  { label: 'Ask AI', href: '/ask-ai' },
+  { label: 'Dashboard', href: '/dashboard' },
+  { label: 'Notes', href: '/notes' },
+  { label: 'Snippets', href: '/snippets' },
   // { label: 'Import From Github', href: '/import' },
 ]

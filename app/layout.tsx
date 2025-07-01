@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from '@/components/ui/sonner'
 import { Inter, Geist, Geist_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/themes/theme-provider'
+import { MobileMenu } from '@/components/MobileMenu'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -35,7 +36,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={`${inter.variable} ${geist.variable} ${geistMono.variable} font-base antialiased`}>
+        <body
+          className={`${inter.variable} ${geist.variable} ${geistMono.variable} font-base antialiased`}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="light"
@@ -43,6 +46,7 @@ export default function RootLayout({
             // disableTransitionOnChange
           >
             <main className="flex-grow">{children}</main>
+            <MobileMenu />
             <Toaster />
           </ThemeProvider>
         </body>
