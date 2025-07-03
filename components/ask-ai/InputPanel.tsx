@@ -22,12 +22,32 @@ export default function InputPanel() {
     task,
     language,
     extraInfo,
+    convertTo,
     setIsOpen,
     setTask,
     setLanguage,
+    setConvertTo,
     setExtraInfo,
     reset,
   } = useAskAiStore()
+
+  const languages = [
+    { value: 'javascript', label: 'Javascript' },
+    { value: 'typescript', label: 'Typescript' },
+    { value: 'python', label: 'Python' },
+    { value: 'go', label: 'Go' },
+    { value: 'java', label: 'Java' },
+    { value: 'cpp', label: 'Cpp' },
+    { value: 'rust', label: 'Rust' },
+  ]
+
+  const tasks = [
+    { value: 'explain', label: 'Explain snippet' },
+    { value: 'generate', label: 'Generate snippet' },
+    { value: 'debug', label: 'Debug snippet' },
+    { value: 'convert', label: 'Convert snippet' },
+  ]
+
   return (
     <div className="font-geist flex w-full flex-col border-r md:w-1/2">
       {/* heading */}
@@ -41,7 +61,7 @@ export default function InputPanel() {
 
       <Separator />
       {/* inputs */}
-      <section className="mt-4 mb-2 overflow-y-auto px-8">
+      <section className="mt-4 mb-2 overflow-y-auto px-8 pb-6 sm:pb-0">
         <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-2">
           {/* select tasks */}
           <div className="space-y-2">
@@ -53,10 +73,11 @@ export default function InputPanel() {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Tasks</SelectLabel>
-                  <SelectItem value="explain">Explain snippet</SelectItem>
-                  <SelectItem value="generate">Generate snippet</SelectItem>
-                  <SelectItem value="debug">Debug snippet</SelectItem>
-                  <SelectItem value="convert">Convert snippet</SelectItem>
+                  {tasks.map((t) => (
+                    <SelectItem key={t.value} value={t.value}>
+                      {t.label}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -71,13 +92,38 @@ export default function InputPanel() {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Languages</SelectLabel>
-                  <SelectItem value="javascript">Javascript</SelectItem>
-                  <SelectItem value="typescript">Typescript</SelectItem>
-                  <SelectItem value="python">Python</SelectItem>
-                  <SelectItem value="go">Go</SelectItem>
-                  <SelectItem value="java">Java</SelectItem>
-                  <SelectItem value="cpp">Cpp</SelectItem>
-                  <SelectItem value="rust">Rust</SelectItem>
+                  {languages.map((lang) => (
+                    <SelectItem key={lang.value} value={lang.value}>
+                      {lang.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          {/* convert to */}
+          <div
+            className={`col-span-1 space-y-2 md:col-span-2 ${task !== 'convert' ? 'hidden' : ''}`}
+          >
+            <Label>Convert to</Label>
+            <Select
+              required
+              value={convertTo || ''}
+              onValueChange={setConvertTo}
+            >
+              <SelectTrigger className="w-full cursor-pointer">
+                <SelectValue placeholder="Select language" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Languages</SelectLabel>
+                  {languages
+                    .filter((lang) => lang.value !== language)
+                    .map((lang) => (
+                      <SelectItem key={lang.value} value={lang.value}>
+                        {lang.label}
+                      </SelectItem>
+                    ))}
                 </SelectGroup>
               </SelectContent>
             </Select>

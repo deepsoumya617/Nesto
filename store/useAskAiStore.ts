@@ -3,6 +3,7 @@ import { create } from 'zustand'
 type AskAIStore = {
   task: string | null
   language: string | null
+  convertTo: string
   codeInput: string
   extraInfo?: string
   searchVal: string
@@ -11,6 +12,7 @@ type AskAIStore = {
 
   setTask: (task: string) => void
   setLanguage: (language: string) => void
+  setConvertTo: (convertTo: string) => void
   setCodeInput: (code: string) => void
   setExtraInfo: (info: string) => void
   setIsOpen: (isOpen: boolean) => void
@@ -22,6 +24,7 @@ type AskAIStore = {
 export const useAskAiStore = create<AskAIStore>((set) => ({
   task: null,
   language: null,
+  convertTo: '',
   codeInput: '',
   extraInfo: undefined,
   searchVal: '',
@@ -30,6 +33,7 @@ export const useAskAiStore = create<AskAIStore>((set) => ({
 
   setTask: (task) => set({ task }),
   setLanguage: (language) => set({ language }),
+  setConvertTo: (convertTo) => set({ convertTo }),
   setCodeInput: (code) => set({ codeInput: code }),
   setExtraInfo: (info) => set({ extraInfo: info }),
   setSearchVal: (val) => set({ searchVal: val }),
