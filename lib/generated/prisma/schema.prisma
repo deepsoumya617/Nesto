@@ -15,10 +15,13 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(cuid())
-  clerkId  String    @unique
-  notes    Note[]
-  snippets Snippet[]
+  id              String    @id @default(cuid())
+  clerkId         String    @unique
+  email           String    @unique
+  dailyUsageCount Int       @default(0)
+  lastUsedAt      DateTime?
+  notes           Note[]
+  snippets        Snippet[]
 }
 
 model Note {
