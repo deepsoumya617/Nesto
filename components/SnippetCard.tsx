@@ -15,7 +15,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { deleteSnippet } from '@/actions/snippets'
+import { deleteSnippet } from '@/lib/actions/snippets'
 import { JSX } from 'react'
 import Image from 'next/image'
 import { Roboto_Mono } from 'next/font/google'

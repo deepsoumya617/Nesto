@@ -151,6 +151,7 @@ export default function InputPanel() {
               className="h-[100px] resize-none overflow-y-auto shadow-none"
               value={extraInfo || ''}
               onChange={(e) => setExtraInfo(e.target.value)}
+              required={task === 'generate'}
             />
           </div>
           {/* buttons */}

@@ -8,7 +8,7 @@ const SIGNING_SECRET = process.env.CLERK_WEBHOOK_SIGNING_SECRET
 export async function POST(req: Request) {
   if (!SIGNING_SECRET) {
     throw new Error(
-      'Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env.local'
+      'Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env.local',
     )
   }
 
@@ -57,10 +57,17 @@ export async function POST(req: Request) {
         })
       }
 
+      // get email from data
+      const email = data.email_addresses?.[0]?.email_address
+      if (!email) {
+        return new NextResponse('Email not found in user data', { status: 400 })
+      }
+
       // If not, create
       await prisma.user.create({
         data: {
           clerkId: data.id,
+          email,
         },
       })
 

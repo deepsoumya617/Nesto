@@ -6,7 +6,7 @@ import {
   deleteSnippet,
   getSnippets,
   updateSnippet,
-} from '@/actions/snippets'
+} from '@/lib/actions/snippets'
 import { toast } from 'sonner'
 
 type SnippetStore = {

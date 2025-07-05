@@ -130,7 +130,11 @@ export default function CodeEditor() {
         theme={resolvedTheme === 'light' ? githubLight : githubDark}
         value={codeInput}
         onChange={(e) => setCodeInput(e)}
-        placeholder={'Write or import a snippet...'}
+        placeholder={
+          task === 'generate'
+            ? 'Code editor is disabled for code generation'
+            : 'Paste your code here...'
+        }
         extensions={[
           customFontTheme,
           resolvedTheme === 'light' ? editorLight : editorDark,

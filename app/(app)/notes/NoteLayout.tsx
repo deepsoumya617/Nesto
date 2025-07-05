@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import NoteSidebar from './NoteSidebar'
 import { Note } from '@/types/note'
-import { createNote, deleteNote, getNote, updateNote } from '@/actions/notes'
+import { createNote, deleteNote, getNote, updateNote } from '@/lib/actions/notes'
 import NoteEditor from './NoteEditor'
 import { toast } from 'sonner'
 

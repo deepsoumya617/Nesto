@@ -13,7 +13,7 @@ import {
 import { useTransition } from 'react'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
-import { importGist } from '@/actions/importGist'
+import { importGist } from '@/lib/actions/importGist'
 import { toast } from 'sonner'
 import { useSnippetMobileModalStore } from '@/store/useSnippetMobileModalStore'
 

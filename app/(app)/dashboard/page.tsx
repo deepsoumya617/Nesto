@@ -1,6 +1,6 @@
-import { getSnippetCount, getSnippetLanguageStats, getSnippets } from '@/actions/snippets'
+import { getSnippetCount, getSnippetLanguageStats, getSnippets } from '@/lib/actions/snippets'
 import DashboardClient from './DashboardClient'
-import { getNote, getNoteCount } from '@/actions/notes'
+import { getNote, getNoteCount } from '@/lib/actions/notes'
 
 
 export default async function DashboardPage() {
