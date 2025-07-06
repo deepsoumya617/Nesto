@@ -362,6 +362,7 @@ code {
   box-shadow: none;
   line-height: 1.5;
 }
+
 .hljs {
   background: transparent !important;
   color: inherit !important;
@@ -369,10 +370,6 @@ code {
   padding: 0 !important;
   margin: 0 !important;
   line-height: 1.5;
-}
-
-.dark .hljs {
-  font-weight: 400 !important;
 }
 
 strong {

@@ -1,4 +1,6 @@
-import { askAi } from '@/lib/actions/askAI'
+// Disable Edge runtime
+export const runtime = 'nodejs'
+
 import { create } from 'zustand'
 
 type AskAIStore = {
@@ -83,7 +85,7 @@ export const useAskAiStore = create<AskAIStore>((set, get) => ({
       while (true) {
         const { value, done } = await reader!.read()
         if (done) break
-        result += decoder.decode(value)
+        result += decoder.decode(value, { stream: true })
         set({ output: result }) // update live
       }
     } catch (error) {
