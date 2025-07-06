@@ -4,7 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --color-red-orange-50: color-mix(in srgb, theme(colors.red.500) 50%, theme(colors.orange.500) 50%);
+  --color-red-orange-50: color-mix(
+    in srgb,
+    theme(colors.red.500) 50%,
+    theme(colors.orange.500) 50%
+  );
   --secondary-background: oklch(100% 0 0);
   --main-foreground: oklch(0% 0 0);
   --main: oklch(76.89% 0.139164 219.13);
@@ -201,11 +205,15 @@
 
 /* mode toggle */
 html {
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
 }
 
 body {
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
 }
 /* html.theme-transition *,
 body.theme-transition * {
@@ -339,4 +347,41 @@ body.theme-transition * {
 [data-sonner-toast] .text-sm {
   font-family: 'Poppins', sans-serif !important; /* for descriptions */
   font-size: 14px !important;
+}
+
+code {
+  display: inline !important;
+  white-space: break-spaces !important;
+  background: transparent !important;
+  font-size: 13px;
+  font-weight: 400;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  line-height: 1.5;
+}
+.hljs {
+  background: transparent !important;
+  color: inherit !important;
+  font-weight: 400 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1.5;
+}
+
+.dark .hljs {
+  font-weight: 400 !important;
+}
+
+strong {
+  font-weight: 700 !important;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }

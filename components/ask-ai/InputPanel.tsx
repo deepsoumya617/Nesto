@@ -163,12 +163,12 @@ export default function InputPanel() {
           {/* buttons */}
           <div className="flex items-center gap-3">
             <button
-              className="group font-geist flex cursor-pointer items-center gap-2 rounded-md bg-black px-4 py-2 text-[15px] font-medium tracking-wide text-white shadow-none dark:bg-white dark:text-black"
+              className={`group font-geist flex cursor-pointer items-center gap-2 rounded-md bg-black px-4 py-2 text-[15px] font-medium tracking-wide text-white shadow-none dark:bg-white dark:text-black ${isLoading ? 'pointer-events-none opacity-50' : ''}`}
               // size="sm"
               disabled={!task || !language || isLoading}
               onClick={fetchAIResponse}
             >
-              Ask AI
+              {isLoading ? 'Asking AI...' : 'Ask AI'}
               <ChevronRight
                 className="-ml-2 transform duration-200 group-hover:translate-x-1 group-hover:transition"
                 size="20"

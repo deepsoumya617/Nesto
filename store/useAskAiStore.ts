@@ -53,18 +53,28 @@ export const useAskAiStore = create<AskAIStore>((set, get) => ({
   fetchAIResponse: async () => {
     const { task, language, codeInput, convertTo, extraInfo, isLoading } = get()
 
-    if (isLoading) return
+    if (isLoading || !task || !language) return
     try {
       set({ isLoading: true })
       set({ output: '' })
 
-      const response = await askAi({
-        task: task!,
-        language: language!,
-        codeInput: codeInput || '',
-        convertTo: convertTo || '',
-        additionalInfo: extraInfo || '',
+      const response = await fetch('/api/ask-ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          task,
+          language,
+          codeInput,
+          convertTo,
+          additionalInfo: extraInfo,
+        }),
       })
+
+      if (!response.ok || !response.body) {
+        throw new Error('Failed to fetch AI response')
+      }
 
       const reader = response.body?.getReader()
       const decoder = new TextDecoder()

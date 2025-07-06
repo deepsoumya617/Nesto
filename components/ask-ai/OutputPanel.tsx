@@ -11,6 +11,11 @@ import { useAskAiStore } from '@/store/useAskAiStore'
 export default function OutputPanel() {
   const { output, isLoading } = useAskAiStore()
 
+  // Function to sanitize markdown output by removing code formatting
+  function sanitizeMarkdownOutput(markdown: string) {
+    return markdown.replace(/`([a-zA-Z0-9_\[\]\(\)\.\+\-\*/]+)`/g, '$1')
+  }
+
   return (
     <div className="font-geist hidden w-full flex-col text-sm font-semibold md:flex md:w-1/2">
       {/* heading */}
@@ -23,29 +28,54 @@ export default function OutputPanel() {
       </div>
       <Separator />
       {/* content */}
-      <div className="font-base flex-1 px-8 pt-6 pb-8">
-        <ScrollArea className="h-full max-h-[600px] overflow-y-auto">
+      <div className="font-base flex-1 overflow-hidden px-8 pt-6 pb-8">
+        <ScrollArea className="h-full max-h-[600px]">
           {isLoading ? (
             <AITextLoading className="mt-40" />
           ) : output ? (
-            <div className="prose prose-sm dark:prose-invert font-base max-w-none">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeHighlight]}
-                components={{
-                  code({ children, className }) {
-                    return (
-                      <pre className="overflow-x-auto rounded-md bg-zinc-100 p-4 text-sm text-black dark:bg-[#0e0e0e] dark:text-white">
-                        <code className={`font-mono ${className ?? ''}`}>
-                          {children}
-                        </code>
-                      </pre>
-                    )
-                  },
-                }}
-              >
-                {output}
-              </ReactMarkdown>
+            <div className="font-base w-full overflow-x-auto">
+              <div className="font-base text-[15px]">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeHighlight]}
+                  components={{
+                    code({ node, inline, className, children, ...props }: any) {
+                      if (inline) {
+                        return (
+                          <code
+                            className={`font-mono text-[13px] ${className ?? ''}`}
+                            {...props}
+                          >
+                            {children}
+                          </code>
+                        )
+                      }
+                      return (
+                        <pre className="overflow-x-auto rounded-md ">
+                          <code
+                            className={`hljs font-mono text-sm ${className ?? ''}`}
+                            {...props}
+                          >
+                            {children}
+                          </code>
+                        </pre>
+                      )
+                    },
+                    p({ node, children }) {
+                      const isOnlyCode =
+                        Array.isArray(children) &&
+                        children.length === 1 &&
+                        (children[0] as any)?.type === 'code'
+
+                      if (isOnlyCode) return <>{children}</>
+                      return <p>{children}</p>
+                    },
+                  }}
+                >
+                  {sanitizeMarkdownOutput(output)}
+                  {/* {output} */}
+                </ReactMarkdown>
+              </div>
             </div>
           ) : (
             <p className="text-muted-foreground font-geist mt-40 text-center text-lg">
