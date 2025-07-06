@@ -1,16 +1,15 @@
 'use client'
 
-import { useState } from 'react'
 import { Separator } from '../ui/separator'
 import { ScrollArea } from '../ui/scroll-area'
 import AITextLoading from '../kokonutui/ai-text-loading'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
+import { useAskAiStore } from '@/store/useAskAiStore'
 
 export default function OutputPanel() {
-  const [output, setOutput] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { output, isLoading } = useAskAiStore()
 
   return (
     <div className="font-geist hidden w-full flex-col text-sm font-semibold md:flex md:w-1/2">

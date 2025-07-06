@@ -1,3 +1,4 @@
+import { askAi } from '@/lib/actions/askAI'
 import { create } from 'zustand'
 
 type AskAIStore = {
@@ -10,6 +11,9 @@ type AskAIStore = {
   isOpen: boolean
   isImported: boolean
 
+  output: string | null
+  isLoading: boolean
+
   setTask: (task: string) => void
   setLanguage: (language: string) => void
   setConvertTo: (convertTo: string) => void
@@ -18,10 +22,13 @@ type AskAIStore = {
   setIsOpen: (isOpen: boolean) => void
   setSearchVal: (val: string) => void
   setIsImported: (isImported: boolean) => void
+
+  fetchAIResponse: () => Promise<void>
+
   reset: () => void
 }
 
-export const useAskAiStore = create<AskAIStore>((set) => ({
+export const useAskAiStore = create<AskAIStore>((set, get) => ({
   task: null,
   language: null,
   convertTo: '',
@@ -31,6 +38,9 @@ export const useAskAiStore = create<AskAIStore>((set) => ({
   isOpen: false,
   isImported: false,
 
+  output: null,
+  isLoading: false,
+
   setTask: (task) => set({ task }),
   setLanguage: (language) => set({ language }),
   setConvertTo: (convertTo) => set({ convertTo }),
@@ -39,6 +49,39 @@ export const useAskAiStore = create<AskAIStore>((set) => ({
   setSearchVal: (val) => set({ searchVal: val }),
   setIsOpen: (e) => set({ isOpen: e }),
   setIsImported: (isImported) => set({ isImported }),
+
+  fetchAIResponse: async () => {
+    const { task, language, codeInput, convertTo, extraInfo, isLoading } = get()
+
+    if (isLoading) return
+    try {
+      set({ isLoading: true })
+      set({ output: '' })
+
+      const response = await askAi({
+        task: task!,
+        language: language!,
+        codeInput: codeInput || '',
+        convertTo: convertTo || '',
+        additionalInfo: extraInfo || '',
+      })
+
+      const reader = response.body?.getReader()
+      const decoder = new TextDecoder()
+      let result = ''
+
+      while (true) {
+        const { value, done } = await reader!.read()
+        if (done) break
+        result += decoder.decode(value)
+        set({ output: result }) // update live
+      }
+    } catch (error) {
+      console.error('Error fetching AI response:', error)
+    } finally {
+      set({ isLoading: false })
+    }
+  },
 
   reset: () =>
     set({

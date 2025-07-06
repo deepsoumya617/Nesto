@@ -1,7 +1,7 @@
-type Task = 'generate' | 'explain' | 'debug' | 'convert'
+// type Task = 'generate' | 'explain' | 'debug' | 'convert'
 
 export type AskAiInput = {
-  task: Task
+  task: string | null
   language: string
   codeInput?: string
   convertTo?: string

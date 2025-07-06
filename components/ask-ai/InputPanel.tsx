@@ -16,6 +16,7 @@ import CodeEditor from './CodeEditor'
 import { Textarea } from '../ui/textarea'
 import { ChevronRight } from 'lucide-react'
 import ImportSnippetModal from './ImportSnippetModal'
+import { useMemo } from 'react'
 
 export default function InputPanel() {
   const {
@@ -23,11 +24,13 @@ export default function InputPanel() {
     language,
     extraInfo,
     convertTo,
+    isLoading,
     setIsOpen,
     setTask,
     setLanguage,
     setConvertTo,
     setExtraInfo,
+    fetchAIResponse,
     reset,
   } = useAskAiStore()
 
@@ -40,6 +43,11 @@ export default function InputPanel() {
     { value: 'cpp', label: 'Cpp' },
     { value: 'rust', label: 'Rust' },
   ]
+
+  // convert to languages
+  const convertLanguages = useMemo(() => {
+    return languages.filter((lang) => lang.value !== language)
+  }, [language])
 
   const tasks = [
     { value: 'explain', label: 'Explain snippet' },
@@ -117,13 +125,11 @@ export default function InputPanel() {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Languages</SelectLabel>
-                  {languages
-                    .filter((lang) => lang.value !== language)
-                    .map((lang) => (
-                      <SelectItem key={lang.value} value={lang.value}>
-                        {lang.label}
-                      </SelectItem>
-                    ))}
+                  {convertLanguages.map((lang) => (
+                    <SelectItem key={lang.value} value={lang.value}>
+                      {lang.label}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -159,6 +165,8 @@ export default function InputPanel() {
             <button
               className="group font-geist flex cursor-pointer items-center gap-2 rounded-md bg-black px-4 py-2 text-[15px] font-medium tracking-wide text-white shadow-none dark:bg-white dark:text-black"
               // size="sm"
+              disabled={!task || !language || isLoading}
+              onClick={fetchAIResponse}
             >
               Ask AI
               <ChevronRight
