@@ -1,6 +1,7 @@
 import { getSnippetCount, getSnippetLanguageStats, getSnippets } from '@/lib/actions/snippets'
-import DashboardClient from './DashboardClient'
 import { getNote, getNoteCount } from '@/lib/actions/notes'
+import DashboardClient from '@/components/dashboard/DashboardClient'
+import { getUser } from '@/lib/actions/user'
 
 
 export default async function DashboardPage() {
@@ -9,6 +10,7 @@ export default async function DashboardPage() {
   const snippets  = await getSnippets()
   const notes = await getNote()
   const languageData = await getSnippetLanguageStats()
+  const user = await getUser()
 
   return (
     <DashboardClient
@@ -19,6 +21,7 @@ export default async function DashboardPage() {
       snippets={snippets}
       notes={notes}
       languageData={languageData}
+      userInfo={user}
     />
   )
 }

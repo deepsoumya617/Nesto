@@ -54,22 +54,14 @@ const geist = Geist({
 
 // for pie chart
 const COLORS = [
-  '#22c55e', // green
-  '#0ea5e9', // blue
-  '#8b5cf6', // purple
-  '#f472b6', // pink
-  '#facc15', // yellow
-  '#f97316', // orange
-  '#e11d48', // rose
-  '#14b8a6', // teal
-  // '#6366f1', // Indigo
-  // '#10b981', // Emerald
-  // '#f59e0b', // Amber
-  // '#ef4444', // Red
-  // '#14b8a6', // Teal
-  // '#8b5cf6', // Violet
-  // '#f43f5e', // Rose
-  // '#0ea5e9', // Sky
+  '#22c55e', 
+  '#0ea5e9', 
+  '#8b5cf6', 
+  '#f472b6', 
+  '#facc15',
+  '#f97316',
+  '#e11d48',
+  '#14b8a6',
 ]
 
 // for bar chart
@@ -82,6 +74,30 @@ const tagsChartData = [
   { tag: 'nextjs', count: 4 },
 ]
 
+type UserInfo = {
+  dailyUsageCount: number
+  lastUsedAt: Date | null
+} | null
+
+function getResetCountdown(lastUsedAt: Date | null) {
+  if (!lastUsedAt) return 'Unknown'
+
+  const now = new Date()
+  const last = new Date(lastUsedAt)
+
+  const resetTime = new Date(last)
+  resetTime.setHours(24, 0, 0, 0) // midnight after lastUsedAt
+
+  const msLeft = resetTime.getTime() - now.getTime()
+
+  if (msLeft <= 0) return 'Limit reset'
+
+  const hours = Math.floor(msLeft / (1000 * 60 * 60))
+  const minutes = Math.floor((msLeft % (1000 * 60 * 60)) / (1000 * 60))
+
+  return `${hours}h ${minutes}m`
+}
+
 export default function DashboardClient({
   snippetCount,
   percentChangeSnippets,
@@ -90,6 +106,7 @@ export default function DashboardClient({
   snippets,
   notes,
   languageData,
+  userInfo,
 }: {
   snippetCount: number
   percentChangeSnippets: number
@@ -98,6 +115,7 @@ export default function DashboardClient({
   snippets: Pick<Snippet, 'title' | 'id'>[]
   notes: Pick<Note, 'title' | 'id'>[]
   languageData: { name: string; value: number }[]
+  userInfo: UserInfo
 }) {
   const { user } = useUser()
   const { resolvedTheme } = useTheme()
@@ -456,24 +474,25 @@ export default function DashboardClient({
               Account Usage
             </CardTitle>
             <CardDescription className="text-md text-muted-foreground ml-1 tracking-wide">
-              Free Plan ~ Credits reset on 1 July!
+              {`Last used at ~ ${!userInfo?.lastUsedAt ? 'Never' : userInfo.lastUsedAt}`}
             </CardDescription>
           </CardHeader>
           <CardContent className="-mb-2 flex flex-col gap-2">
             <div className="flex w-full items-center gap-1.5 pl-1">
               <span className="text-muted-foreground">AI Credits Used ~ </span>
-              <span className="font-bold">12 / 50</span>
+              <span className="font-bold">{`${userInfo?.dailyUsageCount} / 10`}</span>
             </div>
-            <Progress value={12} />
+            <Progress value={userInfo?.dailyUsageCount} />
           </CardContent>
           <CardFooter>
-            <Button
+            {/* <Button
               variant="outline"
               className="flex cursor-pointer items-center gap-1 tracking-wide"
             >
               Upgrade to Pro
               <ArrowRight />
-            </Button>
+            </Button> */}
+            <span>{`Limit resets in ${getResetCountdown(userInfo?.lastUsedAt ?? null)}`}</span>
           </CardFooter>
         </Card>
       </div>

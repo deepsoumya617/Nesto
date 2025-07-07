@@ -1,13 +1,15 @@
 'use client'
 
 import { Separator } from '../ui/separator'
-import { ScrollArea } from '../ui/scroll-area'
+import { ScrollArea, ScrollBar } from '../ui/scroll-area'
 import AITextLoading from '../kokonutui/ai-text-loading'
 import { useAskAiStore } from '@/store/useAskAiStore'
 import { renderMarkdown } from '@/lib/markdown'
 
 export default function OutputPanel() {
   const { output, isLoading } = useAskAiStore()
+
+  console.log(output)
 
   return (
     <div className="font-geist hidden w-full flex-col text-sm font-semibold md:flex md:w-1/2">
@@ -21,22 +23,21 @@ export default function OutputPanel() {
       </div>
       <Separator />
       {/* content */}
-      <div className="font-base flex-1 overflow-hidden px-8 pt-6 pb-8">
-        <ScrollArea className="h-full max-h-[600px]">
+      <div className="font-base h-full pt-6 pb-8">
+        <ScrollArea className="h-full max-h-[600px] px-7">
           {isLoading ? (
             <AITextLoading className="mt-40" />
           ) : output ? (
-            <div className="font-base w-full overflow-x-auto">
-              <div
-                className=" markdown-body text-[15px]"
-                dangerouslySetInnerHTML={{ __html: renderMarkdown(output) }}
-              />
-            </div>
+            <div
+              dangerouslySetInnerHTML={{ __html: renderMarkdown(output) }}
+              className="markdown-body"
+            />
           ) : (
             <p className="text-muted-foreground font-geist mt-40 text-center text-lg">
               Nothing to show yet.
             </p>
           )}
+          <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </div>
     </div>
