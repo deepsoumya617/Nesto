@@ -1,5 +1,10 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import 'highlight.js/styles/atom-one-light.css';
+
+@media (prefers-color-scheme: dark) {
+  @import 'highlight.js/styles/atom-one-dark.css';
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -349,36 +354,37 @@ body.theme-transition * {
   font-size: 14px !important;
 }
 
-code {
-  display: inline !important;
-  white-space: break-spaces !important;
-  background: transparent !important;
+.markdown-body {
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.markdown-body pre {
+  background: none !important;
+  /* padding: 1rem; */
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+.markdown-body code {
+  background: none;
+  font-family: 'Geist Mono', monospace;
   font-size: 13px;
   font-weight: 400;
-  color: inherit;
-  padding: 0;
-  margin: 0;
-  border: none;
-  box-shadow: none;
-  line-height: 1.5;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
 }
 
-.hljs {
-  background: transparent !important;
-  color: inherit !important;
-  font-weight: 400 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  line-height: 1.5;
-}
-
-strong {
-  font-weight: 700 !important;
+/* Strong text styling */
+.markdown-body strong {
+  font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+.markdown-body h1,h2,h3,h4,h5,h6 {
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 5px;
+  text-decoration-color: #d97e4a;
+  text-decoration-thickness: 2px; 
 }
