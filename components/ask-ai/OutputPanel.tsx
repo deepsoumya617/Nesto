@@ -1,15 +1,21 @@
 'use client'
 
-import { Separator } from '../ui/separator'
-import { ScrollArea, ScrollBar } from '../ui/scroll-area'
 import AITextLoading from '../kokonutui/ai-text-loading'
-import { useAskAiStore } from '@/store/useAskAiStore'
 import { renderMarkdown } from '@/lib/markdown'
+import { useEffect, useRef } from 'react'
 
-export default function OutputPanel() {
-  const { output, isLoading } = useAskAiStore()
+export default function OutputPanel({
+  output,
+  isLoading,
+}: {
+  output: string | null
+  isLoading: boolean
+}) {
+  const bottomRef = useRef<HTMLDivElement | null>(null)
 
-  console.log(output)
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [output])
 
   return (
     <div className="font-geist hidden w-full flex-col text-sm font-semibold md:flex md:w-1/2">
@@ -21,24 +27,21 @@ export default function OutputPanel() {
           be shown here.
         </p>
       </div>
-      <Separator />
       {/* content */}
       <div className="font-base h-full pt-6 pb-8">
-        <ScrollArea className="h-full max-h-[600px] px-7">
-          {isLoading ? (
-            <AITextLoading className="mt-40" />
-          ) : output ? (
-            <div
-              dangerouslySetInnerHTML={{ __html: renderMarkdown(output) }}
-              className="markdown-body"
-            />
-          ) : (
-            <p className="text-muted-foreground font-geist mt-40 text-center text-lg">
-              Nothing to show yet.
-            </p>
-          )}
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+        {isLoading && !output && <AITextLoading className="mt-40" />}
+        {!output && !isLoading && (
+          <p className="text-muted-foreground font-geist mt-40 text-center text-lg">
+            Nothing to show yet.
+          </p>
+        )}
+        <div className="max-h-[600px] overflow-auto overflow-x-scroll px-8">
+          <div
+            dangerouslySetInnerHTML={{ __html: renderMarkdown(output!) }}
+            className="markdown-body break-words whitespace-pre-wrap"
+          />
+          <div ref={bottomRef} />
+        </div>
       </div>
     </div>
   )

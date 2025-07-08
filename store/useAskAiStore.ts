@@ -1,6 +1,3 @@
-// Disable Edge runtime
-export const runtime = 'nodejs'
-
 import { create } from 'zustand'
 
 type AskAIStore = {
@@ -13,9 +10,6 @@ type AskAIStore = {
   isOpen: boolean
   isImported: boolean
 
-  output: string | null
-  isLoading: boolean
-
   setTask: (task: string) => void
   setLanguage: (language: string) => void
   setConvertTo: (convertTo: string) => void
@@ -24,13 +18,10 @@ type AskAIStore = {
   setIsOpen: (isOpen: boolean) => void
   setSearchVal: (val: string) => void
   setIsImported: (isImported: boolean) => void
-
-  fetchAIResponse: () => Promise<void>
-
   reset: () => void
 }
 
-export const useAskAiStore = create<AskAIStore>((set, get) => ({
+export const useAskAiStore = create<AskAIStore>((set) => ({
   task: null,
   language: null,
   convertTo: '',
@@ -51,49 +42,6 @@ export const useAskAiStore = create<AskAIStore>((set, get) => ({
   setSearchVal: (val) => set({ searchVal: val }),
   setIsOpen: (e) => set({ isOpen: e }),
   setIsImported: (isImported) => set({ isImported }),
-
-  fetchAIResponse: async () => {
-    const { task, language, codeInput, convertTo, extraInfo, isLoading } = get()
-
-    if (isLoading || !task || !language) return
-    try {
-      set({ isLoading: true })
-      set({ output: '' })
-
-      const response = await fetch('/api/ask-ai', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          task,
-          language,
-          codeInput,
-          convertTo,
-          additionalInfo: extraInfo,
-        }),
-      })
-
-      if (!response.ok || !response.body) {
-        throw new Error('Failed to fetch AI response')
-      }
-
-      const reader = response.body?.getReader()
-      const decoder = new TextDecoder()
-      let result = ''
-
-      while (true) {
-        const { value, done } = await reader!.read()
-        if (done) break
-        result += decoder.decode(value, { stream: true })
-        set({ output: result }) // update live
-      }
-    } catch (error) {
-      console.error('Error fetching AI response:', error)
-    } finally {
-      set({ isLoading: false })
-    }
-  },
 
   reset: () =>
     set({

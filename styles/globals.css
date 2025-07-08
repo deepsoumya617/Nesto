@@ -353,14 +353,12 @@ body.theme-transition * {
 }
 
 .markdown-body {
-  /* line-height: 1.6; */
+  line-height: 1.4;
   font-weight: 500;
 }
 
 .markdown-body pre {
   background: none !important;
-  /* padding: 1rem; */
-  /* border-radius: 8px; */
 }
 
 .markdown-body code {

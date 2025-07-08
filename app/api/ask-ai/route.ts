@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server'
+export const runtime = 'nodejs'
+
 import { openai } from '@/lib/openai'
 import prisma from '@/lib/prisma'
 import { auth } from '@clerk/nextjs/server'
@@ -14,14 +15,20 @@ export async function POST(req: Request) {
     // check if user is authenticated
     const { userId } = await auth()
     if (!userId)
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      })
 
     // check if user exists on the database
     const user = await prisma.user.findUnique({
       where: { clerkId: userId },
     })
     if (!user)
-      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+      return new Response(JSON.stringify({ error: 'User not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      })
 
     // check if user is an admin
     const isAdmin = user.email === ADMIN_EMAIL
@@ -32,9 +39,14 @@ export async function POST(req: Request) {
 
     // check if user has exceeded daily usage limit
     if (!isAdmin && usage >= MAX_DAILY_USAGE) {
-      return NextResponse.json(
-        { error: 'Daily usage limit exceeded' },
-        { status: 429 },
+      return new Response(
+        JSON.stringify({
+          error: `Daily usage limit of ${MAX_DAILY_USAGE} exceeded. Please try again tomorrow.`,
+        }),
+        {
+          status: 429,
+          headers: { 'Content-Type': 'application/json' },
+        },
       )
     }
 
@@ -60,7 +72,10 @@ export async function POST(req: Request) {
         userPrompt = `Code:\n${codeInput}\n\nExtra info:\n${additionalInfo}`
         break
       default:
-        return NextResponse.json({ error: 'Invalid task' }, { status: 400 })
+        return new Response(JSON.stringify({ error: 'Invalid task type' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        })
     }
 
     // Stream Request to OpenAI
@@ -91,6 +106,7 @@ export async function POST(req: Request) {
         for await (const part of response) {
           const text = part.choices?.[0]?.delta?.content
           if (text) {
+            // console.log('Sending chunk:', text)
             controller.enqueue(encoder.encode(text))
           }
         }
@@ -103,13 +119,14 @@ export async function POST(req: Request) {
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
         'Cache-Control': 'no-cache',
+        Connection: 'keep-alive',
       },
     })
   } catch (error) {
     console.error('[ASK_AI_ERROR]', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 },
-    )
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    })
   }
 }

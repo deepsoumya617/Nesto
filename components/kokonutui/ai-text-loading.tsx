@@ -24,12 +24,10 @@ export default function AITextLoading({
   texts = [
     'Reading your snippet...',
     'Analyzing logic...',
-    'Debugging internally...',
-    'Thinking like a dev...',
     'Response incoming...',
   ],
   className,
-  interval = 1500,
+  interval = 700,
 }: AITextLoadingProps) {
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
 
@@ -47,7 +45,7 @@ export default function AITextLoading({
         className="relative w-full px-4 py-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 0.3 }}
       >
         <AnimatePresence mode="wait">
           <motion.div
@@ -60,8 +58,8 @@ export default function AITextLoading({
             }}
             exit={{ opacity: 0, y: -20 }}
             transition={{
-              opacity: { duration: 0.3 },
-              y: { duration: 0.3 },
+              opacity: { duration: 0.15 },
+              y: { duration: 0.15 },
               backgroundPosition: {
                 duration: 2.5,
                 ease: 'linear',

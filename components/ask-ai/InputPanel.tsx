@@ -18,19 +18,25 @@ import { ChevronRight } from 'lucide-react'
 import ImportSnippetModal from './ImportSnippetModal'
 import { useMemo } from 'react'
 
-export default function InputPanel() {
+export default function InputPanel({
+  isLoading,
+  fetchAIResponse,
+  setOutput,
+}: {
+  isLoading: boolean
+  fetchAIResponse: () => Promise<void>
+  setOutput: (output: string) => void
+}) {
   const {
     task,
     language,
     extraInfo,
     convertTo,
-    isLoading,
     setIsOpen,
     setTask,
     setLanguage,
     setConvertTo,
     setExtraInfo,
-    fetchAIResponse,
     reset,
   } = useAskAiStore()
 
@@ -56,6 +62,12 @@ export default function InputPanel() {
     { value: 'convert', label: 'Convert snippet' },
   ]
 
+  // handle clearing the input and output fields
+  function resetPanel() {
+    reset()
+    setOutput('')
+  }
+
   return (
     <div className="font-geist flex w-full flex-col border-r md:w-1/2">
       {/* heading */}
@@ -67,7 +79,7 @@ export default function InputPanel() {
         </p>
       </div>
 
-      <Separator />
+      {/* <Separator /> */}
       {/* inputs */}
       <section className="mt-4 mb-2 overflow-y-auto px-8 pb-6 sm:pb-0">
         <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-2">
@@ -166,7 +178,10 @@ export default function InputPanel() {
               className={`group font-geist flex cursor-pointer items-center gap-2 rounded-md bg-black px-4 py-2 text-[15px] font-medium tracking-wide text-white shadow-none dark:bg-white dark:text-black ${isLoading ? 'pointer-events-none opacity-50' : ''}`}
               // size="sm"
               disabled={!task || !language || isLoading}
-              onClick={fetchAIResponse}
+              onClick={() => {
+                console.log('Asking AI...')
+                fetchAIResponse()
+              }}
             >
               {isLoading ? 'Asking AI...' : 'Ask AI'}
               <ChevronRight
@@ -177,7 +192,7 @@ export default function InputPanel() {
             <button
               className="group font-geist cursor-pointer rounded-md bg-stone-100 px-4 py-2 text-[15px] font-medium tracking-wide text-stone-900 shadow-none dark:bg-stone-900 dark:text-stone-50"
               // size="sm"
-              onClick={reset}
+              onClick={resetPanel}
             >
               Clear
             </button>
