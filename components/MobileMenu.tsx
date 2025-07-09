@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowUpRight, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import {
   navMenuLinksSignedIn,
@@ -67,12 +67,14 @@ export function MobileMenu() {
     <>
       <div className="fixed top-4 right-6 z-40 flex items-center gap-3 md:hidden">
         <ModeToggleButton />
-        <button
-          onClick={() => setIsOpen(true)}
-          className="flex size-9 items-center justify-center rounded-full border focus:outline-none"
-        >
-          <Menu size={22} />
-        </button>
+        {isSignedIn && (
+          <button
+            onClick={() => setIsOpen(true)}
+            className="flex size-9 items-center justify-center rounded-full border focus:outline-none"
+          >
+            <Menu size={22} />
+          </button>
+        )}
       </div>
 
       <AnimatePresence>
@@ -82,7 +84,7 @@ export function MobileMenu() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.3, type: 'tween' }}
-            className="fixed top-0 right-0 z-50 flex h-screen w-full flex-col items-start gap-4 bg-background/80 px-8 backdrop-blur-md"
+            className="bg-background/80 fixed top-0 right-0 z-50 flex h-screen w-full flex-col items-start gap-4 px-8 backdrop-blur-md"
           >
             <button
               onClick={() => setIsOpen(false)}
@@ -96,57 +98,31 @@ export function MobileMenu() {
               animate="show"
               className="font-geist mt-40 flex flex-col gap-2"
             >
-              {isSignedIn
-                ? navMenuLinksSignedIn.map((link) => {
-                    return (
-                      <motion.button
-                        key={link.href}
-                        variants={navItemVariants}
-                        onClick={() => {
-                          router.push(link.href)
-                          setIsOpen(false)
-                        }}
-                        className="text-left text-4xl font-medium text-stone-900 dark:text-stone-50"
-                      >
-                        <p className="flex items-center">
-                          {link.label}
-                          {/* <span>
+              {navMenuLinksSignedIn.map((link) => {
+                return (
+                  <motion.button
+                    key={link.href}
+                    variants={navItemVariants}
+                    onClick={() => {
+                      router.push(link.href)
+                      setIsOpen(false)
+                    }}
+                    className="text-left text-4xl font-medium text-stone-900 dark:text-stone-50"
+                  >
+                    <p className="flex items-center">
+                      {link.label}
+                      {/* <span>
                             <ArrowUpRight size={26} className="mb-2" />
                           </span> */}
-                        </p>
-                        {/* <motion.div
+                    </p>
+                    {/* <motion.div
                           variants={underlineVariants}
                           transition={{ duration: 0.4 }}
                           className="h-[0.1rem] w-full bg-stone-900 dark:bg-stone-50"
                         /> */}
-                      </motion.button>
-                    )
-                  })
-                : navMenuLinksSignedOut.map((link) => {
-                    return (
-                      <motion.button
-                        key={link.href}
-                        variants={navItemVariants}
-                        onClick={() => {
-                          router.push(link.href)
-                          setIsOpen(false)
-                        }}
-                        className="text-left text-4xl font-medium tracking-widest text-stone-900"
-                      >
-                        <p className="flex items-center">
-                          {link.label}
-                          {/* <span>
-                            <ArrowUpRight size={26} className="mb-2" />
-                          </span> */}
-                        </p>
-                        <motion.div
-                          variants={underlineVariants}
-                          transition={{ duration: 0.4 }}
-                          className="h-[0.1rem] w-full bg-stone-900"
-                        />
-                      </motion.button>
-                    )
-                  })}
+                  </motion.button>
+                )
+              })}
             </motion.nav>
             {/* auth buttons */}
             <motion.div
