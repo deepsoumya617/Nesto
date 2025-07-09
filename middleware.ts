@@ -6,6 +6,7 @@ const isProtectedRoute = createRouteMatcher([
   '/notes(.*)',
   '/snippets(.*)',
   '/import(.*)',
+  '/ask-ai(.*)',
 ])
 
 export default clerkMiddleware(async (auth, req) => {

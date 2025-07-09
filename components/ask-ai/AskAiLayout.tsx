@@ -1,14 +1,24 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import InputPanel from './InputPanel'
 import OutputPanel from './OutputPanel'
 import { useAskAiStore } from '@/store/useAskAiStore'
+import MobileModal from './MobileModal'
+import { useAskAiMobileModalStore } from '@/store/useAskAiMobileModalStore'
 
 export default function AskAiLayout() {
   const [output, setOutput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const { task, language, codeInput, convertTo, extraInfo } = useAskAiStore()
+
+  // mobile modal state
+  const [isMobile, setIsMobile] = useState(false)
+  const { openModal } = useAskAiMobileModalStore()
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768)
+  }, [])
 
   // fetch AI response from the server
   async function fetchAIResponse() {
@@ -50,13 +60,15 @@ export default function AskAiLayout() {
 
   return (
     <div className="mx-auto flex h-[calc(100vh-4.53rem)] max-w-6xl overflow-hidden md:border-x">
-      <div className="bg-muted-foreground/20 fixed top-44 h-[1px] w-full max-w-6xl" />
+      <div className="bg-muted-foreground/20 fixed top-44 h-[1px] w-full max-w-6xl opacity-0 md:opacity-100" />
       <InputPanel
         fetchAIResponse={fetchAIResponse}
         isLoading={isLoading}
         setOutput={setOutput}
+        isMobile={isMobile}
       />
-      <OutputPanel output={output} isLoading={isLoading} />
+      <OutputPanel output={output} isLoading={isLoading} isMobile={isMobile} />
+      {openModal && isMobile && <MobileModal output={output} />}
     </div>
   )
 }

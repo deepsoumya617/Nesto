@@ -17,13 +17,16 @@ import { Textarea } from '../ui/textarea'
 import { ChevronRight } from 'lucide-react'
 import ImportSnippetModal from './ImportSnippetModal'
 import { useMemo } from 'react'
+import { useAskAiMobileModalStore } from '@/store/useAskAiMobileModalStore'
 
 export default function InputPanel({
   isLoading,
+  isMobile,
   fetchAIResponse,
   setOutput,
 }: {
   isLoading: boolean
+  isMobile?: boolean
   fetchAIResponse: () => Promise<void>
   setOutput: (output: string) => void
 }) {
@@ -39,6 +42,8 @@ export default function InputPanel({
     setExtraInfo,
     reset,
   } = useAskAiStore()
+
+  const { setOpenModal } = useAskAiMobileModalStore()
 
   const languages = [
     { value: 'javascript', label: 'Javascript' },
@@ -66,6 +71,15 @@ export default function InputPanel({
   function resetPanel() {
     reset()
     setOutput('')
+  }
+
+  // handle fetching AI response
+  function handleFetchAIResponse() {
+    if (isMobile) {
+      console.log('Opening mobile modal...')
+      setOpenModal(true)
+    }
+    fetchAIResponse()
   }
 
   return (
@@ -176,12 +190,8 @@ export default function InputPanel({
           <div className="flex items-center gap-3">
             <button
               className={`group font-geist flex cursor-pointer items-center gap-2 rounded-md bg-black px-4 py-2 text-[15px] font-medium tracking-wide text-white shadow-none dark:bg-white dark:text-black ${isLoading ? 'pointer-events-none opacity-50' : ''}`}
-              // size="sm"
               disabled={!task || !language || isLoading}
-              onClick={() => {
-                console.log('Asking AI...')
-                fetchAIResponse()
-              }}
+              onClick={handleFetchAIResponse}
             >
               {isLoading ? 'Asking AI...' : 'Ask AI'}
               <ChevronRight

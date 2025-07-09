@@ -17,7 +17,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '../ui/alert-dialog'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo  } from 'react'
 import { useGistImportStore } from '@/store/useGistImportStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 import ImportGistModal from './ImportGistModal'
