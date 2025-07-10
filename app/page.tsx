@@ -11,9 +11,9 @@ export default function HomePage() {
       <Header />
       <GradientBlob />
       <div className="z-40">
-        <Container>
-          <Hero />
-        </Container>
+        {/* <Container>
+        </Container> */}
+        <Hero />
       </div>
     </div>
   )

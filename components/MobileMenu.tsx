@@ -65,7 +65,7 @@ export function MobileMenu() {
 
   return (
     <>
-      <div className="fixed top-4 right-6 z-40 flex items-center gap-3 md:hidden">
+      <div className="fixed top-5 right-8 z-40 flex items-center gap-3 md:hidden">
         <ModeToggleButton />
         {isSignedIn && (
           <button

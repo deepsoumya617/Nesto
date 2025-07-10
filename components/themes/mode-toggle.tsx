@@ -21,7 +21,7 @@ export default function ModeToggleButton() {
   return (
     <button
       onClick={toggleTheme}
-      className="border-border bg-background hover:bg-muted relative flex h-9 w-9 items-center justify-center rounded-full border transition-colors duration-300 cursor-pointer"
+      className="relative flex size-4 items-center justify-center transition-colors duration-300 cursor-pointer"
     >
       <motion.div
         key={isDark ? 'moon' : 'sun'}

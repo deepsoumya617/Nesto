@@ -9,6 +9,8 @@ import ModeToggleButton from './themes/mode-toggle'
 import { RainbowButton } from './magicui/rainbow-button'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { Separator } from './ui/separator'
+import { Badge } from './ui/badge'
 
 export default function Header() {
   const { resolvedTheme } = useTheme()
@@ -70,22 +72,22 @@ export default function Header() {
 
         {/* RIGHT SIDE — mode toggle + button */}
         <div className="hidden items-center gap-4 md:flex">
-          <ModeToggleButton />
           {!isSignedIn ? (
-            <RainbowButton className="flex items-center rounded-lg text-[13px] tracking-wide pointer-events-none">
+            <Badge className="pointer-events-none flex items-center rounded-lg px-4 py-2 text-[13px] tracking-wide">
               {resolvedTheme === 'dark' ? (
                 <img src="/Github_light.svg" className="size-4" />
               ) : (
                 <img src="/Github_dark.svg" className="size-4" />
               )}
-              <p className='font-normal'>Star on Github ⭐</p>
+              <p className="text-[13px] font-medium">Star on Github ⭐</p>
               {stars !== null && (
                 <span className="-ml-1 text-sm font-semibold">
                   {stars.toLocaleString()}
                 </span>
               )}
-            </RainbowButton>
+            </Badge>
           ) : (
+            <div className='flex items-center gap-7'>
             <Button
               className="cursor-pointer rounded-md px-5 py-2.5 text-sm text-stone-100"
               onClick={() => signOut()}
@@ -93,6 +95,27 @@ export default function Header() {
             >
               Sign Out
             </Button>
+            <ModeToggleButton />
+            </div>
+          )}
+          {!isSignedIn && (
+            <div className="flex h-5 items-center space-x-3 text-sm">
+              <ModeToggleButton />
+              <Separator orientation="vertical" />
+              <Link href="https://github.com/deepsoumya617/nesto">
+                {resolvedTheme === 'dark' ? (
+                  <img src="/Github_dark.svg" className="size-4" />
+                ) : (
+                  <img src="/Github_light.svg" className="size-4" />
+                )}
+              </Link>
+              <Separator orientation="vertical" />
+              {resolvedTheme === 'dark' ? (
+                <img src="/x-dark.svg" className="size-4" />
+              ) : (
+                <img src="/x-light.svg" className="size-4" />
+              )}
+            </div>
           )}
         </div>
       </div>
