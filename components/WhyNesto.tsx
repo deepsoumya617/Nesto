@@ -12,17 +12,18 @@ export default function WhyNesto() {
           <br /> Nesto brings everything you need into one focused space.
         </p>
       </div>
-      <div className="relative mx-auto mt-10 w-[90%] tracking-tight sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%]">
+      <div className="relative mx-auto mt-10 w-[90%] tracking-tight sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[55%]">
         <div className="w-full border-t border-black/30" />
-        <div className="relative mx-4 -mt-4 h-fit border-x border-black/30">
+        <div className="lg relative mx-4 -mt-4 h-fit border-x border-black/30">
+          <div className="absolute top-0 left-1/2 mt-4 hidden xl:h-[89%] w-px bg-black/30 lg:block lg:h-[92%]" />
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Problems */}
-            <div className="border-black/30 py-7 lg:border-r">
+            <div className="border-black/30 py-7">
               <div className="flex items-center justify-center gap-0.5">
                 <X size={20} />
                 <h1>Problems</h1>
               </div>
-              <div className="mt-2 divide-y divide-black/10 text-sm leading-relaxed font-medium tracking-tight text-neutral-700">
+              <div className="mt-2 divide-y divide-black/10 text-sm leading-relaxed font-medium tracking-tight text-neutral-700 text-center lg:text-left">
                 <p className="px-3 py-2">
                   Creating extra files just to store a small snippet.
                 </p>
@@ -38,9 +39,6 @@ export default function WhyNesto() {
                 <p className="px-3 py-2">
                   Forgetting reusable patterns or edge cases.
                 </p>
-                <p className="px-3 py-2">
-                  Copying from ChatGPT and not saving it anywhere.
-                </p>
               </div>
             </div>
 
@@ -50,7 +48,7 @@ export default function WhyNesto() {
                 <Check size={20} />
                 <h1>Solutions</h1>
               </div>
-              <div className="mt-2 divide-y divide-black/10 text-sm leading-relaxed font-medium tracking-tight text-neutral-700">
+              <div className="mt-2 divide-y divide-black/10 text-sm leading-relaxed font-medium tracking-tight text-neutral-700 text-center lg:text-left">
                 <p className="px-3 py-2">
                   Save any snippet instantly — no extra files.
                 </p>
@@ -65,9 +63,6 @@ export default function WhyNesto() {
                 </p>
                 <p className="px-3 py-2">
                   Keep reusable logic and patterns organized.
-                </p>
-                <p className="px-3 py-2">
-                  Capture AI responses in a click — no more copy-paste loss.
                 </p>
               </div>
             </div>
