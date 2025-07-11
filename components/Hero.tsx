@@ -24,7 +24,7 @@ export default function Hero() {
         </AnimatedShinyText>
       </Link>
       <div className="max-w-4xl px-4 text-center">
-        <h1 className="mt-8 mb-6 hidden px-6 text-5xl font-bold tracking-tight md:block">
+        <h1 className="mt-8 mb-6 px-6 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
           Write less.Think better.Let AI assist. Snippets and notes, together at
           last.
         </h1>
@@ -76,8 +76,8 @@ export default function Hero() {
           </div>
         </motion.div>
       </Container> */}
-      <div className="mt-10 w-full border-y">
-        <div className="mx-auto w-full max-w-6xl border-x">
+      <div className="mt-10 w-full border-y border-black/45">
+        <div className="mx-auto w-full max-w-6xl border-x border-black/45">
           <img
             src="/preview.png"
             alt="hero"
