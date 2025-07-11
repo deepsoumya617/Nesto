@@ -29,7 +29,7 @@ export default function Hero() {
           last.
         </h1>
 
-        <p className="text-md text-muted-foreground mx-auto mb-8 hidden max-w-2xl px-16 md:block">
+        <p className="text-md text-muted-foreground mx-auto mb-8 hidden max-w-2xl px-16 md:block font-geist">
           Capture ideas, draft notes, and save code—without the noise. Nesto is
           your AI-powered thinking space for everything that matters.
         </p>

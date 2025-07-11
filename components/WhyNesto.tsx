@@ -7,7 +7,7 @@ export default function WhyNesto() {
         <h2 className="text-3xl tracking-tighter md:text-4xl">
           Why Choose Nesto?
         </h2>
-        <p className="text-muted-foreground mx-auto mt-2 max-w-2xl text-[16px] leading-5 tracking-tight">
+        <p className="text-muted-foreground mx-auto mt-2 max-w-2xl text-[16px] leading-5 tracking-tight font-geist">
           Traditional tools scatter your thinking and your code.
           <br /> Nesto brings everything you need into one focused space.
         </p>
@@ -18,12 +18,12 @@ export default function WhyNesto() {
           <div className="absolute top-0 left-1/2 mt-4 hidden xl:h-[89%] w-px bg-black/30 lg:block lg:h-[92%]" />
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Problems */}
-            <div className="border-black/30 py-7">
+            <div className="border-black/30 py-7 font-geist">
               <div className="flex items-center justify-center gap-0.5">
                 <X size={20} />
                 <h1>Problems</h1>
               </div>
-              <div className="mt-2 divide-y divide-black/10 text-sm leading-relaxed font-medium tracking-tight text-neutral-700 text-center lg:text-left">
+              <div className="mt-2 divide-y divide-black/10 text-[15px] leading-relaxed font-medium tracking-tight text-neutral-800 text-center lg:text-left">
                 <p className="px-3 py-2">
                   Creating extra files just to store a small snippet.
                 </p>
@@ -43,12 +43,12 @@ export default function WhyNesto() {
             </div>
 
             {/* Solutions */}
-            <div className="border-t border-black/30 py-7 lg:border-t-0">
+            <div className="border-t border-black/30 py-7 lg:border-t-0 font-geist">
               <div className="flex items-center justify-center gap-0.5">
                 <Check size={20} />
                 <h1>Solutions</h1>
               </div>
-              <div className="mt-2 divide-y divide-black/10 text-sm leading-relaxed font-medium tracking-tight text-neutral-700 text-center lg:text-left">
+              <div className="mt-2 divide-y divide-black/10 text-[15px] leading-relaxed font-medium tracking-tight text-neutral-800 text-center lg:text-left font-geist">
                 <p className="px-3 py-2">
                   Save any snippet instantly — no extra files.
                 </p>
