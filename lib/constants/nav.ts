@@ -1,9 +1,10 @@
 // Nav pages
 export const navMenuLinksSignedOut = [
   { label: 'Features', href: '#features' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Docs', href: '#docs' },
+  { label: 'How it works', href: '#howitworks' },
+  { label: 'Github', href: '#github' },
   { label: 'About', href: '#about' },
+  { label: 'FAQ', href: '#faq' },
 ]
 
 export const navMenuLinksSignedIn = [
@@ -11,5 +12,4 @@ export const navMenuLinksSignedIn = [
   { label: 'Dashboard', href: '/dashboard' },
   { label: 'Notes', href: '/notes' },
   { label: 'Snippets', href: '/snippets' },
-  // { label: 'Import From Github', href: '/import' },
 ]

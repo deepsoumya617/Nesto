@@ -1,19 +1,17 @@
 'use client'
 
-import Container from '@/components/Container'
-import { GradientBlob } from '@/components/GradientBlob'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
+import WhyNesto from '@/components/WhyNesto'
 
 export default function HomePage() {
   return (
     <div>
       <Header />
-      <GradientBlob />
+      {/* <GradientBlob /> */}
       <div className="z-40">
-        {/* <Container>
-        </Container> */}
         <Hero />
+        <WhyNesto />
       </div>
     </div>
   )

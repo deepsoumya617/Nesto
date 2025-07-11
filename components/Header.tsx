@@ -1,22 +1,21 @@
 'use client'
 
 import { Button } from './ui/button'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useAuth, useClerk } from '@clerk/nextjs'
-import { navMenuLinksSignedIn } from '@/lib/constants/nav'
+import {
+  navMenuLinksSignedIn,
+  navMenuLinksSignedOut,
+} from '@/lib/constants/nav'
 import Link from 'next/link'
 import ModeToggleButton from './themes/mode-toggle'
-import { RainbowButton } from './magicui/rainbow-button'
-import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { Separator } from './ui/separator'
 import { Badge } from './ui/badge'
 
 export default function Header() {
-  const { resolvedTheme } = useTheme()
+  const router = useRouter()
   const { isSignedIn } = useAuth()
   const { signOut } = useClerk()
-  const pathname = usePathname()
 
   // fetch stars
   const [stars, setStars] = useState<number | null>(null)
@@ -37,31 +36,35 @@ export default function Header() {
   }, [])
 
   return (
-    <header
-      className={`border-border supports-backdrop-blur:bg-background/80 bg-background/40 sticky top-0 z-40 w-full border-b px-6 py-4 backdrop-blur-lg ${
-        isSignedIn ? '' : 'shadow-md shadow-zinc-100/70 dark:shadow-none'
-      }`}
-    >
+    <header className="border-border supports-backdrop-blur:bg-background/80 bg-background/40 sticky top-0 z-40 w-full border-b px-6 py-4 backdrop-blur-lg">
       <div className="mx-auto flex max-w-5xl items-center justify-between">
         {/* LEFT SIDE — logo + nav links */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3">
           <div className="flex">
             <p className="text-2xl">~</p>
             <h3 className="font-geist text-xl">Nesto.ai</h3>
           </div>
 
           {/* nav menu - desktop */}
-          {isSignedIn && (
-            <div className="font-geist hidden items-center gap-7 font-medium md:flex">
+          {isSignedIn ? (
+            <div className="font-geist hidden items-center font-medium md:flex">
               {navMenuLinksSignedIn.map((link) => (
                 <Link
                   href={link.href}
                   key={link.href}
-                  className={`underline-gray-900 cursor-pointer text-sm tracking-wide decoration-2 underline-offset-4 transition-colors hover:text-black hover:underline ${
-                    pathname === link.href
-                      ? 'underline-gray-900 text-gray-900 underline decoration-2 underline-offset-4 dark:text-gray-100'
-                      : 'text-gray-600 dark:text-gray-300'
-                  }`}
+                  className="rounded-md px-3 py-1.5 text-[12px] font-semibold tracking-tight hover:bg-gray-100"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="font-geist hidden items-center font-medium md:flex">
+              {navMenuLinksSignedOut.map((link) => (
+                <Link
+                  href={link.href}
+                  key={link.href}
+                  className="rounded-md px-3 py-1.5 text-[12px] font-semibold tracking-tight hover:bg-gray-100"
                 >
                   {link.label}
                 </Link>
@@ -73,32 +76,49 @@ export default function Header() {
         {/* RIGHT SIDE — mode toggle + button */}
         <div className="hidden items-center gap-4 md:flex">
           {!isSignedIn ? (
-            <Badge className="pointer-events-none flex items-center rounded-lg px-4 py-2 text-[13px] tracking-wide">
-              {resolvedTheme === 'dark' ? (
-                <img src="/Github_light.svg" className="size-4" />
-              ) : (
-                <img src="/Github_dark.svg" className="size-4" />
-              )}
-              <p className="text-[13px] font-medium">Star on Github ⭐</p>
-              {stars !== null && (
-                <span className="-ml-1 text-sm font-semibold">
-                  {stars.toLocaleString()}
-                </span>
-              )}
-            </Badge>
+            // <Badge className="pointer-events-none flex items-center rounded-lg px-4 py-2 text-[13px] tracking-wide">
+            //   {resolvedTheme === 'dark' ? (
+            //     <img src="/Github_light.svg" className="size-4" />
+            //   ) : (
+            //     <img src="/Github_dark.svg" className="size-4" />
+            //   )}
+            //   <p className="text-[13px] font-medium">Star on Github ⭐</p>
+            //   {stars !== null && (
+            //     <span className="-ml-1 text-sm font-semibold">
+            //       {stars.toLocaleString()}
+            //     </span>
+            //   )}
+            // </Badge>
+            <div className="font-geist flex items-center gap-2">
+              <Button
+                size="sm"
+                variant="secondary"
+                className="cursor-pointer font-bold shadow-none"
+                onClick={() => router.push('/sign-in')}
+              >
+                Log in
+              </Button>
+              <Button
+                size="sm"
+                className="cursor-pointer font-semibold"
+                onClick={() => router.push('/sign-up')}
+              >
+                Sign up
+              </Button>
+            </div>
           ) : (
-            <div className='flex items-center gap-7'>
-            <Button
-              className="cursor-pointer rounded-md px-5 py-2.5 text-sm text-stone-100"
-              onClick={() => signOut()}
-              variant="destructive"
-            >
-              Sign Out
-            </Button>
-            <ModeToggleButton />
+            <div className="flex items-center gap-7">
+              <Button
+                className="cursor-pointer rounded-md px-5 py-2.5 text-sm text-stone-100"
+                onClick={() => signOut()}
+                variant="destructive"
+              >
+                Sign Out
+              </Button>
+              <ModeToggleButton />
             </div>
           )}
-          {!isSignedIn && (
+          {/* {!isSignedIn && (
             <div className="flex h-5 items-center space-x-3 text-sm">
               <ModeToggleButton />
               <Separator orientation="vertical" />
@@ -116,7 +136,7 @@ export default function Header() {
                 <img src="/x-light.svg" className="size-4" />
               )}
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </header>

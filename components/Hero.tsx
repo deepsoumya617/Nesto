@@ -2,19 +2,16 @@
 
 import { ArrowRight, ArrowRightIcon } from 'lucide-react'
 import { AnimatedShinyText } from './magicui/animated-shiny-text'
-import { RainbowButton } from './magicui/rainbow-button'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import { TextAnimate } from './magicui/text-animate'
-import { motion } from 'motion/react'
-import Image from 'next/image'
+import { Button } from './ui/button'
 
 export default function Hero() {
   return (
-    <section className="flex w-full flex-col items-center justify-center py-24">
-      <div className="pointer-events-none absolute inset-0 -z-10">
+    <section className="flex w-full flex-col items-center justify-center pt-24">
+      {/* <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="animate-grid-pan-slow h-full w-full bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] bg-[size:14px_24px] opacity-50 dark:opacity-70" />
-      </div>
+      </div> */}
       <Link
         href="/changelog"
         className={cn(
@@ -27,102 +24,59 @@ export default function Hero() {
         </AnimatedShinyText>
       </Link>
       <div className="max-w-4xl px-4 text-center">
-        {/* desktop */}
-        <TextAnimate
-          className="mt-8 mb-6 hidden px-6 text-5xl font-bold tracking-tight md:block"
-          animate="blurInUp"
-          by="character"
-          duration={0.9}
-          once
-        >
+        <h1 className="mt-8 mb-6 hidden px-6 text-5xl font-bold tracking-tight md:block">
           Write less.Think better.Let AI assist. Snippets and notes, together at
           last.
-        </TextAnimate>
+        </h1>
 
-        {/* mobile */}
-        <TextAnimate
-          className="mt-8 mb-6 px-5 text-4xl font-bold tracking-tight md:hidden"
-          animate="blurInUp"
-          by="word"
-          duration={0.9}
-          once
-        >
-          Write less.Think better.Let AI assist. Snippets and notes, together at
-          last.
-        </TextAnimate>
-
-        {/* optimized for desktop */}
-        <TextAnimate
-          className="text-md text-muted-foreground mx-auto mb-8 hidden max-w-2xl px-9 tracking-wider md:block"
-          animate="blurInUp"
-          by="character"
-          delay={0.7}
-          duration={0.9}
-          once
-        >
+        <p className="text-md text-muted-foreground mx-auto mb-8 hidden max-w-2xl px-16 md:block">
           Capture ideas, draft notes, and save code—without the noise. Nesto is
           your AI-powered thinking space for everything that matters.
-        </TextAnimate>
+        </p>
 
-        {/* optimized for mobile */}
-        <TextAnimate
-          className="text-muted-foreground mx-auto mb-8 max-w-2xl px-5 text-sm tracking-wider md:hidden"
-          animate="blurInUp"
-          by="word"
-          delay={0.7}
-          duration={0.9}
-          once
-        >
-          Capture ideas, draft notes, and save code—without the noise. Nesto is
-          your AI-powered thinking space for everything that matters.
-        </TextAnimate>
-
-        <div className="flex flex-row justify-center gap-3">
+        <div className="flex flex-row justify-center gap-1">
           <Link href="/sign-in">
-            <RainbowButton
+            <Button
               size="lg"
-              className="group animate-fade-in-up animate-delay-300 rounded-md tracking-wider"
+              className="group cursor-pointer rounded-md font-semibold tracking-wider"
             >
               Get Started
               <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
-            </RainbowButton>
+            </Button>
           </Link>
           <Link href="/about-us">
-            <RainbowButton
+            <Button
               size="lg"
-              variant={'outline'}
-              className="group animate-fade-in-up animate-delay-400 rounded-md tracking-wide"
+              variant="ghost"
+              className="group cursor-pointer rounded-md font-semibold tracking-wide"
             >
               Learn More
               <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
-            </RainbowButton>
+            </Button>
           </Link>
         </div>
       </div>
       {/* hero image */}
-      {/* <motion.div
-        className="relative mt-20 rounded-[32px] border border-neutral-200 bg-neutral-100 p-4 dark:border-neutral-700 dark:bg-neutral-800"
-        initial={{ opacity: 0, y: 40, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ delay: 0.6, duration: 0.6, ease: 'easeOut' }}
-      >
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 w-full scale-[1.1] bg-gradient-to-b from-transparent via-white to-white dark:via-black/50 dark:to-black"></div>
-        <div className="rounded-[24px] border border-neutral-200 bg-white p-2 dark:border-neutral-700 dark:bg-black">
-          <img
-            src="/preview.png"
-            alt="hero"
-            width="1920"
-            height="1080"
-            className="object-contain w-full h-auto rounded-xl"
-          />
-        </div>
-      </motion.div> */}
-      <motion.div
-        className="mt-10 w-full border-y"
-        initial={{ opacity: 0, y: 40, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ delay: 0.6, duration: 0.6, ease: 'easeOut' }}
-      >
+      {/* <Container>
+        <motion.div
+          className="relative mt-20 rounded-[32px] border border-neutral-200 bg-neutral-100 p-4 dark:border-neutral-700 dark:bg-neutral-800"
+          initial={{ opacity: 0, y: 40, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 0.6, duration: 0.6, ease: 'easeOut' }}
+        >
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 w-full scale-[1.1] bg-gradient-to-b from-transparent via-white to-white dark:via-black/50 dark:to-black"></div>
+          <div className="rounded-[24px] border border-neutral-200 bg-white p-2 dark:border-neutral-700 dark:bg-black">
+            <img
+              src="/preview.png"
+              alt="hero"
+              width="1920"
+              height="1080"
+              className="h-auto w-full rounded-xl object-contain"
+            />
+          </div>
+        </motion.div>
+      </Container> */}
+      <div className="mt-10 w-full border-y">
         <div className="mx-auto w-full max-w-6xl border-x">
           <img
             src="/preview.png"
@@ -130,7 +84,7 @@ export default function Hero() {
             className="h-auto w-full object-contain"
           />
         </div>
-      </motion.div>
+      </div>
     </section>
   )
 }
