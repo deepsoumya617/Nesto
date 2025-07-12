@@ -8,45 +8,46 @@ import {
   Search,
 } from 'lucide-react'
 
+const features = [
+  {
+    icon: <Notebook size="40" />,
+    title: 'Rich Notes',
+    description:
+      'Write, structure, and format your thoughts with Markdown, code blocks, and more — perfect for documenting ideas, bugs, or problem walkthroughs.',
+  },
+  {
+    icon: <FileJson2 size="40" />,
+    title: 'Code Snippets',
+    description:
+      'Save reusable code blocks with titles, tags, and context. No need to dig through old files or remember patterns.',
+  },
+  {
+    icon: <Bot size="40" />,
+    title: 'Ask AI',
+    description:
+      'Get real-time help from AI: generate code, explain logic, or debug errors — without switching tabs.',
+  },
+  {
+    icon: <FolderClosed size="40" />,
+    title: 'Tags and Labels',
+    description:
+      'Categorize notes and snippets with custom tags to keep your workspace clean, searchable, and context-aware.',
+  },
+  {
+    icon: <Search size="40" />,
+    title: 'Smart Search',
+    description:
+      'Blazingly fast search across all notes and snippets — by name, tag, or even content keywords.',
+  },
+  {
+    icon: <GitBranch size="40" />,
+    title: 'Gist Import and Sharing',
+    description:
+      'Import your existing GitHub Gists or share public links directly from Nesto — perfect for showcasing or collaborating.',
+  },
+]
+
 export default function Features() {
-  const features = [
-    {
-      icon: <Notebook size="40" />,
-      title: 'Rich Notes',
-      description:
-        'Write, structure, and format your thoughts with Markdown, code blocks, and more — perfect for documenting ideas, bugs, or problem walkthroughs.',
-    },
-    {
-      icon: <FileJson2 size="40" />,
-      title: 'Code Snippets',
-      description:
-        'Save reusable code blocks with titles, tags, and context. No need to dig through old files or remember patterns.',
-    },
-    {
-      icon: <Bot size="40" />,
-      title: 'Ask AI',
-      description:
-        'Get real-time help from AI: generate code, explain logic, or debug errors — without switching tabs.',
-    },
-    {
-      icon: <FolderClosed size="40" />,
-      title: 'Tags & Labels',
-      description:
-        'Categorize notes and snippets with custom tags to keep your workspace clean, searchable, and context-aware.',
-    },
-    {
-      icon: <Search size="40" />,
-      title: 'Smart Search',
-      description:
-        'Blazingly fast search across all notes and snippets — by name, tag, or even content keywords.',
-    },
-    {
-      icon: <GitBranch size="40" />,
-      title: 'Gist Import & Sharing',
-      description:
-        'Import your existing GitHub Gists or share public links directly from Nesto — perfect for showcasing or collaborating.',
-    },
-  ]
 
   return (
     <section className="w-full px-4 py-24 sm:px-8 lg:px-16">
@@ -90,8 +91,8 @@ export default function Features() {
 
                   <div className="px-6 py-10">
                     <p className="mb-1 text-2xl">{feature.icon}</p>
-                    <h3 className="text-lg font-bold mt-4">{feature.title}</h3>
-                    <p className="text-muted-foreground mt-1 text-sm">
+                    <h3 className="mt-4 text-[19px] font-bold">{feature.title}</h3>
+                    <p className="text-muted-foreground mt-1 ">
                       {feature.description}
                     </p>
                   </div>

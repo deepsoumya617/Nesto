@@ -3,6 +3,7 @@
 import Features from '@/components/Features'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
+import HowItWorks from '@/components/HowItWorks'
 import WhyNesto from '@/components/WhyNesto'
 
 export default function HomePage() {
@@ -14,6 +15,7 @@ export default function HomePage() {
         <Hero />
         <WhyNesto />
         <Features />
+        <HowItWorks />
       </div>
     </div>
   )
