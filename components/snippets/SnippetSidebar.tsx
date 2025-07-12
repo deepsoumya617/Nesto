@@ -130,7 +130,7 @@ export default function SnippetSidebar({ isMobile }: { isMobile?: boolean }) {
           </p>
           <div className="mb-2 flex items-center gap-3 px-5 py-3">
             <Button
-              className="cursor-pointer text-xs font-semibold tracking-wide"
+              className="cursor-pointer text-xs font-medium tracking-wide"
               size="sm"
               // onClick={resetEditor}
               onClick={handleCreateClick}
@@ -139,7 +139,7 @@ export default function SnippetSidebar({ isMobile }: { isMobile?: boolean }) {
               <Plus className="-ml-1" size="17" />
             </Button>
             <Button
-              className="group cursor-pointer px-3 text-xs font-semibold tracking-wide shadow-none"
+              className="group cursor-pointer px-3 text-xs font-medium tracking-wide shadow-none"
               size="sm"
               onClick={() => setIsGistImportModalOpen(true)}
             >

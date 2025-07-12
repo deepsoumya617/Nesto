@@ -4,6 +4,7 @@ import Contributors from '@/components/Contributors'
 import CTA from '@/components/CTA'
 import FAQs from '@/components/FAQs'
 import Features from '@/components/Features'
+import Footer from '@/components/Footer'
 import GithubStat from '@/components/GithubStat'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
@@ -24,6 +25,7 @@ export default function HomePage() {
         <Contributors />
         <FAQs />
         <CTA />
+        <Footer />
       </div>
     </div>
   )

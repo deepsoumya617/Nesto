@@ -567,7 +567,7 @@ export default function DashboardClient({
       </div>
 
       {/* 3rd row */}
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 mb-6">
         {/* language pie chart */}
         <Card className="bg-transparent shadow-none">
           <CardHeader className="-mb-4">

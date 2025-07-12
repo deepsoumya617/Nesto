@@ -17,7 +17,7 @@ export default function NoteEditor({
 }: NoteEditorProps) {
   return (
     <div
-      className={`${className ?? 'hidden md:flex'} flex-1 flex-col overflow-hidden md:pb-28 pb-10`}
+      className={`${className ?? 'hidden md:flex'} flex-1 flex-col overflow-hidden pb-10 md:pb-28`}
       style={{ minHeight: '100vh' }} // mobile full height fix
     >
       {/* Title */}
@@ -36,24 +36,19 @@ export default function NoteEditor({
       </div>
 
       {/* edit button */}
-      {mode !== 'edit' && (
-        <button
-          className="fixed top-4 right-16 z-60 flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-800 cursor-pointer"
-          onClick={() => setMode('edit')}
-        >
-          <Pencil
-            strokeWidth={2}
-            className="text-black dark:text-white"
-            size={18}
-          />
-        </button>
-      )}
+      <button
+        className="fixed top-60 right-4 z-50 flex h-12 w-12 cursor-pointer items-center justify-center gap-3 rounded-full bg-zinc-100 sm:right-10 md:right-5 lg:right-5 xl:right-40 2xl:right-56"
+        onClick={() => setMode('edit')}
+        disabled={mode === 'edit' || isSaving}
+      >
+        <Pencil strokeWidth={2} className="text-black" size={18} />
+      </button>
 
       {/* fab */}
       {isEditable && (
-        <div className="fixed right-5 bottom-5 z-50 flex gap-4">
+        <div className="fixed right-4 bottom-8 z-50 flex gap-3 sm:right-10 md:right-5 lg:right-5 xl:right-40 2xl:right-56">
           <button
-            className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-black transition-colors hover:bg-black/85 dark:bg-white dark:hover:bg-white/85"
+            className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-black transition-colors hover:bg-black/85 dark:bg-white dark:hover:bg-white/85"
             onClick={() => {
               if (mode === 'create') return handleCreateNote?.()
               if (mode === 'edit') return handleUpdateNote()
@@ -70,7 +65,7 @@ export default function NoteEditor({
             />
           </button>
           <button
-            className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-red-600"
+            className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-red-600"
             onClick={() => {
               if (mode === 'edit') return setMode('view')
               if (mode === 'create') {

@@ -475,7 +475,7 @@ export default function SnippetEditor({
       >
         <Pencil
           strokeWidth={2}
-          className="text-black dark:text-white"
+          className="text-black"
           size={18}
         />
       </button>

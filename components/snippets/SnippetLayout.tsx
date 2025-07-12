@@ -11,7 +11,7 @@ export default function SnippetLayout() {
     setIsMobile(window.innerWidth < 768)
   }, [])
   return (
-    <div className="mx-auto flex h-[calc(100vh-4.53rem)] max-w-6xl overflow-hidden md:border-x">
+    <div className="mx-auto flex h-[calc(100vh-4.53rem)] max-w-6xl overflow-hidden md:border-x font-geist">
       <SnippetSidebar isMobile={isMobile} />
       <SnippetEditor isMobile={isMobile}/>
     </div>

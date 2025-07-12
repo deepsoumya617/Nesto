@@ -129,7 +129,7 @@ export default function NoteLayout() {
   // h-[calc(100vh-4.53rem)]
   // h-[100dvh]
   return (
-    <div className="mx-auto flex h-[calc(100vh-4.53rem)] max-w-6xl overflow-hidden md:border-x">
+    <div className="mx-auto flex h-[calc(100vh-4.53rem)] max-w-6xl overflow-hidden md:border-x font-geist">
       <NoteSidebar
         title={title}
         content={content}
