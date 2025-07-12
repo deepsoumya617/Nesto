@@ -1,6 +1,7 @@
 'use client'
 
 import Features from '@/components/Features'
+import GithubStat from '@/components/GithubStat'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import HowItWorks from '@/components/HowItWorks'
@@ -16,6 +17,7 @@ export default function HomePage() {
         <WhyNesto />
         <Features />
         <HowItWorks />
+        <GithubStat />
       </div>
     </div>
   )

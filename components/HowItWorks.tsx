@@ -12,7 +12,7 @@ const steps = [
     stepno: 2,
     image: '/card2.svg',
     title: 'Ask AI',
-    description: 'Use AI to debug, explain, or generate helpful code.',
+    description: 'Use AI to debug, explain, generate or convert helpful code.',
   },
   {
     stepno: 3,
@@ -48,7 +48,7 @@ export default function HowItWorks() {
                 alt="cardimage"
                 width={100}
                 height={100}
-                className="h-full w-full px-3"
+                className={`px-3 ${idx === 0 ? 'h-[90%] w-[90%]' : 'h-full w-full'}`}
               />
               <div className="mt-6">
                 <h1 className="text-[19px]">{step.title}</h1>

@@ -9,31 +9,11 @@ import {
 } from '@/lib/constants/nav'
 import Link from 'next/link'
 import ModeToggleButton from './themes/mode-toggle'
-import { useEffect, useState } from 'react'
-import { Badge } from './ui/badge'
 
 export default function Header() {
   const router = useRouter()
   const { isSignedIn } = useAuth()
   const { signOut } = useClerk()
-
-  // fetch stars
-  const [stars, setStars] = useState<number | null>(null)
-  useEffect(() => {
-    const fetchStars = async () => {
-      try {
-        const res = await fetch(
-          'https://api.github.com/repos/deepsoumya617/nesto',
-        )
-        if (!res.ok) throw new Error('Failed to fetch stars')
-        const data = await res.json()
-        setStars(data.stargazers_count)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    fetchStars()
-  }, [])
 
   return (
     <header className="border-border supports-backdrop-blur:bg-background/80 bg-background/40 sticky top-0 z-40 w-full border-b px-6 py-4 backdrop-blur-lg">
