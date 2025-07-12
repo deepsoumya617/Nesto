@@ -47,7 +47,7 @@ export default function Features() {
         'Import your existing GitHub Gists or share public links directly from Nesto — perfect for showcasing or collaborating.',
     },
   ]
-  
+
   return (
     <section className="w-full px-4 py-24 sm:px-8 lg:px-16">
       <div className="mx-auto max-w-4xl text-center">
@@ -62,30 +62,35 @@ export default function Features() {
       <div className="font-geist relative mx-auto mt-10 w-[90%] tracking-tight xl:w-[85%]">
         <div className="w-full border-t border-black/30" />
         <div className="relative mx-4 -mt-4 border-x border-black/30">
-          <div className="grid grid-cols-1 divide-y sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-3">
+          <div className="grid grid-cols-1 divide-y sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-3 [&>div]:min-h-[300px]">
             {features.map((feature, index) => {
-              const isLastCol = (index + 1) % 3 === 0
-              const isBottomRow = index >= 3
+              const isBottomRowTablet = index > 3
+              const isBottomRowLaptop = index >= 3
               return (
                 <div
                   key={index}
                   className={cn(
                     'border-black/20 p-6',
-                    !isBottomRow && 'border-b',
+                    // Mobile: always add border-b except last
+                    index !== features.length - 1 && 'border-b',
+                    // Tablet: add border-b only if NOT in bottom row
+                    !isBottomRowTablet && 'sm:border-b',
+                    isBottomRowTablet && 'sm:border-b-0',
+                    // Laptop: same idea
+                    !isBottomRowLaptop && 'lg:border-b',
+                    isBottomRowLaptop && 'lg:border-b-0',
                   )}
                 >
-                  {!isLastCol && (
-                    <>
-                      <div className="absolute top-0 right-1/3 bottom-0 mt-4 hidden w-px bg-black/10 lg:block lg:h-[95.4%] xl:h-[94.3%]" />
-                      <div className="absolute top-0 right-2/3 bottom-0 mt-4 hidden w-[0.5px] bg-black/10 lg:block lg:h-[95.4%] xl:h-[94.3%]" />
-                    </>
-                  )}
-                  
-                  <div className="absolute top-0 right-1/2 bottom-0 mt-4 hidden h-[96.4%] w-[0.5px] bg-black/10 sm:block lg:hidden xl:hidden" />
+                  {/* Vertical dividers for 3-column (desktop) */}
+                  <div className="absolute top-4 right-1/3 bottom-4 hidden w-px bg-black/10 lg:block" />
+                  <div className="absolute top-4 right-2/3 bottom-4 hidden w-[0.5px] bg-black/10 lg:block" />
+
+                  {/* Vertical divider for 2-column (tablet) */}
+                  <div className="absolute top-4 right-1/2 bottom-4 hidden w-[0.5px] bg-black/10 sm:block lg:hidden" />
 
                   <div className="px-6 py-10">
                     <p className="mb-1 text-2xl">{feature.icon}</p>
-                    <h3 className="text-lg font-bold">{feature.title}</h3>
+                    <h3 className="text-lg font-bold mt-4">{feature.title}</h3>
                     <p className="text-muted-foreground mt-1 text-sm">
                       {feature.description}
                     </p>
