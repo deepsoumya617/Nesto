@@ -1,5 +1,8 @@
 'use client'
 
+import Contributors from '@/components/Contributors'
+import CTA from '@/components/CTA'
+import FAQs from '@/components/FAQs'
 import Features from '@/components/Features'
 import GithubStat from '@/components/GithubStat'
 import Header from '@/components/Header'
@@ -18,6 +21,9 @@ export default function HomePage() {
         <Features />
         <HowItWorks />
         <GithubStat />
+        <Contributors />
+        <FAQs />
+        <CTA />
       </div>
     </div>
   )

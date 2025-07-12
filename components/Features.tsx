@@ -25,7 +25,7 @@ const features = [
     icon: <Bot size="40" />,
     title: 'Ask AI',
     description:
-      'Get real-time help from AI: generate code, explain logic, or debug errors — without switching tabs.',
+      'Get real-time help from AI: generate snippet, explain logic, convert snippet or debug errors — without switching tabs.',
   },
   {
     icon: <FolderClosed size="40" />,
@@ -48,7 +48,6 @@ const features = [
 ]
 
 export default function Features() {
-
   return (
     <section className="w-full px-4 py-24 sm:px-8 lg:px-16">
       <div className="mx-auto max-w-4xl text-center">
@@ -91,8 +90,10 @@ export default function Features() {
 
                   <div className="px-6 py-10">
                     <p className="mb-1 text-2xl">{feature.icon}</p>
-                    <h3 className="mt-4 text-[19px] font-bold">{feature.title}</h3>
-                    <p className="text-muted-foreground mt-1 ">
+                    <h3 className="mt-4 text-[19px] font-bold">
+                      {feature.title}
+                    </h3>
+                    <p className="text-muted-foreground mt-1">
                       {feature.description}
                     </p>
                   </div>
