@@ -49,7 +49,7 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="w-full px-4 py-24 sm:px-8 lg:px-16">
+    <section className="w-full px-4 py-24 sm:px-8 lg:px-16 font-geist">
       <div className="mx-auto max-w-4xl text-center">
         <h2 className="text-3xl tracking-tighter md:text-4xl">
           Features that keep you focused.
@@ -59,7 +59,7 @@ export default function Features() {
           <br /> Write notes, save snippets, and ask AI without breaking flow.
         </p>
       </div>
-      <div className="font-geist relative mx-auto mt-10 w-[90%] tracking-tight xl:w-[85%]">
+      <div className="relative mx-auto mt-10 w-[90%] tracking-tight xl:w-[85%]">
         <div className="w-full border-t border-black/30" />
         <div className="relative mx-4 -mt-4 border-x border-black/30">
           <div className="grid grid-cols-1 divide-y sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-3 [&>div]:min-h-[300px]">

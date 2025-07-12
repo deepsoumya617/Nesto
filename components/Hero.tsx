@@ -8,7 +8,7 @@ import { Button } from './ui/button'
 
 export default function Hero() {
   return (
-    <section className="flex w-full flex-col items-center justify-center pt-24">
+    <section className="flex w-full flex-col items-center justify-center pt-24 font-geist">
       {/* <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="animate-grid-pan-slow h-full w-full bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] bg-[size:14px_24px] opacity-50 dark:opacity-70" />
       </div> */}
@@ -24,12 +24,12 @@ export default function Hero() {
         </AnimatedShinyText>
       </Link>
       <div className="max-w-4xl px-4 text-center">
-        <h1 className="mt-8 mb-6 px-6 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+        <h1 className="mt-8 mb-6 px-6 text-4xl font-bold tracking-tight lg:text-5xl">
           Write less.Think better.Let AI assist. Snippets and notes, together at
           last.
         </h1>
 
-        <p className="text-md text-muted-foreground mx-auto mb-8 hidden max-w-2xl px-16 md:block font-geist">
+        <p className="text-md text-muted-foreground mx-auto mb-8 max-w-2xl px-14 font-geist">
           Capture ideas, draft notes, and save code—without the noise. Nesto is
           your AI-powered thinking space for everything that matters.
         </p>
@@ -38,7 +38,7 @@ export default function Hero() {
           <Link href="/sign-in">
             <Button
               size="lg"
-              className="group cursor-pointer rounded-md font-semibold tracking-wider"
+              className="group cursor-pointer rounded-md font-medium tracking-wide"
             >
               Get Started
               <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />

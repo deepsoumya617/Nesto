@@ -3,7 +3,6 @@
 @import 'highlight.js/styles/atom-one-light.css';
 /* @import 'highlight.js/styles/atom-one-dark.css'; */
 
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -364,7 +363,7 @@ body.theme-transition * {
 .markdown-body code {
   background: none;
   font-family: 'Geist Mono', monospace;
-  font-size: 13px;  
+  font-size: 13px;
   font-weight: 400;
 }
 
@@ -378,11 +377,26 @@ body.theme-transition * {
 .markdown-body h1,
 .markdown-body h2,
 .markdown-body h3,
-.markdown-body h4, 
-.markdown-body h5, 
+.markdown-body h4,
+.markdown-body h5,
 .markdown-body h6 {
   text-decoration: underline;
   text-underline-offset: 5px;
   text-decoration-color: #d97e4a;
-  text-decoration-thickness: 2px; 
+  text-decoration-thickness: 2px;
+}
+
+@theme inline {
+  --animate-ripple: ripple var(--duration, 2s) ease calc(var(--i, 0) * 0.2s)
+    infinite;
+
+  @keyframes ripple {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+  }
 }

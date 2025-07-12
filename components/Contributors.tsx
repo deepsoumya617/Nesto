@@ -1,11 +1,11 @@
 export default function Contributors() {
   return (
-    <section className="w-full px-4 py-24 sm:px-8 lg:px-16">
+    <section className="w-full px-4 py-24 sm:px-8 lg:px-16 font-geist">
       <div className="mx-auto max-w-4xl text-center">
         <h2 className="text-3xl tracking-tighter md:text-4xl">
           Meet the Team.
         </h2>
-        <p className="text-muted-foreground font-geist mx-auto mt-1 max-w-2xl text-[16px] tracking-tight">
+        <p className="text-muted-foreground mx-auto mt-1 max-w-2xl text-[16px] tracking-tight">
           We're the makers of Nesto — designing, coding, <br />
           and shipping everything you see here.
         </p>
@@ -37,7 +37,7 @@ export default function Contributors() {
               className="h-14 w-14 cursor-pointer rounded-full"
               onClick={() => window.open(founder.url, '_blank')}
             />
-            <span className="font-geist mt-2 flex flex-col items-center tracking-tight text-black">
+            <span className="mt-2 flex flex-col items-center tracking-tight text-black">
               <p className="text-[14px] font-medium md:text-[16px]">
                 {founder.name}
               </p>

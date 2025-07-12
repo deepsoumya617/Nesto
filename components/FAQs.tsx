@@ -37,10 +37,10 @@ const faqs = [
 
 export default function FAQs() {
   return (
-    <section className="w-full px-5 py-24 sm:px-8 lg:px-16">
+    <section className="w-full px-5 py-24 sm:px-8 lg:px-16 font-geist">
       <div className="mx-auto max-w-4xl text-center">
         <h2 className="text-3xl tracking-tighter md:text-4xl">FAQs.</h2>
-        <p className="text-muted-foreground font-geist mx-auto mt-1 max-w-2xl text-[16px] tracking-tight">
+        <p className="text-muted-foreground  mx-auto mt-1 max-w-2xl text-[16px] tracking-tight">
           Got questions? We’ve got answers.
         </p>
       </div>

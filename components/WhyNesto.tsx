@@ -2,7 +2,7 @@ import { Check, X } from 'lucide-react'
 
 export default function WhyNesto() {
   return (
-    <section className="w-full px-4 py-24 sm:px-8 lg:px-16">
+    <section className="w-full px-4 py-24 sm:px-8 lg:px-16 font-geist">
       <div className="mx-auto max-w-4xl text-center">
         <h2 className="text-3xl tracking-tighter md:text-4xl">
           Why Choose Nesto?

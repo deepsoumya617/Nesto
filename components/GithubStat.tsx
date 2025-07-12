@@ -63,12 +63,12 @@ export default function GithubStat() {
   }, [])
 
   return (
-    <section className="w-full px-4 py-24 sm:px-8 lg:px-16">
+    <section className="w-full px-4 py-24 sm:px-8 lg:px-16 font-geist">
       <div className="mx-auto max-w-4xl text-center">
         <h2 className="text-3xl tracking-tighter md:text-4xl">
           Open Source. Forever!
         </h2>
-        <p className="text-muted-foreground font-geist mx-auto mt-2 max-w-2xl text-[16px] tracking-tight">
+        <p className="text-muted-foreground mx-auto mt-2 max-w-2xl text-[16px] tracking-tight">
           Star us, fork us, or contribute to make it better.
         </p>
         {/* github star */}
