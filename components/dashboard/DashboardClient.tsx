@@ -367,7 +367,7 @@ export default function DashboardClient({
   return (
     <Container>
       {/* avatar */}
-      <div className="-mt-1 flex items-center space-x-3">
+      <div className="-mt-1 flex items-center space-x-3 font-geist">
         <Avatar className="h-12 w-12">
           <AvatarImage src={user?.imageUrl} alt={user?.fullName || 'User'} />
         </Avatar>
@@ -380,7 +380,7 @@ export default function DashboardClient({
       </div>
 
       {/* top stats card */}
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 font-geist tracking-tight">
         {/* snippets card */}
         <Card className="bg-transparent shadow-none">
           <CardHeader className="-mb-2">
@@ -415,7 +415,7 @@ export default function DashboardClient({
             <Link href="/snippets">
               <Button
                 variant="outline"
-                className="flex cursor-pointer items-center gap-1 tracking-wide"
+                className="flex cursor-pointer items-center gap-1"
               >
                 View Snippets
                 <ArrowRight />
@@ -431,7 +431,7 @@ export default function DashboardClient({
               <NotebookPen size={22} />
               Notes
             </CardTitle>
-            <CardDescription className="text-md ml-1 tracking-wide">
+            <CardDescription className="text-md ml-1">
               Total Notes ~{' '}
               <span className="font-bold text-slate-900 dark:text-slate-100">
                 {noteCount}
@@ -457,7 +457,7 @@ export default function DashboardClient({
             <Link href="/notes">
               <Button
                 variant="outline"
-                className="flex cursor-pointer items-center gap-1 tracking-wide"
+                className="flex cursor-pointer items-center gap-1"
               >
                 View Notes
                 <ArrowRight />
@@ -498,25 +498,25 @@ export default function DashboardClient({
       </div>
 
       {/* 2nd row */}
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 font-geist">
         {/* snippets */}
         <Card className="bg-transparent shadow-none">
-          <CardHeader className="-mb-4">
+          <CardHeader className="-mb-4 tracking-tight">
             <CardTitle className="flex items-center gap-1 text-xl font-bold">
               <FileChartColumn size={22} />
               Recent Snippets
             </CardTitle>
-            <CardDescription className="text-md text-muted-foreground ml-1 tracking-wide">
+            <CardDescription className="text-md text-muted-foreground ml-1">
               Your latest code snippets ~ updated in real-time.
             </CardDescription>
             {/* <div className="border"></div> */}
           </CardHeader>
-          <CardContent className="-mb-2">
-            <ul className="divide-border ml-1.5 divide-y">
+          <CardContent className="-mb-2 px-0">
+            <ul className="divide-border divide-y">
               {snippets.length > 0 ? (
                 snippets.slice(0, 5).map((snippet) => (
                   <li
-                    className="group flex cursor-pointer items-center gap-1 py-2 text-base text-zinc-600 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-200"
+                    className="group flex cursor-pointer items-center gap-1 py-2 px-6  text-base text-zinc-600 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-200"
                     key={snippet.id}
                   >
                     <span>{snippet.title}</span>
@@ -534,21 +534,21 @@ export default function DashboardClient({
         </Card>
         {/* notes */}
         <Card className="bg-transparent shadow-none">
-          <CardHeader className="-mb-4">
+          <CardHeader className="-mb-4 tracking-tight">
             <CardTitle className="flex items-center gap-1 text-xl font-bold">
               <Notebook size={22} />
               Recent Notes
             </CardTitle>
-            <CardDescription className="text-md text-muted-foreground ml-1 tracking-wide">
+            <CardDescription className="text-md text-muted-foreground ml-1">
               Your latest Notes ~ updated in real-time.
             </CardDescription>
           </CardHeader>
-          <CardContent className="-mb-2">
-            <ul className="divide-border ml-1.5 divide-y">
+          <CardContent className="-mb-2 px-0">
+            <ul className="divide-border divide-y">
               {notes.length > 0 ? (
                 notes.slice(0, 5).map((note) => (
                   <li
-                    className="group flex cursor-pointer items-center gap-1 py-2 text-base text-zinc-600 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-200"
+                    className="group flex cursor-pointer items-center gap-1 py-2 px-6 text-base text-zinc-600 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-200"
                     key={note.id}
                   >
                     <span>{note.title}</span>
@@ -567,7 +567,7 @@ export default function DashboardClient({
       </div>
 
       {/* 3rd row */}
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 mb-6">
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 mb-6 font-geist tracking-tight">
         {/* language pie chart */}
         <Card className="bg-transparent shadow-none">
           <CardHeader className="-mb-4">
