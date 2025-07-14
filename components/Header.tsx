@@ -90,8 +90,9 @@ export default function Header() {
             <div className="flex items-center gap-3">
               <ModeToggleButton />
               <Button
-                className="cursor-pointer rounded-md px-5 py-2.5 text-[15px] font-geist"
+                className="cursor-pointer rounded-md font-geist"
                 onClick={() => signOut()}
+                size='sm'
               >
                 Log out
               </Button>

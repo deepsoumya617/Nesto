@@ -17,7 +17,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '../ui/alert-dialog'
-import { useEffect, useMemo  } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useGistImportStore } from '@/store/useGistImportStore'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 import ImportGistModal from './ImportGistModal'
@@ -125,7 +125,7 @@ export default function SnippetSidebar({ isMobile }: { isMobile?: boolean }) {
       <div className="flex flex-col gap-3">
         {/* header section */}
         <div className="z-10 w-full bg-white dark:bg-black">
-          <p className="mt-3 ml-5 text-[19px] font-bold tracking-tight underline">
+          <p className="mt-3 ml-5 text-[19px] font-bold tracking-tight underline underline-offset-4">
             All Snippets
           </p>
           <div className="mb-2 flex items-center gap-3 px-5 py-3">
@@ -173,7 +173,7 @@ export default function SnippetSidebar({ isMobile }: { isMobile?: boolean }) {
         ) : (
           <>
             <div>
-              <ul className="divide-border z-0 -mt-2 divide-y">
+              <ul className="divide-border z-0 -mt-2 h-[calc(100vh-200px)] divide-y overflow-auto">
                 {filteredSnippets.map((snippet) => {
                   const isTruncated = snippet.title.length > 37
                   const truncatedTitle = truncateText(snippet.title)

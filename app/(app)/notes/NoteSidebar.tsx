@@ -26,15 +26,15 @@ export default function NoteSidebar({
   content,
   isSaving,
   searchVal,
+  isLoading,
+  isEditable,
+  deletingNoteId,
   setSearchVal,
   setSortOrder,
   setTitle,
   setContent,
   setSelectedNoteId,
   setMode,
-  isLoading,
-  isEditable,
-  deletingNoteId,
   handleDeleteNote,
   handleCreateNote,
   handleUpdateNote,
@@ -108,7 +108,7 @@ export default function NoteSidebar({
             searchVal={searchVal}
             setSearchVal={setSearchVal}
             setSortOrder={setSortOrder}
-            placeholder='search notes...'
+            placeholder="search notes..."
           />
           <Separator className="mt-3" />
         </div>
@@ -122,7 +122,7 @@ export default function NoteSidebar({
           // list of notes
           <>
             <div className="-mt-2">
-              <ul className="divide-border z-0 divide-y">
+              <ul className="divide-border z-0 h-[calc(100vh-200px)] divide-y overflow-auto pb-3">
                 {notes.map((note) => (
                   <div
                     className="flex items-center justify-between"

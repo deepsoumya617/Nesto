@@ -65,15 +65,17 @@ export function MobileMenu() {
 
   return (
     <>
-      <div className="fixed top-5 right-8 z-40 flex items-center gap-3 md:hidden">
-        <ModeToggleButton />
+      <div className="fixed top-3.5 right-8 z-40 flex items-center gap-3 md:hidden">
         {isSignedIn && (
-          <button
-            onClick={() => setIsOpen(true)}
-            className="flex size-9 items-center justify-center rounded-full border focus:outline-none"
-          >
-            <Menu size={22} />
-          </button>
+          <>
+            <ModeToggleButton />
+            <button
+              onClick={() => setIsOpen(true)}
+              className="flex size-9 items-center justify-center rounded-full border focus:outline-none"
+            >
+              <Menu size={22} />
+            </button>
+          </>
         )}
       </div>
 
@@ -84,7 +86,7 @@ export function MobileMenu() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.3, type: 'tween' }}
-            className="bg-background/80 fixed top-0 right-0 z-50 flex h-screen w-full flex-col items-start gap-4 px-8 backdrop-blur-md"
+            className="bg-background/80 fixed top-0 right-0 z-50 flex h-screen w-[80%] flex-col items-start gap-4 px-8 backdrop-blur-md"
           >
             <button
               onClick={() => setIsOpen(false)}
@@ -96,7 +98,7 @@ export function MobileMenu() {
               variants={navMenuVariants}
               initial="hidden"
               animate="show"
-              className="font-geist mt-40 flex flex-col gap-2"
+              className="font-geist mt-40 flex flex-col gap-1"
             >
               {navMenuLinksSignedIn.map((link) => {
                 return (
@@ -107,7 +109,7 @@ export function MobileMenu() {
                       router.push(link.href)
                       setIsOpen(false)
                     }}
-                    className="text-left text-4xl font-medium text-stone-900 dark:text-stone-50"
+                    className="text-left text-2xl font-medium tracking-tight text-stone-900 dark:text-stone-50"
                   >
                     <p className="flex items-center">
                       {link.label}
@@ -133,8 +135,8 @@ export function MobileMenu() {
               transition={{ delay: 0.6 }}
             >
               <Button
-                className="font-geist mt-3 w-full cursor-pointer rounded-md px-5 py-6 text-lg font-semibold text-stone-50"
-                variant="destructive"
+                className="font-geist mt-3 w-full cursor-pointer rounded-md px-5 py-6 text-sm font-medium"
+                // variant="destructive"
                 onClick={() => {
                   if (isSignedIn) signOut()
                   else router.push('/sign-in')
