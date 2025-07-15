@@ -23,7 +23,7 @@ export async function getTagFrequency() {
       where: {
         snippets: {
           some: {
-            userId: user.clerkId,
+            userId: user.id,
           },
         },
       },

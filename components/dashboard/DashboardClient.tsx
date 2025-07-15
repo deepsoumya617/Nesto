@@ -17,7 +17,6 @@ import {
   ArrowDownIcon,
   ArrowRight,
   ArrowUpIcon,
-  ArrowUpRight,
   ChartBarStacked,
   ChartPie,
   CreditCard,
@@ -119,6 +118,7 @@ export default function DashboardClient({
   const { resolvedTheme } = useTheme()
 
   const [userInfo, setUserInfo] = useState<UserInfo>(null)
+  // console.log(tagFrequency)
 
   // fetch user info
   useEffect(() => {

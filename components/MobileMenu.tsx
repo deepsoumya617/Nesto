@@ -66,7 +66,7 @@ export function MobileMenu() {
   return (
     <>
       <div className="fixed top-3.5 right-8 z-40 flex items-center gap-3 md:hidden">
-        {isSignedIn && (
+        {isSignedIn ? (
           <>
             <ModeToggleButton />
             <button
@@ -76,6 +76,13 @@ export function MobileMenu() {
               <Menu size={22} />
             </button>
           </>
+        ) : (
+          <button
+            onClick={() => setIsOpen(true)}
+            className="flex size-9 items-center justify-center rounded-full border focus:outline-none"
+          >
+            <Menu size={22} />
+          </button>
         )}
       </div>
 
@@ -100,31 +107,23 @@ export function MobileMenu() {
               animate="show"
               className="font-geist mt-40 flex flex-col gap-1"
             >
-              {navMenuLinksSignedIn.map((link) => {
-                return (
-                  <motion.button
-                    key={link.href}
-                    variants={navItemVariants}
-                    onClick={() => {
-                      router.push(link.href)
-                      setIsOpen(false)
-                    }}
-                    className="text-left text-2xl font-medium tracking-tight text-stone-900 dark:text-stone-50"
-                  >
-                    <p className="flex items-center">
-                      {link.label}
-                      {/* <span>
-                            <ArrowUpRight size={26} className="mb-2" />
-                          </span> */}
-                    </p>
-                    {/* <motion.div
-                          variants={underlineVariants}
-                          transition={{ duration: 0.4 }}
-                          className="h-[0.1rem] w-full bg-stone-900 dark:bg-stone-50"
-                        /> */}
-                  </motion.button>
-                )
-              })}
+              {(isSignedIn ? navMenuLinksSignedIn : navMenuLinksSignedOut).map(
+                (link) => {
+                  return (
+                    <motion.button
+                      key={link.href}
+                      variants={navItemVariants}
+                      onClick={() => {
+                        router.push(link.href)
+                        setIsOpen(false)
+                      }}
+                      className="text-left text-2xl font-medium tracking-tight text-stone-900 dark:text-stone-50"
+                    >
+                      <p className="flex items-center">{link.label}</p>
+                    </motion.button>
+                  )
+                },
+              )}
             </motion.nav>
             {/* auth buttons */}
             <motion.div
