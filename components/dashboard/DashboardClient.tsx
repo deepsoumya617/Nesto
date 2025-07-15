@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUser } from '@clerk/nextjs'
 import Container from '@/components/Container'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
@@ -46,6 +46,7 @@ import { Progress } from '@/components/ui/progress'
 import { Note, Snippet } from '@/lib/generated/prisma'
 import { useTheme } from 'next-themes'
 import { Badge } from '@/components/ui/badge'
+import { formatDistanceToNow } from 'date-fns'
 
 const geist = Geist({
   subsets: ['latin'],
@@ -54,24 +55,21 @@ const geist = Geist({
 
 // for pie chart
 const COLORS = [
-  '#22c55e', 
-  '#0ea5e9', 
-  '#8b5cf6', 
-  '#f472b6', 
-  '#facc15',
-  '#f97316',
-  '#e11d48',
-  '#14b8a6',
-]
-
-// for bar chart
-const tagsChartData = [
-  { tag: 'auth', count: 10 },
-  { tag: 'api', count: 11 },
-  { tag: 'hooks', count: 9 },
-  { tag: 'utils', count: 14 },
-  { tag: 'typescript', count: 5 },
-  { tag: 'nextjs', count: 4 },
+  '#FF8A8A',
+  '#c4b5fd',
+  '#93c5fd',
+  '#6ee7b7',
+  '#fde68a',
+  '#fca5a5',
+  '#a5f3fc',
+  '#fdba74',
+  '#bbf7d0',
+  '#f0abfc',
+  '#fcd34d',
+  '#7dd3fc',
+  '#d8b4fe',
+  '#FF8A8A',
+  '#86efac',
 ]
 
 type UserInfo = {
@@ -106,7 +104,7 @@ export default function DashboardClient({
   snippets,
   notes,
   languageData,
-  userInfo,
+  tagFrequency,
 }: {
   snippetCount: number
   percentChangeSnippets: number
@@ -115,10 +113,33 @@ export default function DashboardClient({
   snippets: Pick<Snippet, 'title' | 'id'>[]
   notes: Pick<Note, 'title' | 'id'>[]
   languageData: { name: string; value: number }[]
-  userInfo: UserInfo
+  tagFrequency: { name: string; count: number }[]
 }) {
   const { user } = useUser()
   const { resolvedTheme } = useTheme()
+
+  const [userInfo, setUserInfo] = useState<UserInfo>(null)
+
+  // fetch user info
+  useEffect(() => {
+    let interval: NodeJS.Timeout
+
+    const fetchUserInfo = async () => {
+      try {
+        const res = await fetch('/api/user-info')
+        if (!res.ok) throw new Error('Failed to fetch')
+        const data = await res.json()
+        setUserInfo(data)
+      } catch (err) {
+        console.error('Failed to fetch user info', err)
+      }
+    }
+    fetchUserInfo()
+    interval = setInterval(fetchUserInfo, 60000) // poll every 60s
+    return () => clearInterval(interval)
+  }, [])
+
+  if (!userInfo) return null
 
   // full language name and icons
   const fullLanguageNamesWithIcons = languageData.map((lang) => {
@@ -367,7 +388,7 @@ export default function DashboardClient({
   return (
     <Container>
       {/* avatar */}
-      <div className="-mt-1 flex items-center space-x-3 font-geist">
+      <div className="font-geist -mt-1 flex items-center space-x-3">
         <Avatar className="h-12 w-12">
           <AvatarImage src={user?.imageUrl} alt={user?.fullName || 'User'} />
         </Avatar>
@@ -380,7 +401,7 @@ export default function DashboardClient({
       </div>
 
       {/* top stats card */}
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 font-geist tracking-tight">
+      <div className="font-geist mt-4 grid grid-cols-1 gap-4 tracking-tight sm:grid-cols-2 md:grid-cols-3">
         {/* snippets card */}
         <Card className="bg-transparent shadow-none">
           <CardHeader className="-mb-2">
@@ -474,7 +495,7 @@ export default function DashboardClient({
               Account Usage
             </CardTitle>
             <CardDescription className="text-md text-muted-foreground ml-1 tracking-wide">
-              {`Last used at ~ ${!userInfo?.lastUsedAt ? 'Never' : userInfo.lastUsedAt}`}
+              {`Last used at ~ ${!userInfo?.lastUsedAt ? 'Never' : formatDistanceToNow(new Date(userInfo.lastUsedAt), { addSuffix: true })}`}
             </CardDescription>
           </CardHeader>
           <CardContent className="-mb-2 flex flex-col gap-2">
@@ -498,7 +519,7 @@ export default function DashboardClient({
       </div>
 
       {/* 2nd row */}
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 font-geist">
+      <div className="font-geist mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
         {/* snippets */}
         <Card className="bg-transparent shadow-none">
           <CardHeader className="-mb-4 tracking-tight">
@@ -516,18 +537,20 @@ export default function DashboardClient({
               {snippets.length > 0 ? (
                 snippets.slice(0, 5).map((snippet) => (
                   <li
-                    className="group flex cursor-pointer items-center gap-1 py-2 px-6  text-base text-zinc-600 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-200"
+                    className="group pointer-events-none flex cursor-pointer items-center gap-1 px-6 py-2 text-base text-zinc-600 underline-offset-4 dark:text-zinc-200"
                     key={snippet.id}
                   >
                     <span>{snippet.title}</span>
-                    <ArrowUpRight
+                    {/* <ArrowUpRight
                       size={14}
                       className="opacity-0 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:opacity-100"
-                    />
+                    /> */}
                   </li>
                 ))
               ) : (
-                <p className="py-2 text-sm text-zinc-500">No snippets yet.</p>
+                <p className="ml-7 py-2 text-[16px] text-zinc-500">
+                  No snippets yet.
+                </p>
               )}
             </ul>
           </CardContent>
@@ -548,18 +571,18 @@ export default function DashboardClient({
               {notes.length > 0 ? (
                 notes.slice(0, 5).map((note) => (
                   <li
-                    className="group flex cursor-pointer items-center gap-1 py-2 px-6 text-base text-zinc-600 underline-offset-4 hover:text-zinc-900 hover:underline dark:text-zinc-200"
+                    className="group pointer-events-none flex cursor-pointer items-center gap-1 px-6 py-2 text-base text-zinc-600 underline-offset-4 dark:text-zinc-200"
                     key={note.id}
                   >
                     <span>{note.title}</span>
-                    <ArrowUpRight
+                    {/* <ArrowUpRight
                       size={14}
                       className="opacity-0 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:opacity-100"
-                    />
+                    /> */}
                   </li>
                 ))
               ) : (
-                <p className="py-2 text-sm text-zinc-500">No notes yet.</p>
+                <p className="ml-7 py-2 text-lg text-zinc-500 text-[16px]">No notes yet.</p>
               )}
             </ul>
           </CardContent>
@@ -567,7 +590,7 @@ export default function DashboardClient({
       </div>
 
       {/* 3rd row */}
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 mb-6 font-geist tracking-tight">
+      <div className="font-geist mt-4 mb-6 grid grid-cols-1 gap-4 tracking-tight md:grid-cols-2">
         {/* language pie chart */}
         <Card className="bg-transparent shadow-none">
           <CardHeader className="-mb-4">
@@ -581,12 +604,12 @@ export default function DashboardClient({
           </CardHeader>
           <CardContent className="-mb-2">
             {languageData.length === 0 ? (
-              <p className="text-muted-foreground text-sm">
+              <p className="text-muted-foreground text-[16px]">
                 No snippets yet. Create some to see language stats.
               </p>
             ) : (
               <ChartContainer
-                className="[&_.recharts-pie-label-text]:fill-foreground mx-auto aspect-square max-h-[300px] max-w-[300px] overflow-visible"
+                className="[&_.recharts-pie-label-text]:fill-foreground h-auto w-full overflow-visible"
                 config={{}}
               >
                 <PieChart>
@@ -680,26 +703,33 @@ export default function DashboardClient({
               Explore your most commonly used tags in snippets.
             </CardDescription>
           </CardHeader>
-          <CardContent className="mt-4">
-            <ChartContainer config={{ count: { label: 'snippets' } }}>
-              <BarChart accessibilityLayer data={tagsChartData}>
-                <CartesianGrid vertical={false} />
-                <XAxis
-                  dataKey="tag"
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                  tickFormatter={(value) =>
-                    value.charAt(0).toUpperCase() + value.slice(1)
-                  }
-                />
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
-                />
-                <Bar dataKey="count" fill="#f43f5e" radius={8} />
-              </BarChart>
-            </ChartContainer>
+          <CardContent className="mt-1">
+            {tagFrequency.length > 0 ? (
+              <ChartContainer config={{ count: { label: 'snippets' } }}>
+                <BarChart accessibilityLayer data={tagFrequency.slice(0, 5)}>
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="name"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    tickFormatter={(value) =>
+                      value.charAt(0).toUpperCase() + value.slice(1)
+                    }
+                  />
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent hideLabel />}
+                  />
+                  {/* <Bar dataKey="count" fill="#FE7743" radius={8} /> */}
+                  <Bar dataKey="count" fill="#A7C1A8" radius={8} />
+                </BarChart>
+              </ChartContainer>
+            ) : (
+              <p className="text-muted-foreground text-[16px]">
+                No tags found. Create snippets with tags to see stats.
+              </p>
+            )}
           </CardContent>
         </Card>
       </div>
