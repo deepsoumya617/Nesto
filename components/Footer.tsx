@@ -18,7 +18,6 @@ export default function Footer() {
             <div className="mt-1 flex flex-col gap-0.5 text-sm text-black/80">
               <a href="/contact">Contact Us</a>
               <a href="/report">Report an Issue</a>
-              <a href="/report">Feedback</a>
             </div>
           </div>
           <div className="flex flex-col">

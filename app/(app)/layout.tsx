@@ -1,14 +1,20 @@
+'use client'
+
+import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import { useAuth } from '@clerk/nextjs'
 
 export default function LandingPageLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const { isSignedIn } = useAuth()
   return (
-    <main className="relative w-full lg:h-screen">
+    <div className="flex min-h-screen flex-col">
       <Header />
-      {children}
-    </main>
+      <main className="w-full flex-grow">{children}</main>
+      {!isSignedIn && <Footer />}
+    </div>
   )
 }
