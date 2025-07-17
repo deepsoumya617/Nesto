@@ -14,7 +14,8 @@ export default function LandingPageLayout({
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="w-full flex-grow">{children}</main>
-      {!isSignedIn && <Footer />}
+      {/* {!isSignedIn && <Footer />} */}
+      <Footer />
     </div>
   )
 }

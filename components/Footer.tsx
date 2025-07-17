@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="font-geist mt-10 w-full border-t border-black/20 px-4 py-8 tracking-tight sm:px-8 lg:px-16">
+    <footer className="font-geist w-full border-t border-black/20 px-4 py-8 tracking-tight sm:px-8 lg:px-16">
       <div className="mx-auto flex w-full max-w-4xl justify-between">
         <h1 className="text-xl">Nesto</h1>
         <div className="flex gap-8">

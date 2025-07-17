@@ -93,7 +93,7 @@ export default function InputPanel({
         </p>
       </div>
 
-      {/* <Separator /> */}
+      <Separator />
       {/* inputs */}
       <section className="mt-4 mb-2 overflow-y-auto px-8 pb-6 sm:pb-0">
         <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-2">

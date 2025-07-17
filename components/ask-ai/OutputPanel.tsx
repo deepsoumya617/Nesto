@@ -4,6 +4,7 @@ import AITextLoading from '../kokonutui/ai-text-loading'
 import { renderMarkdown } from '@/lib/markdown'
 import { useAskAiMobileModalStore } from '@/store/useAskAiMobileModalStore'
 import { useEffect, useRef } from 'react'
+import { Separator } from '../ui/separator'
 
 export default function OutputPanel({
   className,
@@ -46,6 +47,7 @@ export default function OutputPanel({
           be shown here.
         </p>
       </div>
+      <Separator />
       <div className="border-[0.2px] md:hidden" />
       {/* content */}
       <div className="font-base h-full pt-6 pb-1 md:pb-8">
