@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { sendContactEmail } from '@/lib/actions/contact-us'
-import { Send } from 'lucide-react'
+import { PhoneCall, Send } from 'lucide-react'
 import { useRef } from 'react'
 import { useFormStatus } from 'react-dom'
 import { toast } from 'sonner'
@@ -27,7 +27,10 @@ export default function ContactPage() {
 
   return (
     <div className="font-geist mx-auto flex w-full max-w-4xl flex-col px-10 py-9 tracking-tight">
-      <h1 className="text-3xl underline underline-offset-2">Contact us.</h1>
+      <div className="flex items-center gap-1">
+        <PhoneCall />
+        <h1 className="text-3xl">Contact us.</h1>
+      </div>
       <p className="text-muted-foreground text-[17px] tracking-tight">
         We're always improving. Tell us what’s broken or what could be better.
       </p>

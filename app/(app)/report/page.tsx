@@ -15,6 +15,7 @@ import { sendReportEmail } from '@/lib/actions/report'
 import { useFormStatus } from 'react-dom'
 import { toast } from 'sonner'
 import React, { useRef } from 'react'
+import { Bug } from 'lucide-react'
 
 export default function ReportPage() {
   const formRef = useRef<HTMLFormElement>(null)
@@ -34,7 +35,10 @@ export default function ReportPage() {
 
   return (
     <div className="font-geist mx-auto flex w-full max-w-4xl flex-col px-10 py-9 tracking-tight">
-      <h1 className="text-3xl underline underline-offset-2">Report an Issue</h1>
+      <div className="flex items-center gap-1">
+        <Bug />
+        <h1 className="text-3xl">Report an Issue.</h1>
+      </div>
       <p className="text-muted-foreground text-[17px] tracking-tight">
         Spotted a bug or problem? We're here to fix it—just give us the details.
       </p>

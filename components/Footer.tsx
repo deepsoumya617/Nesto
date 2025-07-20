@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function Footer() {
   return (
     <footer className="font-geist w-full border-t border-black/20 px-4 py-8 tracking-tight sm:px-8 lg:px-16">
@@ -7,38 +9,38 @@ export default function Footer() {
           <div className="flex flex-col">
             <p className="font-medium">Product</p>
             <div className="mt-1 flex flex-col gap-0.5 text-sm text-black/80">
-              <a href="/changelog" className="hover:text-blue-500">
+              <Link href="/changelog" className="hover:text-blue-500">
                 Changelog
-              </a>
-              <a
+              </Link>
+              <Link
                 href="https://github.com/deepsoumya617/nesto"
                 target="_blank"
                 className="hover:text-blue-500"
               >
                 Github
-              </a>
+              </Link>
             </div>
           </div>
           <div className="flex flex-col">
             <p className="font-medium">Support</p>
             <div className="mt-1 flex flex-col gap-0.5 text-sm text-black/80">
-              <a href="/contact" className="hover:text-blue-500">
+              <Link href="/contact" className="hover:text-blue-500">
                 Contact Us
-              </a>
-              <a href="/report" className="hover:text-blue-500">
+              </Link>
+              <Link href="/report" className="hover:text-blue-500">
                 Report an Issue
-              </a>
+              </Link>
             </div>
           </div>
           <div className="flex flex-col">
             <p className="font-medium">Legal</p>
             <div className="mt-1 flex flex-col gap-0.5 text-sm text-black/80">
-              <a href="/privacy" className="hover:text-blue-500">
+              <Link href="/privacy-policy" className="hover:text-blue-500">
                 Privacy Policy
-              </a>
-              <a href="/terms" className="hover:text-blue-500">
+              </Link>
+              <Link href="/terms" className="hover:text-blue-500">
                 Terms of Service
-              </a>
+              </Link>
             </div>
           </div>
           {/* <div className="flex flex-col">
