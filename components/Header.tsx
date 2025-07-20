@@ -20,9 +20,8 @@ export default function Header() {
       <div className="mx-auto flex max-w-5xl items-center justify-between">
         {/* LEFT SIDE — logo + nav links */}
         <div className="flex items-center gap-3">
-          <div className="flex">
-            <p className="text-2xl">~</p>
-            <h3 className="font-geist text-xl">Nesto.ai</h3>
+          <div>
+            <h3 className="font-geist text-xl font-black">ねすと</h3>
           </div>
 
           {/* nav menu - desktop */}
