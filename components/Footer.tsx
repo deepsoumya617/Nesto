@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="font-geist w-full border-t border-black/20 px-4 py-8 tracking-tight sm:px-8 lg:px-16">
       <div className="mx-auto flex w-full max-w-4xl flex-col justify-between gap-4 md:flex-row">
-        <div className="flex flex-col gap-1 items-center">
+        <div className="flex flex-col items-center gap-1 md:items-start">
           <div className="flex items-center gap-1">
             <button className="font-geist h-6 w-6 cursor-pointer rounded-full bg-gradient-to-br from-orange-300 to-pink-500 text-center text-[13px] font-black text-white">
               ん

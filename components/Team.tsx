@@ -1,4 +1,4 @@
-export default function Contributors() {
+export default function Team() {
   return (
     <section className="font-geist w-full px-4 py-24 sm:px-8 lg:px-16">
       <div className="mx-auto max-w-4xl text-center">

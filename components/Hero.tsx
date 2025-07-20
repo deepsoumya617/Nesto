@@ -24,12 +24,12 @@ export default function Hero() {
         </AnimatedShinyText>
       </Link>
       <div className="max-w-4xl px-4 text-center">
-        <h1 className="mt-8 mb-6 px-6 text-4xl font-bold tracking-tight lg:text-5xl">
+        <h1 className="mt-8 mb-6 px-4 text-3xl font-bold tracking-tight lg:text-5xl">
           Write less.Think better.Let AI assist. Snippets and notes, together at
           last.
         </h1>
 
-        <p className="text-md text-muted-foreground mx-auto mb-8 max-w-2xl px-14 font-geist">
+        <p className="text-sm md:text-[16px] text-muted-foreground mx-auto mb-8 max-w-2xl px-14 font-geist">
           Capture ideas, draft notes, and save code—without the noise. Nesto is
           your AI-powered thinking space for everything that matters.
         </p>

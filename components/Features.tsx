@@ -54,7 +54,7 @@ export default function Features() {
         <h2 className="text-3xl tracking-tighter md:text-4xl">
           Features that keep you focused.
         </h2>
-        <p className="text-muted-foreground font-geist mx-auto mt-2 max-w-2xl text-[16px] leading-5 tracking-tight">
+        <p className="text-muted-foreground font-geist mx-auto mt-2 max-w-2xl text-sm  md:text-[16px] leading-5 tracking-tight">
           Built to replace cluttered tools with one calm, powerful workspace.{' '}
           <br /> Write notes, save snippets, and ask AI without breaking flow.
         </p>

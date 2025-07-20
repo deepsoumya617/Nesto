@@ -1,6 +1,6 @@
 'use client'
 
-import Contributors from '@/components/Contributors'
+import Team from '@/components/Team'
 import CTA from '@/components/CTA'
 import FAQs from '@/components/FAQs'
 import Features from '@/components/Features'
@@ -15,15 +15,33 @@ export default function HomePage() {
   return (
     <div>
       <Header />
-      {/* <GradientBlob /> */}
       <div className="z-40">
         <Hero />
-        <WhyNesto />
-        <Features />
-        <HowItWorks />
-        <GithubStat />
-        <Contributors />
-        <FAQs />
+
+        <section id="whynesto" className="scroll-mt-12 py-20">
+          <WhyNesto />
+        </section>
+
+        <section id="features" className="scroll-mt-0">
+          <Features />
+        </section>
+
+        <section id="howitworks" className="scroll-mt-12">
+          <HowItWorks />
+        </section>
+
+        <section id="github" className="scroll-mt-12">
+          <GithubStat />
+        </section>
+
+        <section id="team" className="scroll-mt-55 py-20">
+          <Team />
+        </section>
+
+        <section id="faq" className="scroll-mt-12 py-20">
+          <FAQs />
+        </section>
+
         <CTA />
         <Footer />
       </div>

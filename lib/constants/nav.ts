@@ -1,9 +1,10 @@
 // Nav pages
 export const navMenuLinksSignedOut = [
+  { label: 'Why Nesto', href: '#whynesto' },
   { label: 'Features', href: '#features' },
   { label: 'How it works', href: '#howitworks' },
   { label: 'Github', href: '#github' },
-  { label: 'About', href: '#about' },
+  { label: 'Team', href: '#team' },
   { label: 'FAQ', href: '#faq' },
 ]
 
