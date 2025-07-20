@@ -1,6 +1,6 @@
 export default function Contributors() {
   return (
-    <section className="w-full px-4 py-24 sm:px-8 lg:px-16 font-geist">
+    <section className="font-geist w-full px-4 py-24 sm:px-8 lg:px-16">
       <div className="mx-auto max-w-4xl text-center">
         <h2 className="text-3xl tracking-tighter md:text-4xl">
           Meet the Team.
@@ -17,14 +17,14 @@ export default function Contributors() {
             username: 'deepsoumya617',
             avatar: 'https://github.com/deepsoumya617.png',
             url: 'https://github.com/deepsoumya617',
-            role: 'Founder',
+            role: 'Founder | Lead Developer',
           },
           {
             name: 'Manish Karmakar',
             username: 'i-mkarmakar',
             avatar: 'https://github.com/i-mkarmakar.png',
             url: 'https://github.com/i-mkarmakar',
-            role: 'Co-Founder',
+            role: 'Core Contributor',
           },
         ].map((founder) => (
           <div

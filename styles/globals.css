@@ -104,6 +104,7 @@
   --font-base: var(--font-inter);
   --font-geist: var(--font-geist);
   --font-mono: var(--font-geist-mono);
+  --font-roboto-slab: var(--font-roboto-slab);
 
   --color-red-orange-50: var(--color-red-orange-50);
   --color-main: var(--main);

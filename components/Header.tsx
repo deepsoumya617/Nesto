@@ -9,6 +9,7 @@ import {
 } from '@/lib/constants/nav'
 import Link from 'next/link'
 import ModeToggleButton from './themes/mode-toggle'
+import { Roboto_Slab } from 'next/font/google'
 
 export default function Header() {
   const router = useRouter()
@@ -20,9 +21,12 @@ export default function Header() {
       <div className="mx-auto flex max-w-5xl items-center justify-between">
         {/* LEFT SIDE — logo + nav links */}
         <div className="flex items-center gap-3">
-          <div>
-            <h3 className="font-geist text-xl font-black">ねすと</h3>
-          </div>
+          <Link href="/" className="flex items-center gap-1">
+            <button className="font-geist h-6 w-6 cursor-pointer rounded-full bg-gradient-to-br from-orange-300 to-pink-500 text-center text-[13px] font-black text-white">
+              ん
+            </button>
+            <h1 className="font-roboto-slab text-2xl tracking-tight">Nesto</h1>
+          </Link>
 
           {/* nav menu - desktop */}
           {isSignedIn ? (
@@ -38,7 +42,7 @@ export default function Header() {
               ))}
             </div>
           ) : (
-            <div className="font-geist hidden items-center font-medium md:flex">
+            <div className="font-geist mt-1 hidden items-center font-medium md:flex">
               {navMenuLinksSignedOut.map((link) => (
                 <Link
                   href={link.href}
@@ -89,9 +93,9 @@ export default function Header() {
             <div className="flex items-center gap-3">
               <ModeToggleButton />
               <Button
-                className="cursor-pointer rounded-md font-geist"
+                className="font-geist cursor-pointer rounded-md"
                 onClick={() => signOut()}
-                size='sm'
+                size="sm"
               >
                 Log out
               </Button>
