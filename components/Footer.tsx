@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="font-geist w-full border-t border-black/20 px-4 py-8 tracking-tight sm:px-8 lg:px-16">
+    <footer className="font-geist dark:border-muted-foreground/20 w-full border-t border-black/20 px-4 py-8 tracking-tight sm:px-8 lg:px-16">
       <div className="mx-auto flex w-full max-w-4xl flex-col justify-between gap-4 md:flex-row">
         <div className="flex flex-col items-center gap-1 md:items-start">
           <div className="flex items-center gap-1">
@@ -19,13 +19,16 @@ export default function Footer() {
           <div className="flex flex-col">
             <p className="font-medium">Product</p>
             <div className="mt-1 flex flex-col gap-0.5 text-sm text-black/80">
-              <Link href="/changelog" className="hover:text-blue-500">
+              <Link
+                href="/changelog"
+                className="dark:text-muted-foreground hover:text-blue-500 dark:hover:text-blue-400"
+              >
                 Changelog
               </Link>
               <Link
                 href="https://github.com/deepsoumya617/nesto"
                 target="_blank"
-                className="hover:text-blue-500"
+                className="dark:text-muted-foreground hover:text-blue-500 dark:hover:text-blue-400"
               >
                 Github
               </Link>
@@ -34,10 +37,16 @@ export default function Footer() {
           <div className="flex flex-col">
             <p className="font-medium">Support</p>
             <div className="mt-1 flex flex-col gap-0.5 text-sm text-black/80">
-              <Link href="/contact" className="hover:text-blue-500">
+              <Link
+                href="/contact"
+                className="dark:text-muted-foreground hover:text-blue-500 dark:hover:text-blue-400"
+              >
                 Contact Us
               </Link>
-              <Link href="/report" className="hover:text-blue-500">
+              <Link
+                href="/report"
+                className="dark:text-muted-foreground hover:text-blue-500 dark:hover:text-blue-400"
+              >
                 Report an Issue
               </Link>
             </div>
@@ -45,10 +54,16 @@ export default function Footer() {
           <div className="flex flex-col">
             <p className="font-medium">Legal</p>
             <div className="mt-1 flex flex-col gap-0.5 text-sm text-black/80">
-              <Link href="/privacy-policy" className="hover:text-blue-500">
+              <Link
+                href="/privacy-policy"
+                className="dark:text-muted-foreground hover:text-blue-500 dark:hover:text-blue-400"
+              >
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="hover:text-blue-500">
+              <Link
+                href="/terms"
+                className="dark:text-muted-foreground hover:text-blue-500 dark:hover:text-blue-400"
+              >
                 Terms of Service
               </Link>
             </div>
