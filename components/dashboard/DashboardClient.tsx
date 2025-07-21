@@ -501,7 +501,7 @@ export default function DashboardClient({
           <CardContent className="-mb-2 flex flex-col gap-2">
             <div className="flex w-full items-center gap-1.5 pl-1">
               <span className="text-muted-foreground">AI Credits Used ~ </span>
-              <span className="font-bold">{`${userInfo?.dailyUsageCount} / 10`}</span>
+              <span className="font-bold">{`${userInfo?.dailyUsageCount} / 5`}</span>
             </div>
             <Progress value={userInfo?.dailyUsageCount} />
           </CardContent>
@@ -513,7 +513,7 @@ export default function DashboardClient({
               Upgrade to Pro
               <ArrowRight />
             </Button> */}
-            <span>{`Limit resets in ${getResetCountdown(userInfo?.lastUsedAt ?? null)}`}</span>
+            <span>{`Limit resets in ~ ${getResetCountdown(userInfo?.lastUsedAt)}`}</span>
           </CardFooter>
         </Card>
       </div>
