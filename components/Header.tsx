@@ -35,7 +35,7 @@ export default function Header() {
                 <Link
                   href={link.href}
                   key={link.href}
-                  className="rounded-md px-3 py-1.5 text-[12px] font-semibold tracking-tight hover:bg-gray-100"
+                  className="rounded-md px-3 py-1.5 text-[12px] font-semibold tracking-tight hover:bg-gray-100 dark:hover:bg-neutral-800"
                 >
                   {link.label}
                 </Link>

@@ -7,7 +7,7 @@ import prisma from '@/lib/prisma'
 import { AskAiInput } from '@/types/askAiInput'
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL!
-const MAX_DAILY_USAGE = 10
+const MAX_DAILY_USAGE = 5
 
 export async function askAi(data: AskAiInput) {
   // check if user is authenticated
