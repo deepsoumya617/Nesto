@@ -5,6 +5,7 @@ import { AnimatedShinyText } from './magicui/animated-shiny-text'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { Button } from './ui/button'
+import Container from './Container'
 
 export default function Hero() {
   return (
@@ -57,15 +58,10 @@ export default function Hero() {
         </div>
       </div>
       {/* hero image */}
-      {/* <Container>
-        <motion.div
-          className="relative mt-20 rounded-[32px] border border-neutral-200 bg-neutral-100 p-4 dark:border-neutral-700 dark:bg-neutral-800"
-          initial={{ opacity: 0, y: 40, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.6, duration: 0.6, ease: 'easeOut' }}
-        >
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 w-full scale-[1.1] bg-gradient-to-b from-transparent via-white to-white dark:via-black/50 dark:to-black"></div>
-          <div className="rounded-[24px] border border-neutral-200 bg-white p-2 dark:border-neutral-700 dark:bg-black">
+      <Container>
+        <div className="relative mt-20 rounded-[32px] border border-neutral-200 bg-neutral-100 p-4">
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 w-full scale-[1.1] bg-gradient-to-b from-transparent via-white to-white"></div>
+          <div className="rounded-[24px] border border-neutral-200 bg-white p-2">
             <img
               src="/preview.png"
               alt="hero"
@@ -74,9 +70,9 @@ export default function Hero() {
               className="h-auto w-full rounded-xl object-contain"
             />
           </div>
-        </motion.div>
-      </Container> */}
-      <div className="mt-10 w-full border-y border-black/45">
+        </div>
+      </Container>
+      {/* <div className="mt-10 w-full border-y border-black/45">
         <div className="mx-auto w-full max-w-6xl border-x border-black/45">
           <img
             src="/preview.png"
@@ -84,7 +80,7 @@ export default function Hero() {
             className="h-auto w-full object-contain"
           />
         </div>
-      </div>
+      </div> */}
     </section>
   )
 }
