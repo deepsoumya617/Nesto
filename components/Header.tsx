@@ -30,7 +30,7 @@ export default function Header() {
 
           {/* nav menu - desktop */}
           {isSignedIn ? (
-            <div className="font-geist hidden items-center font-medium md:flex">
+            <div className="font-geist mt-1 hidden items-center font-medium md:flex">
               {navMenuLinksSignedIn.map((link) => (
                 <Link
                   href={link.href}

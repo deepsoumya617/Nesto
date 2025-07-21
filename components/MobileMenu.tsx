@@ -133,16 +133,43 @@ export function MobileMenu() {
               animate="show"
               transition={{ delay: 0.6 }}
             >
-              <Button
+              {/* <Button
                 className="font-geist mt-3 w-full cursor-pointer rounded-md px-5 py-6 text-sm font-medium"
-                // variant="destructive"
                 onClick={() => {
                   if (isSignedIn) signOut()
                   else router.push('/sign-in')
                 }}
               >
                 {isSignedIn ? 'Sign Out' : 'Get Started'}
-              </Button>
+              </Button> */}
+              {isSignedIn ? (
+                <Button
+                  className="font-geist mt-3 w-full cursor-pointer rounded-md px-5 py-6 text-sm font-medium"
+                  onClick={() => signOut()}
+                >
+                  Sign Out
+                </Button>
+              ) : (
+                <div className='flex gap-2'>
+                  <Button
+                  variant='secondary'
+                    className="font-geist mt-3 w-full cursor-pointer rounded-md px-5 py-6 text-sm font-medium shadow-none border border-black/70"
+                    onClick={() => {
+                      router.push('/sign-in')
+                    }}
+                  >
+                    Log in
+                  </Button>
+                  <Button
+                    className="font-geist mt-3 w-full cursor-pointer rounded-md px-5 py-6 text-sm font-medium"
+                    onClick={() => {
+                      router.push('/sign-up')
+                    }}
+                  >
+                    Sign up
+                  </Button>
+                </div>
+              )}
             </motion.div>
           </motion.div>
         )}

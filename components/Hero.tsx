@@ -8,7 +8,7 @@ import { Button } from './ui/button'
 
 export default function Hero() {
   return (
-    <section className="flex w-full flex-col items-center justify-center pt-24 font-geist">
+    <section className="font-geist flex w-full flex-col items-center justify-center pt-24">
       {/* <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="animate-grid-pan-slow h-full w-full bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] bg-[size:14px_24px] opacity-50 dark:opacity-70" />
       </div> */}
@@ -29,7 +29,7 @@ export default function Hero() {
           last.
         </h1>
 
-        <p className="text-sm md:text-[16px] text-muted-foreground mx-auto mb-8 max-w-2xl px-14 font-geist">
+        <p className="text-muted-foreground font-geist mx-auto mb-8 max-w-2xl px-14 text-sm md:text-[16px]">
           Capture ideas, draft notes, and save code—without the noise. Nesto is
           your AI-powered thinking space for everything that matters.
         </p>
@@ -38,13 +38,13 @@ export default function Hero() {
           <Link href="/sign-in">
             <Button
               size="lg"
-              className="group cursor-pointer rounded-md font-medium tracking-wide"
+              className="group cursor-pointer rounded-3xl bg-gradient-to-br from-orange-300 to-pink-500 font-medium tracking-wide text-stone-100 shadow-lg"
             >
               Get Started
               <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
             </Button>
           </Link>
-          <Link href="/about-us">
+          {/* <Link href="/about-us">
             <Button
               size="lg"
               variant="ghost"
@@ -53,7 +53,7 @@ export default function Hero() {
               Learn More
               <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />
             </Button>
-          </Link>
+          </Link> */}
         </div>
       </div>
       {/* hero image */}
