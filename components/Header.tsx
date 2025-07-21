@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import ModeToggleButton from './themes/mode-toggle'
 import { Roboto_Slab } from 'next/font/google'
+import { Badge } from './ui/badge'
 
 export default function Header() {
   const router = useRouter()
@@ -26,6 +27,7 @@ export default function Header() {
               ん
             </button>
             <h1 className="font-roboto-slab text-2xl tracking-tight">Nesto</h1>
+            <Badge variant="outline" className='rounded-none ml-1.5'>Beta</Badge>
           </Link>
 
           {/* nav menu - desktop */}

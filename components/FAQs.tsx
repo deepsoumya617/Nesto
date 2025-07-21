@@ -8,7 +8,7 @@ import {
 const faqs = [
   {
     question: 'What is the daily AI limit?',
-    answer: 'Free users can use the AI assistant up to 10 times per day.',
+    answer: 'Free users can use the AI assistant up to 5 times per day.',
   },
   {
     question: 'Can I use this without an account?',

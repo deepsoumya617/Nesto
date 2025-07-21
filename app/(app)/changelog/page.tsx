@@ -13,7 +13,7 @@ export default function ChangelogPage() {
         </div>
         <div className="text-muted-foreground flex items-center gap-1">
           <CalendarDays className="size-4" />
-          <p className="text-[16px] tracking-tight">July 15, 2025</p>
+          <p className="text-[16px] tracking-tight">July 21, 2025</p>
         </div>
       </div>
       <div className="mt-4">
@@ -23,10 +23,9 @@ export default function ChangelogPage() {
         <ul className="mt-3 text-base text-muted-foreground">
           <li>- Snippet and Note Management with full CRUD.</li>
           <li>
-            - Syntax highlighting, language detection, and line highlighting
-            (CodeMirror).
+            - Syntax highlighting, language detection, and line highlighting.
           </li>
-          <li>- Rich text editor for notes(Tiptap).</li>
+          <li>- Rich text editor for notes.</li>
           <li>- Responsive mobile routes for creating and editing.</li>
           <li>- Auth with Clerk and database via Prisma + PostgreSQL.</li>
           <li>

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Badge } from './ui/badge'
 
 export default function Footer() {
   return (
@@ -10,6 +11,9 @@ export default function Footer() {
               ん
             </button>
             <h1 className="font-roboto-slab text-2xl tracking-tight">Nesto</h1>
+            <Badge variant="outline" className="ml-1.5 rounded-none">
+              Beta
+            </Badge>
           </div>
           <p className="text-muted-foreground text-[13px] tracking-normal">
             © 2025 Nesto. All rights reserved.
