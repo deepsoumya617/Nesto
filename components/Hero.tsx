@@ -16,10 +16,10 @@ export default function Hero() {
       <Link
         href="/changelog"
         className={cn(
-          'group absolute top-32 rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 sm:top-36 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800',
+          'group absolute top-32 rounded-none border bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 sm:top-36',
         )}
       >
-        <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 tracking-wide transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+        <AnimatedShinyText className="inline-flex items-center justify-center px-3 py-1 tracking-wide transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
           <span>✨ Introducing Nesto v1.0</span>
           <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
         </AnimatedShinyText>
@@ -39,7 +39,7 @@ export default function Hero() {
           <Link href="/sign-in">
             <Button
               size="lg"
-              className="group cursor-pointer rounded-3xl bg-gradient-to-br from-orange-300 to-pink-500 font-medium tracking-wide text-stone-100 shadow-lg"
+              className="group cursor-pointer rounded-none bg-gradient-to-br from-orange-300 to-pink-500 font-medium tracking-wide text-stone-100 shadow-lg"
             >
               Get Started
               <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-2" />

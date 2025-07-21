@@ -27,7 +27,7 @@ export default function CTA() {
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           >
             <Button
-              className="font-geist cursor-pointer rounded-md px-5 py-5"
+              className="font-geist cursor-pointer rounded-none px-5 py-5"
               onClick={() => window.open('/sign-in', '_blank')}
             >
               Try Nesto Now!

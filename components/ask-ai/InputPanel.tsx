@@ -101,7 +101,7 @@ export default function InputPanel({
           <div className="space-y-2">
             <Label>Tasks</Label>
             <Select required value={task || ''} onValueChange={setTask}>
-              <SelectTrigger className="w-full cursor-pointer">
+              <SelectTrigger className="w-full cursor-pointer rounded-none">
                 <SelectValue placeholder="Choose task" />
               </SelectTrigger>
               <SelectContent>
@@ -120,7 +120,7 @@ export default function InputPanel({
           <div className="space-y-2">
             <Label>Languages</Label>
             <Select required value={language || ''} onValueChange={setLanguage}>
-              <SelectTrigger className="w-full cursor-pointer">
+              <SelectTrigger className="w-full cursor-pointer rounded-none">
                 <SelectValue placeholder="Select language" />
               </SelectTrigger>
               <SelectContent>
@@ -145,7 +145,7 @@ export default function InputPanel({
               value={convertTo || ''}
               onValueChange={setConvertTo}
             >
-              <SelectTrigger className="w-full cursor-pointer">
+              <SelectTrigger className="w-full cursor-pointer rounded-none">
                 <SelectValue placeholder="Select language" />
               </SelectTrigger>
               <SelectContent>
@@ -180,7 +180,7 @@ export default function InputPanel({
             <Label>Additional Instructions</Label>
             <Textarea
               placeholder="e.g. Explain this like I'm new to Go..."
-              className="h-[100px] resize-none overflow-y-auto shadow-none"
+              className="h-[100px] resize-none overflow-y-auto rounded-none shadow-none"
               value={extraInfo || ''}
               onChange={(e) => setExtraInfo(e.target.value)}
               required={task === 'generate'}
@@ -189,7 +189,7 @@ export default function InputPanel({
           {/* buttons */}
           <div className="flex items-center gap-3">
             <button
-              className={`group font-geist flex cursor-pointer items-center gap-2 rounded-md bg-black px-4 py-2 text-[15px] font-medium tracking-wide text-white shadow-none dark:bg-white dark:text-black ${isLoading ? 'pointer-events-none opacity-50' : ''}`}
+              className={`group font-geist flex cursor-pointer items-center gap-2 rounded-none bg-black px-4 py-2 text-[15px] font-medium tracking-wide text-white shadow-none dark:bg-white dark:text-black ${isLoading ? 'pointer-events-none opacity-50' : ''}`}
               disabled={!task || !language || isLoading}
               onClick={handleFetchAIResponse}
             >
@@ -200,7 +200,7 @@ export default function InputPanel({
               />
             </button>
             <button
-              className="group font-geist cursor-pointer rounded-md bg-stone-100 px-4 py-2 text-[15px] font-medium tracking-wide text-stone-900 shadow-none dark:bg-stone-900 dark:text-stone-50"
+              className="group font-geist cursor-pointer rounded-none bg-stone-100 px-4 py-2 text-[15px] font-medium tracking-wide text-stone-900 shadow-none dark:bg-stone-900 dark:text-stone-50"
               // size="sm"
               onClick={resetPanel}
             >

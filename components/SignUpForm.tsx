@@ -56,7 +56,7 @@ export function SignupForm({
             <Button
               variant="outline"
               type="button"
-              className="w-full cursor-pointer"
+              className="w-full cursor-pointer rounded-none"
               onClick={() => handleOAuthSignIn('github')}
             >
               <svg
@@ -75,7 +75,7 @@ export function SignupForm({
             <Button
               variant="outline"
               type="button"
-              className="w-full cursor-pointer"
+              className="w-full cursor-pointer rounded-none"
               onClick={() => handleOAuthSignIn('google')}
             >
               <svg
@@ -106,6 +106,7 @@ export function SignupForm({
                 name="email"
                 type="email"
                 placeholder="m@example.com"
+                className="rounded-none"
                 required
               />
             </div>
@@ -117,13 +118,14 @@ export function SignupForm({
                 name="password"
                 type="password"
                 placeholder="Your secure password"
+                className="rounded-none"
                 required
               />
             </div>
 
             {clerkError && <p className="text-sm text-red-500">{clerkError}</p>}
 
-            <Button type="submit" className="w-full cursor-pointer">
+            <Button type="submit" className="w-full cursor-pointer rounded-none">
               Create Account
             </Button>
           </div>

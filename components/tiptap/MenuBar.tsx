@@ -99,7 +99,7 @@ export default function MenuBar({ editor }: editorProp) {
             key={idx}
             pressed={option.pressed}
             onPressedChange={option.onClick}
-            className="mr-0.5"
+            className="mr-0.5 rounded-none"
           >
             {option.icon}
           </Toggle>

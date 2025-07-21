@@ -123,7 +123,7 @@ export default function CodeEditor() {
   }
   const languageExtension = getLanguageExtension(language?.toLowerCase())
   return (
-    <div className="w-full overflow-hidden rounded-sm border">
+    <div className="w-full overflow-hidden rounded-none border">
       <CodeMirror
         height="250px"
         editable={isImported || task !== 'generate'}

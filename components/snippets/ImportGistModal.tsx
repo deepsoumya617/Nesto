@@ -108,13 +108,13 @@ export default function ImportGistModal({ isMobile }: { isMobile?: boolean }) {
             type="text"
             name="gist"
             placeholder="Paste GitHub Gist URL or ID"
-            className="w-full rounded border px-4 py-3 text-sm focus:border-black focus:outline-none"
+            className="w-full rounded-none border px-4 py-3 text-sm focus:border-black focus:outline-none"
             required
           />
           <Button
             type="submit"
             disabled={isPending}
-            className="mt-4 cursor-pointer"
+            className="mt-4 cursor-pointer rounded-none"
           >
             {isPending ? 'Fetching...' : 'Fetch Gist'}
           </Button>
@@ -126,12 +126,12 @@ export default function ImportGistModal({ isMobile }: { isMobile?: boolean }) {
         <div className="space-x-4">
           <Button
             disabled={isSaving}
-            className="cursor-pointer"
+            className="cursor-pointer rounded-none"
             onClick={handleSave}
           >
             {isSaving ? 'Saving...' : 'Save'}
           </Button>
-          <Button onClick={handleOpenInEditor}>Open in Editor</Button>
+          <Button onClick={handleOpenInEditor} className='rounded-none'>Open in Editor</Button>
         </div>
       </DialogContent>
     </Dialog>

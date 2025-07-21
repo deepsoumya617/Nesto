@@ -35,7 +35,7 @@ export default function Header() {
                 <Link
                   href={link.href}
                   key={link.href}
-                  className="rounded-md px-3 py-1.5 text-[12px] font-semibold tracking-tight hover:bg-gray-100 dark:hover:bg-neutral-800"
+                  className="rounded-none px-3 py-1.5 text-[12px] font-semibold tracking-tight hover:bg-gray-100 dark:hover:bg-neutral-800"
                 >
                   {link.label}
                 </Link>
@@ -47,7 +47,7 @@ export default function Header() {
                 <Link
                   href={link.href}
                   key={link.href}
-                  className="rounded-md px-3 py-1.5 text-[12px] font-semibold tracking-tight hover:bg-gray-100"
+                  className="rounded-none px-3 py-1.5 text-[12px] font-semibold tracking-tight hover:bg-gray-100"
                 >
                   {link.label}
                 </Link>
@@ -76,14 +76,14 @@ export default function Header() {
               <Button
                 size="sm"
                 variant="secondary"
-                className="cursor-pointer font-bold shadow-none"
+                className="cursor-pointer rounded-none font-bold shadow-none"
                 onClick={() => router.push('/sign-in')}
               >
                 Log in
               </Button>
               <Button
                 size="sm"
-                className="cursor-pointer font-semibold"
+                className="cursor-pointer rounded-none font-semibold"
                 onClick={() => router.push('/sign-up')}
               >
                 Sign up
@@ -93,7 +93,7 @@ export default function Header() {
             <div className="flex items-center gap-3">
               <ModeToggleButton />
               <Button
-                className="font-geist cursor-pointer rounded-md"
+                className="font-geist cursor-pointer rounded-none"
                 onClick={() => signOut()}
                 size="sm"
               >

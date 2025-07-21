@@ -436,7 +436,7 @@ export default function SnippetEditor({
       <div className="flex items-center gap-2 px-6 py-3">
         <Badge
           variant="secondary"
-          className="flex items-center gap-1 rounded-md px-4 py-1.5 text-[13px]"
+          className="flex items-center gap-1 rounded-none px-4 py-1.5 text-[13px]"
         >
           <span className="h-4 w-4 [&>svg]:h-full [&>svg]:w-full">
             {languageIcons[language]?.icon ?? null}

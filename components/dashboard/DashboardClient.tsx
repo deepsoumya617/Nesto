@@ -403,7 +403,7 @@ export default function DashboardClient({
       {/* top stats card */}
       <div className="font-geist mt-4 grid grid-cols-1 gap-4 tracking-tight sm:grid-cols-2 md:grid-cols-3">
         {/* snippets card */}
-        <Card className="bg-transparent shadow-none">
+        <Card className="rounded-none bg-transparent shadow-none">
           <CardHeader className="-mb-2">
             <CardTitle className="flex items-center gap-1 text-xl font-bold">
               <FileJson2 size={22} />
@@ -436,7 +436,7 @@ export default function DashboardClient({
             <Link href="/snippets">
               <Button
                 variant="outline"
-                className="flex cursor-pointer items-center gap-1"
+                className="flex cursor-pointer items-center gap-1 rounded-none"
               >
                 View Snippets
                 <ArrowRight />
@@ -446,7 +446,7 @@ export default function DashboardClient({
         </Card>
 
         {/* notes card */}
-        <Card className="bg-transparent shadow-none">
+        <Card className="rounded-none bg-transparent shadow-none">
           <CardHeader className="-mb-2">
             <CardTitle className="flex items-center gap-1 text-xl font-bold">
               <NotebookPen size={22} />
@@ -478,7 +478,7 @@ export default function DashboardClient({
             <Link href="/notes">
               <Button
                 variant="outline"
-                className="flex cursor-pointer items-center gap-1"
+                className="flex cursor-pointer items-center gap-1 rounded-none"
               >
                 View Notes
                 <ArrowRight />
@@ -488,7 +488,7 @@ export default function DashboardClient({
         </Card>
 
         {/* ai overview card */}
-        <Card className="bg-transparent shadow-none">
+        <Card className="rounded-none bg-transparent shadow-none">
           <CardHeader className="-mb-4">
             <CardTitle className="flex items-center gap-1 text-xl font-bold">
               <CreditCard size={22} />
@@ -503,7 +503,10 @@ export default function DashboardClient({
               <span className="text-muted-foreground">AI Credits Used ~ </span>
               <span className="font-bold">{`${userInfo?.dailyUsageCount} / 5`}</span>
             </div>
-            <Progress value={userInfo?.dailyUsageCount} />
+            <Progress
+              value={userInfo?.dailyUsageCount}
+              className="rounded-none"
+            />
           </CardContent>
           <CardFooter>
             {/* <Button
@@ -521,7 +524,7 @@ export default function DashboardClient({
       {/* 2nd row */}
       <div className="font-geist mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
         {/* snippets */}
-        <Card className="bg-transparent shadow-none">
+        <Card className="rounded-none bg-transparent shadow-none">
           <CardHeader className="-mb-4 tracking-tight">
             <CardTitle className="flex items-center gap-1 text-xl font-bold">
               <FileChartColumn size={22} />
@@ -556,7 +559,7 @@ export default function DashboardClient({
           </CardContent>
         </Card>
         {/* notes */}
-        <Card className="bg-transparent shadow-none">
+        <Card className="rounded-none bg-transparent shadow-none">
           <CardHeader className="-mb-4 tracking-tight">
             <CardTitle className="flex items-center gap-1 text-xl font-bold">
               <Notebook size={22} />
@@ -582,7 +585,9 @@ export default function DashboardClient({
                   </li>
                 ))
               ) : (
-                <p className="ml-7 py-2 text-lg text-zinc-500 text-[16px]">No notes yet.</p>
+                <p className="ml-7 py-2 text-lg text-[16px] text-zinc-500">
+                  No notes yet.
+                </p>
               )}
             </ul>
           </CardContent>
@@ -592,7 +597,7 @@ export default function DashboardClient({
       {/* 3rd row */}
       <div className="font-geist mt-4 mb-6 grid grid-cols-1 gap-4 tracking-tight md:grid-cols-2">
         {/* language pie chart */}
-        <Card className="bg-transparent shadow-none">
+        <Card className="rounded-none bg-transparent shadow-none">
           <CardHeader className="-mb-4">
             <CardTitle className="flex items-center gap-1 text-xl font-bold">
               <ChartPie size={20} />
@@ -676,7 +681,7 @@ export default function DashboardClient({
                 <Badge
                   key={index}
                   variant="secondary"
-                  className="flex items-center justify-center gap-1 px-3.5 py-2"
+                  className="flex items-center justify-center gap-1 rounded-none px-3.5 py-2"
                 >
                   <span className="h-4 w-4 [&>svg]:h-full [&>svg]:w-full">
                     {lang?.icon}
@@ -693,7 +698,7 @@ export default function DashboardClient({
         </Card>
 
         {/* top tags chart */}
-        <Card className="bg-transparent shadow-none">
+        <Card className="rounded-none bg-transparent shadow-none">
           <CardHeader className="-mb-4">
             <CardTitle className="flex items-center gap-1 text-xl font-bold">
               <ChartBarStacked size={20} />

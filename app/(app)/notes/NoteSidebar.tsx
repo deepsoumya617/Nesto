@@ -97,7 +97,7 @@ export default function NoteSidebar({
               All Notes
             </p>
             <Button
-              className="cursor-pointer text-xs tracking-wide"
+              className="cursor-pointer text-xs tracking-wide rounded-none"
               size="sm"
               onClick={handleCreateClick}
             >
