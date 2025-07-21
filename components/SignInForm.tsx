@@ -59,7 +59,7 @@ export function SigninForm({
             <Button
               variant="outline"
               type="button"
-              className="w-full tracking-wide cursor-pointer"
+              className="w-full tracking-wide cursor-pointer rounded-none"
               onClick={() => handleOAuthSignIn('github')}
             >
               <svg
@@ -78,7 +78,7 @@ export function SigninForm({
             <Button
               variant="outline"
               type="button"
-              className="w-full cursor-pointer tracking-wide"
+              className="w-full cursor-pointer tracking-wide rounded-none"
               onClick={() => handleOAuthSignIn('google')}
             >
               <svg
@@ -108,13 +108,14 @@ export function SigninForm({
                 name="email"
                 type="email"
                 placeholder="m@example.com"
+                className='rounded-none'
                 required
               />
             </div>
 
             {clerkError && <p className="text-sm text-red-500">{clerkError}</p>}
 
-            <Button type="submit" className="w-full cursor-pointer">
+            <Button type="submit" className="w-full cursor-pointer rounded-none">
               Login
             </Button>
           </div>

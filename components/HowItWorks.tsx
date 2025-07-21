@@ -41,7 +41,7 @@ export default function HowItWorks() {
             >
               <Badge
                 variant="secondary"
-                className="mb-3 rounded-sm px-4 py-1 text-sm"
+                className="mb-3 rounded-none px-4 py-1 text-sm"
               >{`Step ${step.stepno}`}</Badge>
               <Image
                 src={step.image}

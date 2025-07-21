@@ -9,8 +9,8 @@ export const navMenuLinksSignedOut = [
 ]
 
 export const navMenuLinksSignedIn = [
-  { label: 'Ask AI', href: '/ask-ai' },
   { label: 'Dashboard', href: '/dashboard' },
   { label: 'Notes', href: '/notes' },
   { label: 'Snippets', href: '/snippets' },
+  { label: 'Ask AI', href: '/ask-ai' },
 ]
