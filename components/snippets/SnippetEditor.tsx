@@ -543,12 +543,6 @@ export default function SnippetEditor({
           </DialogHeader>
 
           <div className="mt-4 space-y-3 text-sm">
-            {/* <div className="flex justify-between border-b pb-2">
-              <span>New Note</span>
-              <kbd className="bg-muted rounded px-2 py-1 font-mono text-xs">
-                Ctrl + Shift + N
-              </kbd>
-            </div> */}
             <div className="flex justify-between border-b pb-2">
               <span>Edit</span>
               <kbd className="bg-muted rounded px-2 py-1 font-mono text-xs">
