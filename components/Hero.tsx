@@ -52,7 +52,7 @@ export default function Hero() {
         </p>
 
         <div className="flex flex-row justify-center gap-1">
-          <Link href="/sign-in">
+          <Link href="/sign-up">
             <Button
               size="lg"
               className="group cursor-pointer rounded-none bg-gradient-to-br from-orange-300 to-pink-500 font-medium tracking-wide text-stone-100 shadow-lg"
