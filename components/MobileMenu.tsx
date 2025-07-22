@@ -144,16 +144,16 @@ export function MobileMenu() {
               </Button> */}
               {isSignedIn ? (
                 <Button
-                  className="font-geist mt-3 w-full cursor-pointer rounded-md px-5 py-6 text-sm font-medium"
+                  className="font-geist mt-3 w-full cursor-pointer rounded-none px-5 py-6 text-sm font-medium"
                   onClick={() => signOut()}
                 >
                   Sign Out
                 </Button>
               ) : (
-                <div className='flex gap-2'>
+                <div className="flex gap-2">
                   <Button
-                  variant='secondary'
-                    className="font-geist mt-3 w-full cursor-pointer rounded-md px-5 py-6 text-sm font-medium shadow-none border border-black/70"
+                    variant="secondary"
+                    className="font-geist mt-3 w-full cursor-pointer rounded-none border border-black/70 px-5 py-6 text-sm font-medium shadow-none"
                     onClick={() => {
                       router.push('/sign-in')
                     }}
@@ -161,7 +161,7 @@ export function MobileMenu() {
                     Log in
                   </Button>
                   <Button
-                    className="font-geist mt-3 w-full cursor-pointer rounded-md px-5 py-6 text-sm font-medium"
+                    className="font-geist mt-3 w-full cursor-pointer rounded-none px-5 py-6 text-sm font-medium"
                     onClick={() => {
                       router.push('/sign-up')
                     }}

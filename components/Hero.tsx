@@ -1,13 +1,29 @@
 'use client'
 
+import { annotate } from 'rough-notation'
 import { ArrowRight, ArrowRightIcon } from 'lucide-react'
 import { AnimatedShinyText } from './magicui/animated-shiny-text'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { Button } from './ui/button'
 import Container from './Container'
+import { useEffect } from 'react'
 
 export default function Hero() {
+  useEffect(() => {
+    const el = document.getElementById('snippets')
+    if (el) {
+      const annotation = annotate(el, {
+        type: 'underline',
+        color: '#ec4899', 
+        // color: '#fb923c', 
+        animationDuration: 800,
+        padding: 2,
+      })
+      annotation.show()
+    }
+  }, [])
+
   return (
     <section className="font-geist flex w-full flex-col items-center justify-center pt-24">
       {/* <div className="pointer-events-none absolute inset-0 -z-10">
@@ -26,8 +42,8 @@ export default function Hero() {
       </Link>
       <div className="max-w-4xl px-4 text-center">
         <h1 className="mt-8 mb-6 px-4 text-3xl font-bold tracking-tight lg:text-5xl">
-          Write less.Think better.Let AI assist. Snippets and notes, together at
-          last.
+          Write less.Think better.Let AI assist.{' '}
+          <span id="snippets">Snippets</span> and notes, together at last.
         </h1>
 
         <p className="text-muted-foreground font-geist mx-auto mb-8 max-w-2xl px-14 text-sm md:text-[16px]">
