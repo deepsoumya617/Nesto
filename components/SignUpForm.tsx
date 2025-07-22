@@ -50,8 +50,6 @@ export function SignupForm({
           <h1 className="text-center text-xl font-bold">
             Create your Nesto account.
           </h1>
-
-          <div id="clerk-captcha" />
           <div className="grid gap-4 sm:grid-cols-2">
             <Button
               variant="outline"
