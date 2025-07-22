@@ -9,12 +9,12 @@
   A unified space to capture code, write notes, and harness AI — designed for modern developers who move fast.
 </p>
 
-<p align="center">
+<!-- <p align="center">
   <a href="https://nestoai.vercel.app">🌐 Live Demo</a> •
   <a href="#mvp-1-highlights">✨ Features</a> •
   <a href="#roadmap-v1-➜-v2">🗺 Roadmap</a> •
   <a href="#tech-stack">🛠 Tech Stack</a>
-</p>
+</p> -->
 
 ---
 
