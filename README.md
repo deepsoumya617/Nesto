@@ -3,7 +3,7 @@
   <img src="./public/showcase.png" alt="Logo" />
 </p>
 
-<h1 align="center">📚 Nesto: Your Code, Your Thoughts, Your AI</h1>
+<h1 align="center">📚 Nesto // ねすと: Your Code, Your Thoughts, Your AI</h1>
 
 <p align="center">
   A unified space to capture code, write notes, and harness AI — designed for modern developers who move fast.
@@ -36,10 +36,10 @@
 
 Use the `Ask AI` panel to:
 
-- 🧩 Explain complex code
-- 🧪 Debug broken logic
-- ⚙️ Optimize code performance
-- 🌐 Translate between languages (e.g., JS → Go)
+- Explain complex code
+- Debug broken logic
+- Optimize code performance
+- Translate between languages (e.g., JS → Go)
 
 ---
 
@@ -169,10 +169,10 @@ Feel free to open issues, suggest features, or submit pull requests.
 
 5. **See database tables**
 
-```bash
-# Open Prisma Studio(optional)
-npx prisma studio
-```
+  ```bash
+  # Open Prisma Studio(optional)
+  npx prisma studio
+  ```
 
 5. **Start development server**
    ```bash
