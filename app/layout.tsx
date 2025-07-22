@@ -49,11 +49,10 @@ export default function RootLayout({
             attribute="class"
             defaultTheme="light"
             enableSystem={false}
-            // disableTransitionOnChange
           >
             <main className="flex-grow">{children}</main>
             <MobileMenu />
-            <Toaster />
+            <Toaster richColors position="bottom-right" closeButton />
           </ThemeProvider>
         </body>
       </html>
