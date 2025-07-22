@@ -5,6 +5,8 @@ import { Inter, Geist, Geist_Mono, Roboto_Slab } from 'next/font/google'
 import { ThemeProvider } from '@/components/themes/theme-provider'
 import { MobileMenu } from '@/components/MobileMenu'
 import '../styles/globals.css'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -45,6 +47,8 @@ export default function RootLayout({
         <body
           className={`${inter.variable} ${geist.variable} ${geistMono.variable} ${robotoSlab.variable} font-base antialiased`}
         >
+          <Analytics />
+          <SpeedInsights />
           <ThemeProvider
             attribute="class"
             defaultTheme="light"
