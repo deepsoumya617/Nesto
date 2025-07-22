@@ -382,6 +382,11 @@ export default function DashboardClient({
           ),
           label: 'TSX',
         }
+      case 'json':
+        return {
+          icon: <img src="/json.svg" />,
+          label: 'JSON'
+        }
     }
   })
 
@@ -607,14 +612,14 @@ export default function DashboardClient({
               Most used snippet languages.
             </CardDescription>
           </CardHeader>
-          <CardContent className="-mb-2">
+          <CardContent className="min-h-[300px]">
             {languageData.length === 0 ? (
               <p className="text-muted-foreground text-[16px]">
                 No snippets yet. Create some to see language stats.
               </p>
             ) : (
               <ChartContainer
-                className="[&_.recharts-pie-label-text]:fill-foreground h-auto w-full overflow-visible"
+                className="[&_.recharts-pie-label-text]:fill-foreground h-full w-full overflow-visible"
                 config={{}}
               >
                 <PieChart>
@@ -675,7 +680,7 @@ export default function DashboardClient({
               </ChartContainer>
             )}
           </CardContent>
-          <CardFooter className="-mt-7 ml-1 flex flex-wrap items-center gap-2">
+          <CardFooter className="ml-1 flex flex-wrap items-center gap-2">
             {fullLanguageNamesWithIcons.map((lang, index) => {
               return (
                 <Badge
