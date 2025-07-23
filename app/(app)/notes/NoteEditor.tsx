@@ -1,9 +1,17 @@
 import Tiptap from '@/components/tiptap'
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 import { NoteEditorProps } from '@/types/note'
 import { Check, Pencil, X } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { toast } from 'sonner'
 
 export default function NoteEditor({
   title,
@@ -18,7 +26,13 @@ export default function NoteEditor({
   handleCreateNote,
   handleUpdateNote,
 }: NoteEditorProps) {
-  // Ensure that the shortcuts only work when the editor is editable
+  // 
+  const titleRef = useRef(title)
+  useEffect(() => {
+    titleRef.current = title
+  }, [title])
+
+  // Handle keyboard shortcuts
   useEffect(() => {
     const handleShortcut = (e: KeyboardEvent) => {
       const isMac = navigator.platform.toUpperCase().includes('MAC')
@@ -36,6 +50,10 @@ export default function NoteEditor({
       if (ctrlOrCmd && e.shiftKey && e.key.toLowerCase() === 's') {
         e.preventDefault()
         if (isEditable) {
+          if (!titleRef.current.trim()) {
+            toast.warning('Title cannot be empty.')
+            return
+          }
           if (mode === 'create') handleCreateNote?.()
           if (mode === 'edit') handleUpdateNote?.()
         }
@@ -70,7 +88,6 @@ export default function NoteEditor({
   return (
     <div
       className={`${className ?? 'hidden md:flex'} flex-1 flex-col overflow-hidden pb-10 md:pb-28`}
-      style={{ minHeight: '100vh' }} // mobile full height fix
     >
       {/* Title */}
       <input
@@ -102,6 +119,10 @@ export default function NoteEditor({
           <button
             className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-black transition-colors hover:bg-black/85 dark:bg-white dark:hover:bg-white/85"
             onClick={() => {
+              if (!title.trim()) {
+                toast.warning('Title cannot be empty.')
+                return
+              }
               if (mode === 'create') return handleCreateNote?.()
               if (mode === 'edit') return handleUpdateNote()
             }}
