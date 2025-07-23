@@ -41,11 +41,11 @@ import {
 } from '@/components/ui/chart'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Progress } from '@/components/ui/progress'
 import { Note, Snippet } from '@/lib/generated/prisma'
 import { useTheme } from 'next-themes'
 import { Badge } from '@/components/ui/badge'
 import { formatDistanceToNow } from 'date-fns'
+import AiProgressBar from '../AiProgressBar'
 
 const geist = Geist({
   subsets: ['latin'],
@@ -87,7 +87,7 @@ function getResetCountdown(lastUsedAt: Date | null) {
 
   const msLeft = resetTime.getTime() - now.getTime()
 
-  if (msLeft <= 0) return 'Limit reset'
+  if (msLeft <= 0) return '24h'
 
   const hours = Math.floor(msLeft / (1000 * 60 * 60))
   const minutes = Math.floor((msLeft % (1000 * 60 * 60)) / (1000 * 60))
@@ -118,7 +118,6 @@ export default function DashboardClient({
   const { resolvedTheme } = useTheme()
 
   const [userInfo, setUserInfo] = useState<UserInfo>(null)
-  // console.log(tagFrequency)
 
   // fetch user info
   useEffect(() => {
@@ -385,7 +384,7 @@ export default function DashboardClient({
       case 'json':
         return {
           icon: <img src="/json.svg" />,
-          label: 'JSON'
+          label: 'JSON',
         }
     }
   })
@@ -502,16 +501,18 @@ export default function DashboardClient({
             <CardDescription className="text-md text-muted-foreground ml-1 tracking-wide">
               {`Last used at ~ ${!userInfo?.lastUsedAt ? 'Never' : formatDistanceToNow(new Date(userInfo.lastUsedAt), { addSuffix: true })}`}
             </CardDescription>
+            {userInfo.dailyUsageCount >= 5 && (
+              <p className="ml-1 font-medium text-red-500">
+                Daily Limit Reached!
+              </p>
+            )}
           </CardHeader>
           <CardContent className="-mb-2 flex flex-col gap-2">
             <div className="flex w-full items-center gap-1.5 pl-1">
               <span className="text-muted-foreground">AI Credits Used ~ </span>
               <span className="font-bold">{`${userInfo?.dailyUsageCount} / 5`}</span>
             </div>
-            <Progress
-              value={userInfo?.dailyUsageCount}
-              className="rounded-none"
-            />
+            <AiProgressBar value={userInfo.dailyUsageCount} max={5} />
           </CardContent>
           <CardFooter>
             {/* <Button

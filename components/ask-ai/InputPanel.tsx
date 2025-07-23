@@ -16,8 +16,13 @@ import CodeEditor from './CodeEditor'
 import { Textarea } from '../ui/textarea'
 import { ChevronRight } from 'lucide-react'
 import ImportSnippetModal from './ImportSnippetModal'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useAskAiMobileModalStore } from '@/store/useAskAiMobileModalStore'
+
+type UserInfo = {
+  dailyUsageCount: number
+  lastUsedAt: Date | null
+} | null
 
 export default function InputPanel({
   isLoading,
@@ -67,6 +72,29 @@ export default function InputPanel({
     { value: 'convert', label: 'Convert snippet' },
   ]
 
+  const [userInfo, setUserInfo] = useState<UserInfo>(null)
+
+  // fetch user info
+  useEffect(() => {
+    let interval: NodeJS.Timeout
+
+    const fetchUserInfo = async () => {
+      try {
+        const res = await fetch('/api/user-info')
+        if (!res.ok) throw new Error('Failed to fetch')
+        const data = await res.json()
+        setUserInfo(data)
+      } catch (err) {
+        console.error('Failed to fetch user info', err)
+      }
+    }
+    fetchUserInfo()
+    interval = setInterval(fetchUserInfo, 60000) // poll every 60s
+    return () => clearInterval(interval)
+  }, [])
+
+  if (!userInfo) return null
+
   // handle clearing the input and output fields
   function resetPanel() {
     reset()
@@ -85,6 +113,10 @@ export default function InputPanel({
   return (
     <div className="font-geist flex w-full flex-col border-r md:w-1/2">
       {/* heading */}
+      {userInfo.dailyUsageCount >= 5 && (
+        <p className="text-red-500">Daily Limit Reached!</p>
+      )}
+
       <div className="mt-4 mb-4 ml-6 text-[22px] font-bold tracking-tight">
         <p>Build your request</p>
         <p className="text-muted-foreground mt-0.5 w-sm text-sm font-medium tracking-normal">
@@ -190,7 +222,9 @@ export default function InputPanel({
           <div className="flex items-center gap-3">
             <button
               className={`group font-geist flex cursor-pointer items-center gap-2 rounded-none bg-black px-4 py-2 text-[15px] font-medium tracking-wide text-white shadow-none dark:bg-white dark:text-black ${isLoading ? 'pointer-events-none opacity-50' : ''}`}
-              disabled={!task || !language || isLoading}
+              disabled={
+                !task || !language || isLoading || userInfo.dailyUsageCount >= 5
+              }
               onClick={handleFetchAIResponse}
             >
               {isLoading ? 'Asking AI...' : 'Ask AI'}
