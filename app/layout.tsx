@@ -176,14 +176,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`${inter.variable} ${geist.variable} ${geistMono.variable} ${robotoSlab.variable} font-base antialiased`}
-          suppressHydrationWarning
-        >
-          <Analytics />
-          <SpeedInsights />
+    <html
+      lang="en"
+      className="light"
+      style={{ colorScheme: 'light' }}
+      suppressHydrationWarning
+    >
+      <head>
+        <Analytics />
+        <SpeedInsights />
+      </head>
+      <body
+        className={`${inter.variable} ${geist.variable} ${geistMono.variable} ${robotoSlab.variable} font-base antialiased`}
+        suppressHydrationWarning
+      >
+        <ClerkProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="light"
@@ -193,8 +200,8 @@ export default function RootLayout({
             <MobileMenu />
             <Toaster richColors position="bottom-right" closeButton />
           </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   )
 }
