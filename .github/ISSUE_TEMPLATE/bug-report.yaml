@@ -1,0 +1,107 @@
+name: 🐛 Bug Report
+description: Report a bug or unexpected behavior in the app.
+title: '🐞 [BUG]: '
+labels: ['🐛 bug', '🌱 good first issue', '🆘 help wanted']
+assignees:
+  - deepsoumya617
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🙏 Thank you for taking the time to report a bug!
+
+        Please fill out this form to help us reproduce and fix the issue faster.
+
+  - type: input
+    id: title
+    attributes:
+      label: 📌 Bug Title
+      description: A short and specific summary of the issue.
+      placeholder: 'Eg. Saving note with empty title via shortcut'
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 🔍 Description
+      description: A clear and concise explanation of what the bug is.
+      placeholder: 'When I press Ctrl + Shift + S without a title, the note still saves...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 🚶 Steps to Reproduce
+      description: How can we reproduce the bug step by step?
+      placeholder: |
+        1. Go to Note Editor
+        2. Leave the title blank
+        3. Press Ctrl + Shift + S
+        4. A note gets saved without a title
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Expected Behavior
+      description: What should have happened instead?
+      placeholder: 'An error or warning should prevent the note from saving.'
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Actual Behavior
+      description: What actually happened?
+      placeholder: 'Note was saved with an empty title.'
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: 🧪 Environment
+      description: Where did you experience this bug?
+      options:
+        - Desktop (Laptop or PC)
+        - Mobile (Phone or Tablet)
+        - Both
+        - Other
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: 🌐 Browser / Platform
+      description: What browser or platform are you using?
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Brave
+        - Mobile App
+        - Other
+      default: 0
+
+  - type: input
+    id: version
+    attributes:
+      label: 🧩 App Version (if applicable)
+      placeholder: 'Eg. v0.4.2'
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 📸 Screenshots or Logs
+      description: Drag and drop any relevant screenshots or logs here.
+      placeholder: 'You can also paste images here or add console error logs.'
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 🗒️ Additional Notes
+      description: Anything else you want to share?
