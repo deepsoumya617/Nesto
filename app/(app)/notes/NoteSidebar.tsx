@@ -64,7 +64,7 @@ export default function NoteSidebar({
         createdAt: new Date(),
         updatedAt: new Date(),
       }
-      setTitle('')
+      setTitle('')  
       setContent('')
       setOpenNote(emptyNote)
       setMode('create')

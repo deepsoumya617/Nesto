@@ -64,7 +64,7 @@ Use the `Ask AI` panel to:
 ## 🛠 Tech Stack
 
 <p align="left">
-  <img src="https://skillicons.dev/icons?i=nextjs,react,tailwind,typescript,prisma,postgresql,vercel,openai" />
+  <img src="https://skillicons.dev/icons?i=nextjs,tailwind,typescript,prisma,postgresql,vercel" />
 </p>
 
 - **Framework:** Next.js App Router
@@ -174,10 +174,27 @@ Feel free to open issues, suggest features, or submit pull requests.
   npx prisma studio
   ```
 
-5. **Start development server**
+6. **Start development server**
    ```bash
    npm run dev
    ```
+
+**📝Note** ~ You have to setup `ngrok` to perform sign-up using clerk on localhost.
+
+
+<h1>⚙️ENV sample</h1>
+
+```bash
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your-clerk-publishable-key
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+DATABASE_URL=your-database-url
+CLERK_SECRET_KEY=your-clerk-secret-key
+CLERK_WEBHOOK_SIGNING_SECRET=your-clerk-webhook-signing-secret
+OPENAI_API_KEY=your-openai-api-key
+ADMIN_EMAIL=dont-modify-it
+RESEND_API_KEY=your-resend-api-key
+```
 
 ## Star History
 
