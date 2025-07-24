@@ -11,8 +11,10 @@ import Link from 'next/link'
 import ModeToggleButton from './themes/mode-toggle'
 import { Roboto_Slab } from 'next/font/google'
 import { Badge } from './ui/badge'
+import { useTheme } from 'next-themes'
 
 export default function Header() {
+  const { setTheme } = useTheme()
   const router = useRouter()
   const { isSignedIn } = useAuth()
   const { signOut } = useClerk()
@@ -27,7 +29,9 @@ export default function Header() {
               ん
             </button>
             <h1 className="font-roboto-slab text-2xl tracking-tight">Nesto</h1>
-            <Badge variant="outline" className='rounded-none ml-1.5'>Beta</Badge>
+            <Badge variant="outline" className="ml-1.5 rounded-none">
+              Beta
+            </Badge>
           </Link>
 
           {/* nav menu - desktop */}
@@ -96,7 +100,10 @@ export default function Header() {
               <ModeToggleButton />
               <Button
                 className="font-geist cursor-pointer rounded-none"
-                onClick={() => signOut()}
+                onClick={() => {
+                  signOut()
+                  setTheme('light') // force light mode on sign out
+                }}
                 size="sm"
               >
                 Log out
