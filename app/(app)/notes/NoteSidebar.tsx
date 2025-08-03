@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { useEffect, useState } from 'react'
 import NoteMobileModal from './NoteMobileModal'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 export default function NoteSidebar({
   notes,
@@ -64,7 +65,7 @@ export default function NoteSidebar({
         createdAt: new Date(),
         updatedAt: new Date(),
       }
-      setTitle('')  
+      setTitle('')
       setContent('')
       setOpenNote(emptyNote)
       setMode('create')
@@ -97,7 +98,7 @@ export default function NoteSidebar({
               All Notes
             </p>
             <Button
-              className="cursor-pointer text-xs tracking-wide rounded-none"
+              className="cursor-pointer rounded-none text-xs tracking-wide"
               size="sm"
               onClick={handleCreateClick}
             >
@@ -121,59 +122,57 @@ export default function NoteSidebar({
         ) : (
           // list of notes
           <>
-            <div className="-mt-2">
-              <ul className="divide-border z-0 h-[calc(100vh-200px)] divide-y overflow-auto pb-3">
-                {notes.map((note) => (
+            <ScrollArea className="-mt-2 w-full h-[calc(100vh-200px)]">
+              {notes.map((note) => (
+                <div
+                  className="flex items-center justify-between space-y-1 border-b"
+                  key={note.id}
+                >
                   <div
-                    className="flex items-center justify-between"
-                    key={note.id}
+                    className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
+                    onClick={() => handleNoteClick(note, note.id)}
                   >
-                    <li
-                      className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
-                      onClick={() => handleNoteClick(note, note.id)}
-                    >
-                      {note.title}
-                      <ChevronRight
-                        size={17}
-                        className="transform duration-200 group-hover:translate-x-1.5 group-hover:transition"
-                      />
-                    </li>
-                    <div className="cursor-pointer pr-6">
-                      {deletingNoteId === note.id ? (
-                        <HashLoader size="10" />
-                      ) : (
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Trash size="17" />
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                Are you absolutely sure?
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                This action cannot be undone. This will
-                                permanently delete your note and remove from our
-                                database.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Canel</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => handleDeleteNote(note.id)}
-                                className="bg-red-600 hover:bg-red-700"
-                              >
-                                Continue
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      )}
-                    </div>
+                    {note.title}
+                    <ChevronRight
+                      size={17}
+                      className="transform duration-200 group-hover:translate-x-1.5 group-hover:transition"
+                    />
                   </div>
-                ))}
-              </ul>
-            </div>
+                  <div className="cursor-pointer pr-6">
+                    {deletingNoteId === note.id ? (
+                      <HashLoader size="10" />
+                    ) : (
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Trash size="17" />
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>
+                              Are you absolutely sure?
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This action cannot be undone. This will
+                              permanently delete your note and remove from our
+                              database.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Canel</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => handleDeleteNote(note.id)}
+                              className="bg-red-600 hover:bg-red-700"
+                            >
+                              Continue
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </ScrollArea>
             {/* // open modal on mobile */}
             {openNote && (
               <NoteMobileModal

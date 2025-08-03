@@ -23,6 +23,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 import ImportGistModal from './ImportGistModal'
 import { useSnippetMobileModalStore } from '@/store/useSnippetMobileModalStore'
 import SnippetMobileModal from './SnippetMobileModal'
+import { ScrollArea } from '../ui/scroll-area'
 
 // truncate title text
 function truncateText(text: string): string {
@@ -172,85 +173,81 @@ export default function SnippetSidebar({ isMobile }: { isMobile?: boolean }) {
           </div>
         ) : (
           <>
-            <div>
-              <ul className="divide-border z-0 -mt-2 h-[calc(100vh-200px)] divide-y overflow-auto">
-                {filteredSnippets.map((snippet) => {
-                  const isTruncated = snippet.title.length > 37
-                  const truncatedTitle = truncateText(snippet.title)
+            <ScrollArea className="-mt-2 h-[calc(100vh-200px)]  w-full">
+              {filteredSnippets.map((snippet) => {
+                const isTruncated = snippet.title.length > 37
+                const truncatedTitle = truncateText(snippet.title)
 
-                  return (
-                    <div
-                      className="flex items-center justify-between"
-                      key={snippet.id}
-                    >
-                      {isTruncated ? (
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <li
-                              className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
-                              onClick={() => handleSnippetClick(snippet.id)}
-                            >
-                              {truncatedTitle}
-                              <ChevronRight
-                                size={17}
-                                className="transform duration-200 group-hover:translate-x-1.5 group-hover:transition"
-                              />
-                            </li>
-                          </TooltipTrigger>
-                          <TooltipContent>{snippet.title}</TooltipContent>
-                        </Tooltip>
-                      ) : (
-                        <li
-                          className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
-                          onClick={() => handleSnippetClick(snippet.id)}
-                        >
-                          {snippet.title}
-                          <ChevronRight
-                            size={17}
-                            className="transform duration-200 group-hover:translate-x-1.5 group-hover:transition"
-                          />
-                        </li>
-                      )}
-
-                      <div className="cursor-pointer pr-6">
-                        {deletingSnippetId === snippet.id ? (
-                          <HashLoader size="10" />
-                        ) : (
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <Trash size="17" />
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                  Are you absolutely sure?
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  This action cannot be undone. This will
-                                  permanently delete your snippet and remove it
-                                  from our database.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() =>
-                                    handleDeleteSnippet(snippet.id)
-                                  }
-                                  className="bg-red-600 hover:bg-red-700"
-                                >
-                                  Continue
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        )}
+                return (
+                  <div
+                    className="flex items-center justify-between space-y-1 border-b"
+                    key={snippet.id}
+                  >
+                    {isTruncated ? (
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div
+                            className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
+                            onClick={() => handleSnippetClick(snippet.id)}
+                          >
+                            {truncatedTitle}
+                            <ChevronRight
+                              size={17}
+                              className="transform duration-200 group-hover:translate-x-1.5 group-hover:transition"
+                            />
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>{snippet.title}</TooltipContent>
+                      </Tooltip>
+                    ) : (
+                      <div
+                        className="-gap-1 group flex cursor-pointer items-center py-3.5 pl-6 font-semibold underline-offset-2 hover:underline"
+                        onClick={() => handleSnippetClick(snippet.id)}
+                      >
+                        {snippet.title}
+                        <ChevronRight
+                          size={17}
+                          className="transform duration-200 group-hover:translate-x-1.5 group-hover:transition"
+                        />
                       </div>
+                    )}
+
+                    <div className="cursor-pointer pr-6">
+                      {deletingSnippetId === snippet.id ? (
+                        <HashLoader size="10" />
+                      ) : (
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Trash size="17" />
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>
+                                Are you absolutely sure?
+                              </AlertDialogTitle>
+                              <AlertDialogDescription>
+                                This action cannot be undone. This will
+                                permanently delete your snippet and remove it
+                                from our database.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => handleDeleteSnippet(snippet.id)}
+                                className="bg-red-600 hover:bg-red-700"
+                              >
+                                Continue
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      )}
                     </div>
-                  )
-                })}
-              </ul>
-            </div>
+                  </div>
+                )
+              })}
+            </ScrollArea>
             {/* gist modal */}
             <ImportGistModal isMobile={isMobile} />
             {/* open snippet modal in mobile */}

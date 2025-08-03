@@ -26,7 +26,7 @@ export default function NoteEditor({
   handleCreateNote,
   handleUpdateNote,
 }: NoteEditorProps) {
-  // 
+  //
   const titleRef = useRef(title)
   useEffect(() => {
     titleRef.current = title
@@ -41,9 +41,10 @@ export default function NoteEditor({
       // Edit: Ctrl/Cmd + Shift + E
       if (ctrlOrCmd && e.shiftKey && e.key.toLowerCase() === 'e') {
         e.preventDefault()
-        if (!isEditable && mode === 'view') {
+        if (!isEditable) {
           setMode('edit')
         }
+        toast('Switched to edit mode')
       }
 
       // Save: Ctrl/Cmd + Shift + S
