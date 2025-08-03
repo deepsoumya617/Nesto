@@ -173,7 +173,7 @@ export default function SnippetSidebar({ isMobile }: { isMobile?: boolean }) {
           </div>
         ) : (
           <>
-            <ScrollArea className="-mt-2 h-[calc(100vh-200px)]  w-full">
+            <ScrollArea className="-mt-2 h-[calc(100vh-200px)] w-full">
               {filteredSnippets.map((snippet) => {
                 const isTruncated = snippet.title.length > 37
                 const truncatedTitle = truncateText(snippet.title)
