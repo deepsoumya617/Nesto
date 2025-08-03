@@ -97,56 +97,15 @@ export async function getNoteCount() {
   const { userId } = await auth()
   if (!userId) {
     console.warn('No userId found during getNoteCount()')
-    return { noteCount: 0, percentChangeNotes: 0 }
+    return 0
   }
-
-  const today = new Date()
-  const sevenDaysAgo = new Date(today.getDate() - 7)
-  const fourteenDaysAgo = new Date(today.getDate() - 14)
-
-  const [noteCount, thisWeekCount, lastWeekCount] = await Promise.all([
-    prisma.note.count({
-      where: {
-        User: {
-          clerkId: userId,
-        },
+  // get current note count
+  const noteCount = await prisma.note.count({
+    where: {
+      User: {
+        clerkId: userId,
       },
-    }),
-    prisma.note.count({
-      where: {
-        User: {
-          clerkId: userId,
-        },
-        createdAt: {
-          gte: sevenDaysAgo,
-        },
-      },
-    }),
-    prisma.note.count({
-      where: {
-        User: {
-          clerkId: userId,
-        },
-        createdAt: {
-          gte: fourteenDaysAgo,
-          lt: sevenDaysAgo,
-        },
-      },
-    }),
-  ])
-
-  // calculate percentage change
-  let percentChangeNotes = 0
-  if (lastWeekCount === 0 && thisWeekCount > 0) {
-    percentChangeNotes = 100 // New snippets this week, no snippets last week
-  } else if (lastWeekCount === 0 && thisWeekCount === 0) {
-    percentChangeNotes = 0 // No snippets in both weeks
-  } else {
-    percentChangeNotes = ((thisWeekCount - lastWeekCount) / lastWeekCount) * 100
-  }
-
-  return {
-    noteCount,
-    percentChangeNotes,
-  }
+    },
+  })
+  return noteCount
 }

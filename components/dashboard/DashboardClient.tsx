@@ -46,6 +46,7 @@ import { useTheme } from 'next-themes'
 import { Badge } from '@/components/ui/badge'
 import { formatDistanceToNow } from 'date-fns'
 import AiProgressBar from '../AiProgressBar'
+import { NumberTicker } from '../magicui/number-ticker'
 
 const geist = Geist({
   subsets: ['latin'],
@@ -97,18 +98,14 @@ function getResetCountdown(lastUsedAt: Date | null) {
 
 export default function DashboardClient({
   snippetCount,
-  percentChangeSnippets,
   noteCount,
-  percentChangeNotes,
   snippets,
   notes,
   languageData,
   tagFrequency,
 }: {
   snippetCount: number
-  percentChangeSnippets: number
   noteCount: number
-  percentChangeNotes: number
   snippets: Pick<Snippet, 'title' | 'id'>[]
   notes: Pick<Note, 'title' | 'id'>[]
   languageData: { name: string; value: number }[]
@@ -413,28 +410,18 @@ export default function DashboardClient({
               <FileJson2 size={22} />
               Snippets
             </CardTitle>
-            <CardDescription className="text-md ml-1 tracking-wide">
-              Total Snippets ~{' '}
-              <span className="font-bold text-slate-900 dark:text-slate-100">
-                {snippetCount}
-              </span>
-            </CardDescription>
           </CardHeader>
-          <CardContent className="-mb-2">
-            <p className="text-muted-foreground flex items-center gap-1 text-[16px]">
-              {percentChangeSnippets >= 0 ? (
-                <>
-                  <ArrowUpIcon className="h-5 w-5 text-green-500" />
-                  {percentChangeSnippets}% increase this week!
-                </>
-              ) : (
-                <>
-                  <ArrowDownIcon className="h-4 w-4 text-red-500" />
-                  {Math.abs(percentChangeSnippets).toFixed(1)}% decrease this
-                  week!
-                </>
-              )}
-            </p>
+          <CardContent className="flex items-center gap-2">
+            <div className="relative">
+              <NumberTicker
+                value={snippetCount}
+                startValue={0}
+                className="text-6xl font-semibold tracking-tighter"
+              />
+              <p className="text-muted-foreground absolute bottom-[0.6] left-full ml-1 text-lg whitespace-nowrap">
+                Snippets created.
+              </p>
+            </div>
           </CardContent>
           <CardFooter>
             <Link href="/snippets">
@@ -456,28 +443,20 @@ export default function DashboardClient({
               <NotebookPen size={22} />
               Notes
             </CardTitle>
-            <CardDescription className="text-md ml-1">
-              Total Notes ~{' '}
-              <span className="font-bold text-slate-900 dark:text-slate-100">
-                {noteCount}
-              </span>
-            </CardDescription>
           </CardHeader>
-          <CardContent className="-mb-2">
-            <p className="text-muted-foreground flex items-center gap-1 text-[16px]">
-              {percentChangeNotes >= 0 ? (
-                <>
-                  <ArrowUpIcon className="h-5 w-5 text-green-500" />
-                  {percentChangeNotes}% increase this week!
-                </>
-              ) : (
-                <>
-                  <ArrowDownIcon className="h-4 w-4 text-red-500" />
-                  {Math.abs(percentChangeNotes).toFixed(1)}% decrease this week!
-                </>
-              )}
-            </p>
+          <CardContent className="flex items-center gap-2">
+            <div className="relative">
+              <NumberTicker
+                value={noteCount}
+                startValue={0}
+                className="text-6xl font-semibold tracking-tighter"
+              />
+              <p className="text-muted-foreground absolute bottom-[0.6] left-full ml-1 text-lg whitespace-nowrap">
+                Notes created.
+              </p>
+            </div>
           </CardContent>
+
           <CardFooter>
             <Link href="/notes">
               <Button

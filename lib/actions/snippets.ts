@@ -97,7 +97,7 @@ export async function updateSnippet(
         title,
         content,
         fileName,
-        language
+        language,
       },
     })
     return {
@@ -123,62 +123,18 @@ export async function getSnippetCount() {
   const { userId } = await auth()
   if (!userId) {
     console.warn('No userId found during getSnippetCount()')
-    return {
-      snippetCount: 0,
-      percentChangeSnippets: 0,
-    }
+    return 0
   }
 
-  const today = new Date()
-  const sevenDaysAgo = new Date(today.getDate() - 7)
-  const fourteenDaysAgo = new Date(today.getDate() - 14)
-
-  const [snippetCount, thisWeekCount, lastWeekCount] = await Promise.all([
-    prisma.snippet.count({
-      where: {
-        User: {
-          clerkId: userId,
-        },
+  const snippetCount = await prisma.snippet.count({
+    where: {
+      User: {
+        clerkId: userId,
       },
-    }),
-    prisma.snippet.count({
-      where: {
-        User: {
-          clerkId: userId,
-        },
-        createdAt: {
-          gte: sevenDaysAgo,
-        },
-      },
-    }),
-    prisma.snippet.count({
-      where: {
-        User: {
-          clerkId: userId,
-        },
-        createdAt: {
-          gte: fourteenDaysAgo,
-          lt: sevenDaysAgo,
-        },
-      },
-    }),
-  ])
-
-  // calculate percentage change
-  let percentChangeSnippets = 0
-  if (lastWeekCount === 0 && thisWeekCount > 0) {
-    percentChangeSnippets = 100 // New snippets this week, no snippets last week
-  } else if (lastWeekCount === 0 && thisWeekCount === 0) {
-    percentChangeSnippets = 0 // No snippets in both weeks
-  } else {
-    percentChangeSnippets =
-      ((thisWeekCount - lastWeekCount) / lastWeekCount) * 100
-  }
-
-  return {
-    snippetCount,
-    percentChangeSnippets,
-  }
+    },
+  })
+  
+  return snippetCount
 }
 
 // get snippet language stats
@@ -204,5 +160,3 @@ export async function getSnippetLanguageStats() {
     value: stat._count,
   }))
 }
-
-
